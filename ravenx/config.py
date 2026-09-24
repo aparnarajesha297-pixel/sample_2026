@@ -46,7 +46,9 @@ ATTACK_NAMES = {
 # distance_to_road_edge of the claimed position) and ClaimedDistance
 # (receiver to claimed position) are map/geometry plausibility checks: a
 # constant position offset keeps every message self-consistent, and on the
-# real data no other feature detects it.
+# real data no other feature detects it. HeadingMotionError (claimed heading
+# vs the bearing of the claimed positions' motion) catches a heading that is
+# wrong all the time rather than one that jumps.
 FEATURES = [
     "Speed",
     "Heading",
@@ -54,6 +56,7 @@ FEATURES = [
     "PositionChange",
     "SpeedChange",
     "HeadingChange",
+    "HeadingMotionError",
     "SpeedError",
     "MessageGap",
     "AccelError",

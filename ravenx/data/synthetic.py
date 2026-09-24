@@ -37,6 +37,7 @@ _PROFILE_PARAMS = {
     "Cautious": (0.85, 1.5, -3.0, 0.15),
     "Aggressive": (1.15, 3.5, -6.0, 0.45),
 }
+# Headings follow NextGen / SUMO: compass degrees, 0 = north (+y), clockwise.
 _DIRS = np.array([[1.0, 0.0], [0.0, 1.0], [-1.0, 0.0], [0.0, -1.0]])
 
 
@@ -73,7 +74,7 @@ def _simulate_highway(n, duration, rng, lanes=3):
         v = np.maximum(v + a * DT, 0.0)
         x = x + direction * v * DT
         P[k, :, 0] = x; P[k, :, 1] = y; V[k] = v; A[k] = a
-        H[k] = np.where(direction > 0, 0.0, 180.0)
+        H[k] = np.where(direction > 0, 90.0, 270.0)   # compass: +x = east = 90
     return P, V, A, H, profiles
 
 
@@ -122,7 +123,7 @@ def _simulate_urban(n, duration, rng, block=200.0, grid=5):
         right = np.stack([u[:, 1], -u[:, 0]], axis=1) * (LANE / 2)
         P[k] = np.stack([ix * block, iy * block], axis=1) + u * along[:, None] + right
         V[k] = v; A[k] = a
-        H[k] = np.degrees(np.arctan2(u[:, 1], u[:, 0])) % 360.0
+        H[k] = np.degrees(np.arctan2(u[:, 0], u[:, 1])) % 360.0   # compass, like NextGen
     return P, V, A, H, profiles
 
 
@@ -203,8 +204,9 @@ def _inject(m, attack, attackers, P, V, A, H, rng, noise, road):
             else:
                 # mirror onto the opposite lane of the same street
                 h = np.radians(H[ks, vid])
-                m.loc[sl, "x"] += -np.sin(h) * LANE * 2
-                m.loc[sl, "y"] += np.cos(h) * LANE * 2
+                # compass heading: travel = (sin h, cos h), left = (-cos h, sin h)
+                m.loc[sl, "x"] += -np.cos(h) * LANE * 2
+                m.loc[sl, "y"] += np.sin(h) * LANE * 2
         elif attack == "constantSpeedOffset":
             m.loc[sl, "spd"] = np.maximum(m.loc[sl, "spd"] + rng.choice([-1, 1]) * rng.uniform(5, 12), 0)
         elif attack == "randomSpeedOffset":
@@ -254,7 +256,7 @@ def _inject(m, attack, attackers, P, V, A, H, rng, noise, road):
                 if len(kk) == 0:
                     continue
                 h = np.radians(H[onset, vid])
-                u = np.array([np.cos(h), np.sin(h)])
+                u = np.array([np.sin(h), np.cos(h)])
                 gap = 8.0 * (g + 1)
                 drift = 1.5 * (kk - onset) * DT
                 gx = P[onset, vid, 0] + u[0] * (gap + drift) + rng.normal(0, noise["pos"], len(kk))

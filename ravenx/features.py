@@ -42,6 +42,12 @@ def message_features(msgs: pd.DataFrame) -> pd.DataFrame:
     m["SpeedChange"] = m["spd"] - prev["spd"]                           # 3.2
     m["AccelError"] = (m["SpeedChange"] / dt - (m["acl"] + prev["acl"]) / 2).abs()  # 3.3
     m["HeadingChange"] = _wrap_deg(m["hed"] - prev["hed"])              # 3.4
+    # claimed heading vs the direction the claimed positions actually move
+    # (compass bearing, 0 = north, clockwise, as in NextGen). A constantly
+    # reversed heading never *changes*, but it points against the motion.
+    bearing = np.degrees(np.arctan2(dx, dy)) % 360.0
+    moving = m["PositionChange"].values > 1.0
+    m["HeadingMotionError"] = np.where(moving, np.abs(_wrap_deg(m["hed"] - bearing)), 0.0)
     m["MessageGap"] = dt_rcv                                            # 3.5
     m["PositionSpeed"] = m["PositionChange"] / dt                       # 3.6
     m["SpeedError"] = (m["PositionSpeed"] - (m["spd"] + prev["spd"]) / 2).abs()  # 3.7
@@ -58,7 +64,7 @@ def message_features(msgs: pd.DataFrame) -> pd.DataFrame:
     m["Acceleration"] = m["acl"]
 
     for c in ["PositionChange", "SpeedChange", "AccelError", "HeadingChange",
-              "PositionSpeed", "SpeedError"]:
+              "PositionSpeed", "SpeedError", "HeadingMotionError"]:
         m.loc[first, c] = 0.0
     m.loc[first, "MessageGap"] = -1.0   # "no previous message" marker
     return m

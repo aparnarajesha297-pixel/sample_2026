@@ -55,7 +55,7 @@ def scene_messages(n, T, area, block, rng):
         along = (along + direction * s) % area
         x = np.where(horizontal, along, street) + rng.normal(0, 1.5, n)
         y = np.where(horizontal, street, along) + rng.normal(0, 1.5, n)
-        hed = np.where(horizontal, np.where(direction > 0, 0, 180), np.where(direction > 0, 90, 270))
+        hed = np.where(horizontal, np.where(direction > 0, 90, 270), np.where(direction > 0, 0, 180))
         rows.append(pd.DataFrame({
             "alias": np.arange(n).astype(str), "rcv_time": t + 0.002, "send_time": float(t),
             "x": x, "y": y, "spd": s, "hed": hed.astype(float), "acl": rng.normal(0, 0.3, n)}))

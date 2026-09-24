@@ -53,7 +53,7 @@ Receivers only see pseudonyms, so every stream is keyed on
 
 A *step* is one sender's stream, as heard by one receiver, in one 1-second
 bin. With 1 Hz CAMs a step is one message; during a DoS flood it is the last
-message plus a count. All models classify the same steps with the same 13
+message plus a count. All models classify the same steps with the same 14
 features, so any gap between models comes from the architecture:
 
 | model | sees |
@@ -67,14 +67,18 @@ features, so any gap between models comes from the architecture:
 Features: Speed, Heading, Acceleration, PositionChange, SpeedChange,
 HeadingChange, SpeedError (position-derived speed vs reported speed),
 MessageGap, AccelError, TimeLag (receive time minus claimed send time),
-MsgCount, RoadEdgeDist and ClaimedDistance. The last five are additions to
-the plan's list. Without TimeLag and MsgCount, time-delay and flooding attacks
+MsgCount, RoadEdgeDist, ClaimedDistance and HeadingMotionError. The last
+six are additions to the plan's list. Without TimeLag and MsgCount, time-delay and flooding attacks
 can't be seen from a single message. RoadEdgeDist is NextGen's
 `distance_to_road_edge` for the claimed position, and ClaimedDistance is the
 distance from the receiver to that claimed position. Both are map/geometry
 plausibility checks a receiver can compute itself. On real NextGen data, a
 constant position offset keeps every message self-consistent, and without
-these two features every model scored ROC-AUC 0.50 on it.
+these two features every model scored ROC-AUC 0.50 on it. HeadingMotionError is the angle between the claimed
+heading and the direction the claimed positions actually move. A heading
+that is reversed all the time never *changes*, so HeadingChange misses it.
+With this feature, reversed-heading F1 on NextGen highway_2 went from about
+0.03 to 0.96.
 
 ## Running the experiments
 
@@ -153,6 +157,17 @@ every time, which makes it an upper bound; an RSU that caches each second's
 graph embedding would be cheaper.
 
 ## Things to settle before reporting
+
+- **Time delay is not detectable from these messages alone.** Matching
+  NextGen's ground-truth file against the attack subset shows what the
+  attack does: the attacker sends its true state from 2–4 s earlier, stamped
+  with the current send time. Position, speed, heading and timestamps are all
+  internally consistent. The delay is active from a stream's first message,
+  so there is no onset to catch, and claimed positions overlap other vehicles
+  hardly more often than normal ones do (0.8 % vs 0.4 % on highway_2). Every
+  model scores F1 ≈ 0 on it. Catching it needs independent sensing (radar,
+  camera, signal-strength ranging), which NextGen does not include. Report it
+  as a limitation rather than tuning for it.
 
 - **RS-WeightedTrim.** The plan names it but doesn't define it. The version
   in `ravenx/federated.py` scores each update by cosine similarity to the
