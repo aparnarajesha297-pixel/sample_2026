@@ -135,5 +135,13 @@ class NeuralDetector:
         self.last_gates = np.concatenate(gates) if gates else None
         return np.concatenate(risks), np.concatenate(uncs)
 
+    @torch.no_grad()
+    def predict_logits(self, data, idx, batch_size=2048):
+        """Raw head outputs z, shape (len(idx), 2), for post-hoc calibration."""
+        self.net.eval()
+        out = [self.net(*make_batch(data, idx[i:i + batch_size], self.net, self.device)).cpu().numpy()
+               for i in range(0, len(idx), batch_size)]
+        return np.concatenate(out) if out else np.zeros((0, 2), dtype=np.float32)
+
     def n_params(self):
         return sum(p.numel() for p in self.net.parameters())

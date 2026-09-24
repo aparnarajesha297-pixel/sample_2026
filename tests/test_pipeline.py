@@ -132,3 +132,16 @@ def test_nextgen_loader(tmp_path):
     m = load_nextgen(tmp_path, verbose=False)
     assert len(m) == 2 and m["rcv_time"].iloc[0] == pytest.approx(1.0)
     assert isinstance(m, pd.DataFrame) and m["attacker"].sum() == 2
+
+
+def test_temperature_scaling_recovers_known_temperature():
+    from ravenx.calibration import fit_temperature, probs
+    rng = np.random.default_rng(0)
+    # true logit margin m; labels drawn from sigmoid(m); model reports 3 * m
+    m = rng.normal(0, 2, 20000)
+    y = (rng.random(20000) < 1 / (1 + np.exp(-m))).astype(int)
+    z = np.stack([np.zeros_like(m), 3 * m], axis=1)   # overconfident by 3x
+    T = fit_temperature(z, y, "softmax")
+    assert abs(T - 3.0) < 0.15
+    p, _ = probs(z, T, "softmax")
+    assert ece(y, p) < ece(y, probs(z, 1.0, "softmax")[0])
