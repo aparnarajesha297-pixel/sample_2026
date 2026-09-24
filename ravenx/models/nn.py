@@ -7,6 +7,17 @@ comparisons in Experiment 1 isolate one factor at a time:
     GAT      : GAT encoder (neighbours)      -> current step     -> softmax
     GAT+GRU  : GAT encoder at every step     -> GRU              -> softmax
     RAVEN-X  : GAT encoder at every step     -> GRU              -> evidential
+    RAVEN-X-GF (gated fusion), two parallel branches:
+
+        GRU branch : per-step MLP encoder -> GRU over T steps -> h_t ─┐
+                                                                     gate -> evidential
+        GAT branch : GAT encoder on the current snapshot     -> h_s ─┘
+
+        g = sigmoid(W [h_t ; h_s] + b)          (one gate per hidden unit)
+        h = g * h_t + (1 - g) * h_s
+
+      The mean of g says how much a prediction leaned on time (g -> 1) versus
+      neighbours (g -> 0); it is reported per attack type.
 
 The GAT layer is written in plain PyTorch (no torch-geometric dependency). It
 is GATv2-style attention with edge attributes, plus a separate root/self
@@ -88,10 +99,18 @@ class StepEncoder(nn.Module):
 
 class DetectorNet(nn.Module):
     def __init__(self, n_feat, hidden=64, use_graph=True, use_temporal=True,
-                 evidential=False, heads=4, layers=2, dropout=0.1):
+                 evidential=False, fusion=False, heads=4, layers=2, dropout=0.1):
         super().__init__()
         self.use_graph, self.use_temporal, self.evidential = use_graph, use_temporal, evidential
+        self.fusion = fusion
+        # in fusion mode ``encoder`` is the spatial (GAT) branch and
+        # ``temporal_encoder`` the per-step encoder feeding the GRU branch
         self.encoder = StepEncoder(n_feat, hidden, use_graph, heads, layers, dropout)
+        if fusion:
+            assert use_graph and use_temporal
+            self.temporal_encoder = StepEncoder(n_feat, hidden, False, heads, layers, dropout)
+            self.gate = nn.Linear(2 * hidden, hidden)
+        self.last_gate = None
         if use_temporal:
             # +1 input: "this position of the window is real, not padding"
             self.gru = nn.GRU(hidden + 1, hidden, batch_first=True)
@@ -106,6 +125,8 @@ class DetectorNet(nn.Module):
         """x_nodes: features of the nodes in the batch subgraph.
         win_local: (B, T) local node index per window slot, -1 = padding
         (T = 1 for non-temporal models)."""
+        if self.fusion:
+            return self.head(self._fuse(x_nodes, win_local, src, dst, eattr))
         z = self.encoder(x_nodes, src, dst, eattr)
         if self.use_temporal:
             valid = (win_local >= 0)
@@ -116,6 +137,20 @@ class DetectorNet(nn.Module):
         else:
             rep = z[win_local[:, -1]]
         return self.head(rep)
+
+    def _gru_over(self, z, win_local):
+        valid = (win_local >= 0)
+        seq = z[win_local.clamp(min=0)] * valid.unsqueeze(-1)
+        seq = torch.cat([seq, valid.unsqueeze(-1).float()], dim=-1)
+        _, h = self.gru(seq)
+        return h[-1]
+
+    def _fuse(self, x_nodes, win_local, src, dst, eattr):
+        h_t = self._gru_over(self.temporal_encoder(x_nodes), win_local)
+        h_s = self.encoder(x_nodes, src, dst, eattr)[win_local[:, -1]]
+        g = torch.sigmoid(self.gate(torch.cat([h_t, h_s], dim=-1)))
+        self.last_gate = g.mean(-1).detach()
+        return g * h_t + (1 - g) * h_s
 
 
 # ---------------------------------------------------------------------------

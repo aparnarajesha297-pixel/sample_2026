@@ -38,7 +38,7 @@ from ravenx.pipeline import add_data_args, load_data  # noqa: E402
 def main():
     p = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     add_data_args(p)
-    p.add_argument("--model", default="RAVEN-X", choices=["RAVEN-X", "GAT+GRU", "GRU", "GAT"])
+    p.add_argument("--model", default="RAVEN-X", choices=["RAVEN-X", "RAVEN-X-GF", "GAT+GRU", "GRU", "GAT"])
     p.add_argument("--rsus", type=int, default=20)
     p.add_argument("--partition", choices=["spatial", "random", "attack"], default="spatial")
     p.add_argument("--rounds", type=int, default=10)

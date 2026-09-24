@@ -13,11 +13,12 @@ from ..metrics import pr_auc
 from .nn import DetectorNet, evidential_loss, evidential_outputs, softmax_outputs
 
 MODEL_SPECS = {
-    # name: (use_graph, use_temporal, evidential)
-    "GRU": (False, True, False),
-    "GAT": (True, False, False),
-    "GAT+GRU": (True, True, False),
-    "RAVEN-X": (True, True, True),
+    # name: (use_graph, use_temporal, evidential, gated fusion)
+    "GRU": (False, True, False, False),
+    "GAT": (True, False, False, False),
+    "GAT+GRU": (True, True, False, False),
+    "RAVEN-X": (True, True, True, False),
+    "RAVEN-X-GF": (True, True, True, True),
 }
 
 
@@ -26,7 +27,15 @@ def make_batch(data, targets, net, device):
     T = data.win.shape[1] if net.use_temporal else 1
     win = data.win[targets][:, -T:]
     needed = np.unique(win[win >= 0])
-    if net.use_graph:
+    if net.fusion:
+        # the GAT branch only needs the neighbourhood of each current step;
+        # the GRU branch needs the window nodes' own features
+        ng, ls, ld, eids, _ = data.graph.subgraph(win[:, -1], net.hops)
+        nodes = np.union1d(ng, needed)
+        src = torch.from_numpy(np.searchsorted(nodes, ng[ls])).to(device)
+        dst = torch.from_numpy(np.searchsorted(nodes, ng[ld])).to(device)
+        eattr = torch.from_numpy(data.graph.eattr[eids]).to(device)
+    elif net.use_graph:
         nodes, ls, ld, eids, _ = data.graph.subgraph(needed, net.hops)
         src = torch.from_numpy(ls).to(device)
         dst = torch.from_numpy(ld).to(device)
@@ -42,10 +51,12 @@ class NeuralDetector:
     def __init__(self, name, n_feat, hidden=64, lr=1e-3, weight_decay=1e-5,
                  batch_size=256, max_epochs=15, patience=3, kl_anneal=5,
                  seed=0, device="cpu", verbose=True):
-        use_graph, use_temporal, evidential = MODEL_SPECS[name]
+        use_graph, use_temporal, evidential, fusion = MODEL_SPECS[name]
         torch.manual_seed(seed)
         self.name = name
-        self.net = DetectorNet(n_feat, hidden, use_graph, use_temporal, evidential).to(device)
+        self.net = DetectorNet(n_feat, hidden, use_graph, use_temporal, evidential,
+                               fusion).to(device)
+        self.last_gates = None
         self.lr, self.wd = lr, weight_decay
         self.batch_size, self.max_epochs, self.patience = batch_size, max_epochs, patience
         self.kl_anneal = kl_anneal
@@ -107,10 +118,12 @@ class NeuralDetector:
     def predict(self, data, idx, batch_size=2048):
         """Returns (risk, uncertainty) arrays for steps ``idx``."""
         self.net.eval()
-        risks, uncs = [], []
+        risks, uncs, gates = [], [], []
         for i in range(0, len(idx), batch_size):
             t = idx[i:i + batch_size]
             logits = self.net(*make_batch(data, t, self.net, self.device))
+            if self.net.fusion:
+                gates.append(self.net.last_gate.cpu().numpy())
             if self.net.evidential:
                 r, u, _ = evidential_outputs(logits)
             else:
@@ -118,6 +131,8 @@ class NeuralDetector:
             risks.append(r.cpu().numpy()); uncs.append(u.cpu().numpy())
         if not risks:
             return np.zeros(0), np.zeros(0)
+        # mean fusion gate per step (1 = relied on time, 0 = on neighbours)
+        self.last_gates = np.concatenate(gates) if gates else None
         return np.concatenate(risks), np.concatenate(uncs)
 
     def n_params(self):

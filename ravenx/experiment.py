@@ -15,9 +15,9 @@ from .metrics import best_threshold, detection_metrics
 from .models.tabular import TabularDetector
 from .models.train import MODEL_SPECS, NeuralDetector
 
-ALL_MODELS = ["RandomForest", "XGBoost", "GRU", "GAT", "GAT+GRU", "RAVEN-X"]
+ALL_MODELS = ["RandomForest", "XGBoost", "GRU", "GAT", "GAT+GRU", "RAVEN-X", "RAVEN-X-GF"]
 # the plan's five-row table; GAT+GRU (softmax head) is an extra ablation
-DEFAULT_MODELS = ["RandomForest", "XGBoost", "GRU", "GAT", "RAVEN-X"]
+DEFAULT_MODELS = ["RandomForest", "XGBoost", "GRU", "GAT", "RAVEN-X", "RAVEN-X-GF"]
 
 
 def add_train_args(p):
@@ -64,10 +64,11 @@ def fit_and_score(name, data, train_idx, val_idx, test_idx, args, seed):
     r_val, u_val = model.predict(data, val_idx)
     thr = best_threshold(data.y[val_idx], r_val)
     r_test, u_test = model.predict(data, test_idx)
+    gates = getattr(model, "last_gates", None)
     metrics = detection_metrics(data.y[test_idx], r_test, thr)
     metrics["TrainTime_s"] = getattr(model, "train_time", float("nan"))
     return {"model": model, "metrics": metrics, "threshold": thr,
-            "val": (r_val, u_val), "test": (r_test, u_test)}
+            "val": (r_val, u_val), "test": (r_test, u_test), "test_gates": gates}
 
 
 def mean_std_table(rows: list[dict], by="Model", cols=None) -> pd.DataFrame:

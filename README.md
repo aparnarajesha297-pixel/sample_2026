@@ -53,7 +53,7 @@ Receivers only see pseudonyms, so every stream is keyed on
 
 A *step* is one sender's stream, as heard by one receiver, in one 1-second
 bin. With 1 Hz CAMs a step is one message; during a DoS flood it is the last
-message plus a count. All models classify the same steps with the same 14
+message plus a count. All models classify the same steps with the same 17
 features, so any gap between models comes from the architecture:
 
 | model | sees |
@@ -63,22 +63,21 @@ features, so any gap between models comes from the architecture:
 | GAT | the current step plus the other vehicles the receiver heard in the same second, within 150 m |
 | RAVEN-X | GAT at each of the last 10 steps, then a GRU, then an evidential head that outputs risk and uncertainty |
 | GAT+GRU (ablation) | RAVEN-X with an ordinary softmax head |
+| RAVEN-X-GF | two parallel branches, a GRU over the last 10 steps and a GAT on the current snapshot, merged by a learned gate `g·h_time + (1−g)·h_neighbours`, then the evidential head. The mean gate per attack type shows whether that attack is caught by time or by neighbours |
 
-Features: Speed, Heading, Acceleration, PositionChange, SpeedChange,
-HeadingChange, SpeedError (position-derived speed vs reported speed),
-MessageGap, AccelError, TimeLag (receive time minus claimed send time),
-MsgCount, RoadEdgeDist, ClaimedDistance and HeadingMotionError. The last
-six are additions to the plan's list. Without TimeLag and MsgCount, time-delay and flooding attacks
-can't be seen from a single message. RoadEdgeDist is NextGen's
-`distance_to_road_edge` for the claimed position, and ClaimedDistance is the
-distance from the receiver to that claimed position. Both are map/geometry
-plausibility checks a receiver can compute itself. On real NextGen data, a
-constant position offset keeps every message self-consistent, and without
-these two features every model scored ROC-AUC 0.50 on it. HeadingMotionError is the angle between the claimed
-heading and the direction the claimed positions actually move. A heading
-that is reversed all the time never *changes*, so HeadingChange misses it.
-With this feature, reversed-heading F1 on NextGen highway_2 went from about
-0.03 to 0.96.
+Features (17): Speed, Heading, Acceleration; PositionChange, SpeedChange,
+HeadingChange, Jerk; SpeedInconsistency (position-derived vs reported speed),
+AccelerationInconsistency (speed change vs reported acceleration),
+HeadingInconsistency (reported heading vs direction of motion); MessageGap,
+TimeLag, MsgCount; RoadEdgeDist (NextGen's `distance_to_road_edge` of the
+claimed position), DistanceToReceiver; RelativeSpeed and RelativeHeading
+(sender vs the receiving vehicle's own speed and heading).
+
+Several of these fixed real blind spots on NextGen. Without RoadEdgeDist and
+DistanceToReceiver, every model scored ROC-AUC 0.50 on the constant position
+offset attack, because a constant offset keeps each message self-consistent.
+Without HeadingInconsistency, reversed heading scored F1 about 0.03: a
+heading that is wrong all the time never *changes*. With it, 0.96.
 
 ## Running the experiments
 

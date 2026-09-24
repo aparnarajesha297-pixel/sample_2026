@@ -37,18 +37,20 @@ ATTACK_NAMES = {
     "timeDelayAttack": "Time Delay",
 }
 
-# Per-observation features. Every model (RF, XGBoost, GRU, GAT, RAVEN-X) gets
-# exactly the same columns, so differences between models come from the
-# architecture (temporal / spatial context), not from extra inputs.
-# The first eight are the plan's baseline list; AccelError (plan 3.3),
-# TimeLag and MsgCount are added because timing and flooding attacks are
-# otherwise invisible to a per-message model. RoadEdgeDist (NextGen's
-# distance_to_road_edge of the claimed position) and ClaimedDistance
-# (receiver to claimed position) are map/geometry plausibility checks: a
-# constant position offset keeps every message self-consistent, and on the
-# real data no other feature detects it. HeadingMotionError (claimed heading
-# vs the bearing of the claimed positions' motion) catches a heading that is
-# wrong all the time rather than one that jumps.
+# Per-observation features. Every model gets exactly the same columns, so
+# differences between models come from the architecture (temporal / spatial
+# context), not from extra inputs.
+#
+#   reported state        Speed, Heading, Acceleration
+#   change over time      PositionChange, SpeedChange, HeadingChange, Jerk
+#   self-consistency      SpeedInconsistency (position-derived vs reported
+#                         speed), AccelerationInconsistency (speed change vs
+#                         reported acceleration), HeadingInconsistency
+#                         (reported heading vs direction of motion)
+#   timing / flooding     MessageGap, TimeLag, MsgCount
+#   map / geometry        RoadEdgeDist (NextGen distance_to_road_edge of the
+#                         claimed position), DistanceToReceiver
+#   relative to receiver  RelativeSpeed, RelativeHeading
 FEATURES = [
     "Speed",
     "Heading",
@@ -56,14 +58,17 @@ FEATURES = [
     "PositionChange",
     "SpeedChange",
     "HeadingChange",
-    "HeadingMotionError",
-    "SpeedError",
+    "Jerk",
+    "SpeedInconsistency",
+    "AccelerationInconsistency",
+    "HeadingInconsistency",
     "MessageGap",
-    "AccelError",
     "TimeLag",
     "MsgCount",
     "RoadEdgeDist",
-    "ClaimedDistance",
+    "DistanceToReceiver",
+    "RelativeSpeed",
+    "RelativeHeading",
 ]
 
 SPLITS = ("train", "val", "test")

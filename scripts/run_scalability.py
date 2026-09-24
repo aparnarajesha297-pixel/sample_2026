@@ -73,7 +73,7 @@ def main():
     p.add_argument("--radius", type=float, default=NEIGHBOR_RADIUS)
     p.add_argument("--seq-len", type=int, default=SEQ_LEN)
     p.add_argument("--hidden", type=int, default=64)
-    p.add_argument("--model", default="RAVEN-X", choices=["RAVEN-X", "GAT+GRU", "GRU", "GAT"])
+    p.add_argument("--model", default="RAVEN-X", choices=["RAVEN-X", "RAVEN-X-GF", "GAT+GRU", "GRU", "GAT"])
     p.add_argument("--checkpoint", default=None)
     p.add_argument("--threads", type=int, default=None, help="torch CPU threads")
     p.add_argument("--out", default="results/scalability")

@@ -40,31 +40,42 @@ def message_features(msgs: pd.DataFrame) -> pd.DataFrame:
 
     m["PositionChange"] = np.hypot(dx, dy)                              # 3.1
     m["SpeedChange"] = m["spd"] - prev["spd"]                           # 3.2
-    m["AccelError"] = (m["SpeedChange"] / dt - (m["acl"] + prev["acl"]) / 2).abs()  # 3.3
+    # 3.3 acceleration consistency: speed change vs reported acceleration
+    m["AccelerationInconsistency"] = (m["SpeedChange"] / dt - (m["acl"] + prev["acl"]) / 2).abs()
+    # rate of change of the reported acceleration
+    m["Jerk"] = (m["acl"] - prev["acl"]) / dt
     m["HeadingChange"] = _wrap_deg(m["hed"] - prev["hed"])              # 3.4
     # claimed heading vs the direction the claimed positions actually move
     # (compass bearing, 0 = north, clockwise, as in NextGen). A constantly
     # reversed heading never *changes*, but it points against the motion.
     bearing = np.degrees(np.arctan2(dx, dy)) % 360.0
     moving = m["PositionChange"].values > 1.0
-    m["HeadingMotionError"] = np.where(moving, np.abs(_wrap_deg(m["hed"] - bearing)), 0.0)
+    m["HeadingInconsistency"] = np.where(moving, np.abs(_wrap_deg(m["hed"] - bearing)), 0.0)
     m["MessageGap"] = dt_rcv                                            # 3.5
     m["PositionSpeed"] = m["PositionChange"] / dt                       # 3.6
-    m["SpeedError"] = (m["PositionSpeed"] - (m["spd"] + prev["spd"]) / 2).abs()  # 3.7
+    # 3.7 speed consistency: position-derived speed vs reported speed
+    m["SpeedInconsistency"] = (m["PositionSpeed"] - (m["spd"] + prev["spd"]) / 2).abs()
     m["TimeLag"] = m["rcv_time"] - m["send_time"]
-    # map / geometry plausibility (plan 3.x extension): how far the claimed
-    # position is from the road, and from the receiver itself
+    # map / geometry plausibility: how far the claimed position is from the
+    # road, and from the receiver itself
     m["RoadEdgeDist"] = m["road_edge"] if "road_edge" in m else 0.0
     if {"rx_x", "rx_y"} <= set(m.columns):
-        m["ClaimedDistance"] = np.hypot(m["x"] - m["rx_x"], m["y"] - m["rx_y"])
+        m["DistanceToReceiver"] = np.hypot(m["x"] - m["rx_x"], m["y"] - m["rx_y"])
     else:
-        m["ClaimedDistance"] = 0.0
+        m["DistanceToReceiver"] = 0.0
+    # sender relative to the receiving vehicle's own state
+    if {"rx_spd", "rx_hed"} <= set(m.columns):
+        m["RelativeSpeed"] = m["spd"] - m["rx_spd"]
+        m["RelativeHeading"] = np.abs(_wrap_deg(m["hed"] - m["rx_hed"]))
+    else:
+        m["RelativeSpeed"] = 0.0
+        m["RelativeHeading"] = 0.0
     m["Speed"] = m["spd"]
     m["Heading"] = m["hed"]
     m["Acceleration"] = m["acl"]
 
-    for c in ["PositionChange", "SpeedChange", "AccelError", "HeadingChange",
-              "PositionSpeed", "SpeedError", "HeadingMotionError"]:
+    for c in ["PositionChange", "SpeedChange", "AccelerationInconsistency", "Jerk",
+              "HeadingChange", "PositionSpeed", "SpeedInconsistency", "HeadingInconsistency"]:
         m.loc[first, c] = 0.0
     m.loc[first, "MessageGap"] = -1.0   # "no previous message" marker
     return m

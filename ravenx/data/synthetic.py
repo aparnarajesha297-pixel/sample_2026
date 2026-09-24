@@ -298,7 +298,7 @@ def road_edge_distance(road, region, x, y):
     return LANE - np.minimum(dx, dy)
 
 
-def _receive(m, P, observers, rng, comm_range, loss):
+def _receive(m, P, V, H, observers, rng, comm_range, loss):
     out = []
     for obs in observers:
         rx = P[m["k"].values, obs]
@@ -308,6 +308,8 @@ def _receive(m, P, observers, rng, comm_range, loss):
         r["receiver_vid"] = obs
         r["rx_x"] = rx[ok, 0]
         r["rx_y"] = rx[ok, 1]
+        r["rx_spd"] = V[r["k"].values, obs]
+        r["rx_hed"] = H[r["k"].values, obs]
         r["rcv_time"] = r["k"] * DT + rng.uniform(0.0005, 0.003, len(r))
         out.append(r)
     return pd.concat(out, ignore_index=True)
@@ -343,7 +345,7 @@ def generate_subset(road, density, attack, split_region, duration, seed,
     m["msg_id"] = np.arange(len(m))
 
     m["road_edge"] = road_edge_distance(road, split_region, m["x"].values, m["y"].values)
-    r = _receive(m, P, observers, rng, comm_range, loss)
+    r = _receive(m, P, V, H, observers, rng, comm_range, loss)
     return r
 
 
@@ -379,5 +381,5 @@ def generate_dataset(roads=("urban", "highway"), densities=("low", "high"),
     msgs = pd.concat(frames, ignore_index=True)
     cols = ["run", "split", "scenario", "road", "density", "attack_type", "receiver",
             "rcv_time", "send_time", "sender_id", "alias", "msg_id", "attacker",
-            "x", "y", "spd", "hed", "acl", "profile", "rx_x", "rx_y", "road_edge"]
+            "x", "y", "spd", "hed", "acl", "profile", "rx_x", "rx_y", "road_edge", "rx_spd", "rx_hed"]
     return msgs[cols]

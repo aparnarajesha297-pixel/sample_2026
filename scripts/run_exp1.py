@@ -61,6 +61,8 @@ def comparisons(mean: pd.DataFrame) -> str:
         cmp("Q4 spatial + temporal", base, "RAVEN-X")
     if "GAT+GRU" in mean.index:
         cmp("Q4 (softmax ablation)", "GAT+GRU", "RAVEN-X")
+    for base in ("RAVEN-X", "GRU", "GAT"):
+        cmp("Gated fusion", base, "RAVEN-X-GF")
     lines += ["", "Positive deltas mean the added information helped on this data. "
               "With several --seeds, check that the gap is larger than the std before "
               "claiming it."]
@@ -88,7 +90,7 @@ def main():
 
     tr_all, va, te = data.idx("train"), data.idx("val"), data.idx("test")
     y_te = data.y[te]
-    rows, attack_rows, keep = [], [], {}
+    rows, attack_rows, gate_rows, keep = [], [], [], {}
     for seed in args.seeds:
         tr = subsample(tr_all, args.max_train, seed)
         for name in args.models:
@@ -105,6 +107,14 @@ def main():
                                     "Precision": mm["Precision"], "Recall": mm["Recall"],
                                     "F1": mm["F1"], "PR-AUC": mm["PR-AUC"],
                                     "attack_steps": int(y_te[sub].sum()), "steps": len(sub)})
+            if res.get("test_gates") is not None:
+                g = res["test_gates"]
+                for atk, sub in data.steps.iloc[te].groupby("attack_type").indices.items():
+                    for lab in (0, 1):
+                        s = sub[y_te[sub] == lab]
+                        if len(s):
+                            gate_rows.append({"Attack": ATTACK_NAMES.get(atk, atk), "Model": name,
+                                              "Seed": seed, "label": lab, "gate": float(g[s].mean())})
             if seed == args.seeds[0]:
                 keep[name] = res
                 if name == "RAVEN-X":
@@ -137,6 +147,15 @@ def main():
         rx.to_csv(out / "attackwise_ravenx.csv")
         report += ["## Attack-wise (RAVEN-X, test)", "", to_markdown(rx.round(4)), ""]
     report += ["## Attack-wise F1, all models", "", to_markdown(f1_pivot.round(4)), ""]
+    if gate_rows:
+        gr = pd.DataFrame(gate_rows)
+        gr.to_csv(out / "fusion_gates_per_seed.csv", index=False)
+        gp = (gr.groupby(["Attack", "label"])["gate"].mean().unstack("label")
+              .rename(columns={0: "gate on benign", 1: "gate on attacks"}))
+        gp.to_csv(out / "fusion_gates.csv")
+        report += ["## Gated fusion: what each attack relies on (RAVEN-X-GF, test)", "",
+                   "Mean gate g: 1 = the prediction came from the GRU (time) branch, "
+                   "0 = from the GAT (neighbour) branch.", "", to_markdown(gp.round(3)), ""]
 
     # ---- calibration figures -------------------------------------------------
     plots.reliability_diagram({n: (y_te, keep[n]["test"][0]) for n in keep}, out / "reliability_diagram.png")
