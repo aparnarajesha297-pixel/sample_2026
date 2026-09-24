@@ -53,7 +53,7 @@ Receivers only see pseudonyms, so every stream is keyed on
 
 A *step* is one sender's stream, as heard by one receiver, in one 1-second
 bin. With 1 Hz CAMs a step is one message; during a DoS flood it is the last
-message plus a count. All models classify the same steps with the same 11
+message plus a count. All models classify the same steps with the same 13
 features, so any gap between models comes from the architecture:
 
 | model | sees |
@@ -66,9 +66,15 @@ features, so any gap between models comes from the architecture:
 
 Features: Speed, Heading, Acceleration, PositionChange, SpeedChange,
 HeadingChange, SpeedError (position-derived speed vs reported speed),
-MessageGap, AccelError, TimeLag (receive time minus claimed send time) and
-MsgCount. The last three are additions to the plan's list. Without them,
-time-delay and flooding attacks can't be seen from a single message.
+MessageGap, AccelError, TimeLag (receive time minus claimed send time),
+MsgCount, RoadEdgeDist and ClaimedDistance. The last five are additions to
+the plan's list. Without TimeLag and MsgCount, time-delay and flooding attacks
+can't be seen from a single message. RoadEdgeDist is NextGen's
+`distance_to_road_edge` for the claimed position, and ClaimedDistance is the
+distance from the receiver to that claimed position. Both are map/geometry
+plausibility checks a receiver can compute itself. On real NextGen data, a
+constant position offset keeps every message self-consistent, and without
+these two features every model scored ROC-AUC 0.50 on it.
 
 ## Running the experiments
 

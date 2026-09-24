@@ -122,7 +122,8 @@ def load_data(args, verbose=True) -> tuple[pd.DataFrame, StepData]:
     """Messages + prepared steps, cached on disk by the data arguments."""
     keys = ["data", "root", "attacks", "scenarios", "density_map", "max_files",
             "duration", "observers", "bin", "radius", "seq_len", "seed"]
-    sig = json.dumps({k: getattr(args, k) for k in keys}, sort_keys=True, default=str)
+    sig = json.dumps({**{k: getattr(args, k) for k in keys}, "features": FEATURES},
+                     sort_keys=True, default=str)
     h = hashlib.md5(sig.encode()).hexdigest()[:12]
     path = Path(args.cache) / f"data_{h}.pkl" if args.cache else None
     if path is not None and path.exists():

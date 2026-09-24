@@ -80,15 +80,16 @@ def _flatten(records: list[dict]) -> pd.DataFrame:
     for r in records:
         s = r.get("sender", {})
         pos = _parse_pos(s.get("pos"))
+        rx = _parse_pos(r.get("receiver", {}).get("pos"))
         rows.append((
             r.get("rcvTime"), r.get("sendTime"), r.get("sender_id"),
             r.get("sender_alias"), r.get("messageID"), r.get("attacker", 0),
             pos[0], pos[1], s.get("spd"), s.get("hed"), s.get("acl"),
-            s.get("driversProfile"),
+            s.get("driversProfile"), rx[0], rx[1], s.get("distance_to_road_edge", np.nan),
         ))
     df = pd.DataFrame(rows, columns=[
         "rcv_time", "send_time", "sender_id", "alias", "msg_id", "attacker",
-        "x", "y", "spd", "hed", "acl", "profile",
+        "x", "y", "spd", "hed", "acl", "profile", "rx_x", "rx_y", "road_edge",
     ])
     return df
 

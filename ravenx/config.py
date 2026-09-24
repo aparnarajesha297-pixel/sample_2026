@@ -42,7 +42,11 @@ ATTACK_NAMES = {
 # architecture (temporal / spatial context), not from extra inputs.
 # The first eight are the plan's baseline list; AccelError (plan 3.3),
 # TimeLag and MsgCount are added because timing and flooding attacks are
-# otherwise invisible to a per-message model.
+# otherwise invisible to a per-message model. RoadEdgeDist (NextGen's
+# distance_to_road_edge of the claimed position) and ClaimedDistance
+# (receiver to claimed position) are map/geometry plausibility checks: a
+# constant position offset keeps every message self-consistent, and on the
+# real data no other feature detects it.
 FEATURES = [
     "Speed",
     "Heading",
@@ -55,6 +59,8 @@ FEATURES = [
     "AccelError",
     "TimeLag",
     "MsgCount",
+    "RoadEdgeDist",
+    "ClaimedDistance",
 ]
 
 SPLITS = ("train", "val", "test")

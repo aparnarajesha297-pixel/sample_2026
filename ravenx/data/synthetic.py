@@ -283,6 +283,19 @@ def _label(m, P, V, A, H):
     return (sig | m["fabricated"].values).astype(int)
 
 
+def road_edge_distance(road, region, x, y):
+    """Signed distance (m) from a reported position to the nearest road edge,
+    positive on the road, negative off it. Mirrors NextGen's
+    ``distance_to_road_edge`` for the synthetic road layouts."""
+    if road == "highway":
+        lanes = 3 if region == 0 else 4
+        return lanes * LANE - np.abs(y)
+    block, grid = (200.0, 5) if region == 0 else (160.0, 6)
+    dx = np.abs(x - np.clip(np.round(x / block), 0, grid) * block)
+    dy = np.abs(y - np.clip(np.round(y / block), 0, grid) * block)
+    return LANE - np.minimum(dx, dy)
+
+
 def _receive(m, P, observers, rng, comm_range, loss):
     out = []
     for obs in observers:
@@ -291,6 +304,8 @@ def _receive(m, P, observers, rng, comm_range, loss):
         ok = (d < comm_range) & (m["vid"].values != obs) & (rng.random(len(m)) > loss)
         r = m[ok].copy()
         r["receiver_vid"] = obs
+        r["rx_x"] = rx[ok, 0]
+        r["rx_y"] = rx[ok, 1]
         r["rcv_time"] = r["k"] * DT + rng.uniform(0.0005, 0.003, len(r))
         out.append(r)
     return pd.concat(out, ignore_index=True)
@@ -325,6 +340,7 @@ def generate_subset(road, density, attack, split_region, duration, seed,
     m = m.sort_values(["k", "vid"]).reset_index(drop=True)
     m["msg_id"] = np.arange(len(m))
 
+    m["road_edge"] = road_edge_distance(road, split_region, m["x"].values, m["y"].values)
     r = _receive(m, P, observers, rng, comm_range, loss)
     return r
 
@@ -361,5 +377,5 @@ def generate_dataset(roads=("urban", "highway"), densities=("low", "high"),
     msgs = pd.concat(frames, ignore_index=True)
     cols = ["run", "split", "scenario", "road", "density", "attack_type", "receiver",
             "rcv_time", "send_time", "sender_id", "alias", "msg_id", "attacker",
-            "x", "y", "spd", "hed", "acl", "profile"]
+            "x", "y", "spd", "hed", "acl", "profile", "rx_x", "rx_y", "road_edge"]
     return msgs[cols]

@@ -46,6 +46,13 @@ def message_features(msgs: pd.DataFrame) -> pd.DataFrame:
     m["PositionSpeed"] = m["PositionChange"] / dt                       # 3.6
     m["SpeedError"] = (m["PositionSpeed"] - (m["spd"] + prev["spd"]) / 2).abs()  # 3.7
     m["TimeLag"] = m["rcv_time"] - m["send_time"]
+    # map / geometry plausibility (plan 3.x extension): how far the claimed
+    # position is from the road, and from the receiver itself
+    m["RoadEdgeDist"] = m["road_edge"] if "road_edge" in m else 0.0
+    if {"rx_x", "rx_y"} <= set(m.columns):
+        m["ClaimedDistance"] = np.hypot(m["x"] - m["rx_x"], m["y"] - m["rx_y"])
+    else:
+        m["ClaimedDistance"] = 0.0
     m["Speed"] = m["spd"]
     m["Heading"] = m["hed"]
     m["Acceleration"] = m["acl"]
