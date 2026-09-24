@@ -4,28 +4,28 @@ Seeds: [0, 1, 2]. Thresholds chosen on validation (max F1), metrics on test.
 
 | Model | Accuracy | Precision | Recall | F1 | ROC-AUC | PR-AUC |
 |---|---|---|---|---|---|---|
-| RandomForest | 0.9019 ± 0.0031 | 0.7671 ± 0.0159 | 0.7232 ± 0.0058 | 0.7444 ± 0.0045 | 0.8684 ± 0.0001 | 0.8017 ± 0.0004 |
-| XGBoost | 0.9119 ± 0.0017 | 0.8201 ± 0.0104 | 0.7100 ± 0.0032 | 0.7610 ± 0.0029 | 0.8700 ± 0.0006 | 0.8069 ± 0.0011 |
-| GRU | 0.9078 ± 0.0067 | 0.7696 ± 0.0248 | 0.7619 ± 0.0056 | 0.7656 ± 0.0137 | 0.9016 ± 0.0047 | 0.8221 ± 0.0154 |
-| GAT | 0.9340 ± 0.0022 | 0.9402 ± 0.0172 | 0.7110 ± 0.0028 | 0.8096 ± 0.0046 | 0.8829 ± 0.0010 | 0.8355 ± 0.0020 |
-| RAVEN-X | 0.9343 ± 0.0079 | 0.8923 ± 0.0443 | 0.7609 ± 0.0141 | 0.8209 ± 0.0171 | 0.9124 ± 0.0009 | 0.8693 ± 0.0053 |
+| RandomForest | 0.9263 ± 0.0005 | 0.8427 ± 0.0040 | 0.7707 ± 0.0020 | 0.8051 ± 0.0007 | 0.9043 ± 0.0001 | 0.8541 ± 0.0003 |
+| XGBoost | 0.9298 ± 0.0004 | 0.8693 ± 0.0109 | 0.7591 ± 0.0130 | 0.8103 ± 0.0029 | 0.9054 ± 0.0002 | 0.8580 ± 0.0002 |
+| GRU | 0.9335 ± 0.0017 | 0.8371 ± 0.0067 | 0.8234 ± 0.0051 | 0.8302 ± 0.0040 | 0.9388 ± 0.0011 | 0.8911 ± 0.0032 |
+| GAT | 0.9452 ± 0.0021 | 0.9425 ± 0.0114 | 0.7698 ± 0.0012 | 0.8474 ± 0.0052 | 0.9168 ± 0.0013 | 0.8786 ± 0.0024 |
+| RAVEN-X | 0.9551 ± 0.0006 | 0.9369 ± 0.0037 | 0.8284 ± 0.0029 | 0.8793 ± 0.0015 | 0.9463 ± 0.0009 | 0.9184 ± 0.0005 |
 
 ## Calibration (lower is better)
 
 | Model | ECE | Brier |
 |---|---|---|
-| RandomForest | 0.1916 ± 0.0009 | 0.1281 ± 0.0004 |
-| XGBoost | 0.0389 ± 0.0073 | 0.0760 ± 0.0021 |
-| GRU | 0.0435 ± 0.0148 | 0.0771 ± 0.0070 |
-| GAT | 0.0270 ± 0.0025 | 0.0618 ± 0.0013 |
-| RAVEN-X | 0.0527 ± 0.0313 | 0.0714 ± 0.0165 |
+| RandomForest | 0.1108 ± 0.0004 | 0.0798 ± 0.0001 |
+| XGBoost | 0.0178 ± 0.0022 | 0.0591 ± 0.0004 |
+| GRU | 0.0178 ± 0.0042 | 0.0532 ± 0.0006 |
+| GAT | 0.0147 ± 0.0011 | 0.0490 ± 0.0013 |
+| RAVEN-X | 0.0212 ± 0.0045 | 0.0428 ± 0.0025 |
 
 ## Research questions (test split)
 
-- Q2 temporal information: GRU vs XGBoost: ΔF1 = +0.0045, ΔPR-AUC = +0.0152
-- Q3 neighbour information: GAT vs XGBoost: ΔF1 = +0.0486, ΔPR-AUC = +0.0286
-- Q4 spatial + temporal: RAVEN-X vs GRU: ΔF1 = +0.0553, ΔPR-AUC = +0.0472
-- Q4 spatial + temporal: RAVEN-X vs GAT: ΔF1 = +0.0112, ΔPR-AUC = +0.0338
+- Q2 temporal information: GRU vs XGBoost: ΔF1 = +0.0199, ΔPR-AUC = +0.0331
+- Q3 neighbour information: GAT vs XGBoost: ΔF1 = +0.0371, ΔPR-AUC = +0.0206
+- Q4 spatial + temporal: RAVEN-X vs GRU: ΔF1 = +0.0491, ΔPR-AUC = +0.0273
+- Q4 spatial + temporal: RAVEN-X vs GAT: ΔF1 = +0.0319, ΔPR-AUC = +0.0398
 
 Positive deltas mean the added information helped on this data. With several --seeds, check that the gap is larger than the std before claiming it.
 
@@ -33,66 +33,66 @@ Positive deltas mean the added information helped on this data. With several --s
 
 | Attack | Precision | Recall | F1 |
 |---|---|---|---|
-| Acceleration Multiplication | 0.6933 | 0.5386 | 0.5998 |
-| Constant Position Offset | 0.8832 | 0.7644 | 0.8190 |
-| Constant Speed Offset | 0.9205 | 0.8916 | 0.9055 |
-| Data Replay | 0.8756 | 0.6846 | 0.7676 |
-| DoS | 0.9277 | 1.0000 | 0.9622 |
-| Feigned Braking | 0.7754 | 0.8311 | 0.7999 |
-| Position Mirroring | 0.8293 | 0.4405 | 0.5741 |
-| Random Position Offset | 0.9162 | 0.9766 | 0.9452 |
-| Random Speed Offset | 0.9114 | 0.9188 | 0.9148 |
-| Reversed Heading | 0.1267 | 0.0158 | 0.0276 |
-| Sudden Constant Speed | 0.5620 | 0.8519 | 0.6740 |
-| Sudden Stop | 0.7220 | 0.6599 | 0.6853 |
-| Time Delay | 0.1840 | 0.0218 | 0.0384 |
-| Traffic Congestion Sybil | 0.9743 | 0.9976 | 0.9858 |
-| Zero Speed Report | 0.9249 | 0.9522 | 0.9381 |
+| Acceleration Multiplication | 0.7973 | 0.7090 | 0.7494 |
+| Constant Position Offset | 0.9266 | 0.7673 | 0.8395 |
+| Constant Speed Offset | 0.9551 | 0.9073 | 0.9306 |
+| Data Replay | 0.9020 | 0.7075 | 0.7929 |
+| DoS | 0.9586 | 0.9999 | 0.9788 |
+| Feigned Braking | 0.8488 | 0.8648 | 0.8563 |
+| Position Mirroring | 0.8978 | 0.4399 | 0.5902 |
+| Random Position Offset | 0.9484 | 0.9788 | 0.9634 |
+| Random Speed Offset | 0.9460 | 0.9290 | 0.9375 |
+| Reversed Heading | 0.9463 | 0.9368 | 0.9415 |
+| Sudden Constant Speed | 0.6396 | 0.8457 | 0.7282 |
+| Sudden Stop | 0.8359 | 0.7879 | 0.8110 |
+| Time Delay | 0.1940 | 0.0129 | 0.0242 |
+| Traffic Congestion Sybil | 0.9866 | 0.9975 | 0.9920 |
+| Zero Speed Report | 0.9560 | 0.9589 | 0.9575 |
 
 ## Attack-wise F1, all models
 
 | Attack | RandomForest | XGBoost | GRU | GAT | RAVEN-X |
 |---|---|---|---|---|---|
-| Acceleration Multiplication | 0.7232 | 0.7715 | 0.6944 | 0.8316 | 0.5998 |
-| Constant Position Offset | 0.7208 | 0.7402 | 0.7884 | 0.7638 | 0.8190 |
-| Constant Speed Offset | 0.8605 | 0.8889 | 0.8763 | 0.9108 | 0.9055 |
-| Data Replay | 0.2992 | 0.2995 | 0.7420 | 0.2633 | 0.7676 |
-| DoS | 0.8952 | 0.9265 | 0.8974 | 0.9833 | 0.9622 |
-| Feigned Braking | 0.7071 | 0.8041 | 0.7274 | 0.8902 | 0.7999 |
-| Position Mirroring | 0.3382 | 0.3346 | 0.5855 | 0.3073 | 0.5741 |
-| Random Position Offset | 0.8912 | 0.9217 | 0.8920 | 0.9664 | 0.9452 |
-| Random Speed Offset | 0.8812 | 0.9054 | 0.8762 | 0.9358 | 0.9148 |
-| Reversed Heading | 0.0700 | 0.0573 | 0.0863 | 0.0090 | 0.0276 |
-| Sudden Constant Speed | 0.5131 | 0.5916 | 0.5072 | 0.7469 | 0.6740 |
-| Sudden Stop | 0.7637 | 0.8199 | 0.6912 | 0.7466 | 0.6853 |
-| Time Delay | 0.0814 | 0.0623 | 0.0732 | 0.0108 | 0.0384 |
-| Traffic Congestion Sybil | 0.9309 | 0.9159 | 0.8964 | 0.9933 | 0.9858 |
-| Zero Speed Report | 0.8924 | 0.9222 | 0.8830 | 0.9682 | 0.9381 |
+| Acceleration Multiplication | 0.7412 | 0.8149 | 0.7588 | 0.8299 | 0.7494 |
+| Constant Position Offset | 0.7498 | 0.7552 | 0.8140 | 0.7630 | 0.8395 |
+| Constant Speed Offset | 0.8900 | 0.9077 | 0.9092 | 0.9238 | 0.9306 |
+| Data Replay | 0.2882 | 0.2949 | 0.7757 | 0.2713 | 0.7929 |
+| DoS | 0.9284 | 0.9430 | 0.9244 | 0.9856 | 0.9788 |
+| Feigned Braking | 0.7627 | 0.8450 | 0.7818 | 0.8893 | 0.8563 |
+| Position Mirroring | 0.3299 | 0.3293 | 0.6230 | 0.2871 | 0.5902 |
+| Random Position Offset | 0.9286 | 0.9412 | 0.9229 | 0.9692 | 0.9634 |
+| Random Speed Offset | 0.9122 | 0.9245 | 0.9084 | 0.9392 | 0.9375 |
+| Reversed Heading | 0.9134 | 0.9239 | 0.9030 | 0.9483 | 0.9415 |
+| Sudden Constant Speed | 0.5904 | 0.6558 | 0.6028 | 0.7222 | 0.7282 |
+| Sudden Stop | 0.8268 | 0.8508 | 0.8057 | 0.7609 | 0.8110 |
+| Time Delay | 0.0554 | 0.0475 | 0.0492 | 0.0119 | 0.0242 |
+| Traffic Congestion Sybil | 0.9399 | 0.9138 | 0.9077 | 0.9941 | 0.9920 |
+| Zero Speed Report | 0.9281 | 0.9402 | 0.9204 | 0.9665 | 0.9575 |
 
 ## Risk decision policy (RAVEN-X)
 
-Fitted on validation: t_low = 0.024, t_high = 0.913, u_max = 0.1767 (reject precision ≥ 0.98, attack share among TRUST ≤ 0.02).
+Fitted on validation: t_low = 0.051, t_high = 0.934, u_max = 0.1795 (reject precision ≥ 0.98, attack share among TRUST ≤ 0.02).
 
 | decision | count | share | attack_rate_in_bucket | share_of_all_attacks | share_of_all_benign |
 |---|---|---|---|---|---|
-| TRUST | 74143 | 0.1054 | 0.0263 | 0.0140 | 0.1279 |
-| VERIFY | 524227 | 0.7451 | 0.0675 | 0.2547 | 0.8658 |
-| REJECT | 105150 | 0.1495 | 0.9662 | 0.7312 | 0.0063 |
+| TRUST | 419966 | 0.5969 | 0.0246 | 0.0745 | 0.7255 |
+| VERIFY | 166636 | 0.2369 | 0.0986 | 0.1183 | 0.2660 |
+| REJECT | 116918 | 0.1662 | 0.9593 | 0.8072 | 0.0084 |
 
 Fixed initial levels (TRUST < 0.30, REJECT ≥ 0.80, no uncertainty):
 
 | decision | count | share | attack_rate_in_bucket | share_of_all_attacks | share_of_all_benign |
 |---|---|---|---|---|---|
-| TRUST | 576371 | 0.8193 | 0.0511 | 0.2120 | 0.9687 |
-| VERIFY | 15464 | 0.0220 | 0.2808 | 0.0313 | 0.0197 |
-| REJECT | 111685 | 0.1588 | 0.9415 | 0.7568 | 0.0116 |
+| TRUST | 563955 | 0.8016 | 0.0353 | 0.1431 | 0.9637 |
+| VERIFY | 14235 | 0.0202 | 0.2094 | 0.0215 | 0.0199 |
+| REJECT | 125330 | 0.1781 | 0.9262 | 0.8354 | 0.0164 |
 
 ## Uncertainty vs error (RAVEN-X, test, quintiles of uncertainty)
 
 | quintile | mean_uncertainty | error_rate | n |
 |---|---|---|---|
-| Q1 | 0.0311 | 0.0113 | 140704 |
-| Q2 | 0.0579 | 0.0416 | 140704 |
-| Q3 | 0.0837 | 0.0476 | 140704 |
-| Q4 | 0.1213 | 0.0590 | 140704 |
-| Q5 | 0.2709 | 0.1408 | 140704 |
+| Q1 | 0.0228 | 0.0072 | 140704 |
+| Q2 | 0.0381 | 0.0251 | 140704 |
+| Q3 | 0.0564 | 0.0313 | 140704 |
+| Q4 | 0.0893 | 0.0471 | 140704 |
+| Q5 | 0.2640 | 0.1143 | 140704 |
