@@ -39,7 +39,7 @@ def main():
     p = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     add_data_args(p)
     add_train_args(p)
-    p.add_argument("--pair-models", nargs="*", default=["XGBoost", "RAVEN-X"],
+    p.add_argument("--pair-models", nargs="*", default=["XGBoost", "RAVEN-X", "RAVEN-X-GF"],
                    help="models for the scenario-pair matrix (test 3)")
     p.add_argument("--skip-pairs", action="store_true")
     p.add_argument("--out", default="results/cross_scenario")
