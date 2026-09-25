@@ -31,17 +31,26 @@ from ravenx.config import ATTACKS  # noqa: E402
 RECORD = "https://zenodo.org/records/19665762/files"
 
 
-def download(url, dest, retries=4):
+def download(url, dest, retries=6):
+    """Download to ``dest`` and verify it is a complete zip archive. Zenodo
+    sometimes closes the connection early without an error, so the size is
+    checked against Content-Length and the archive is opened before use."""
     for i in range(retries):
         try:
             with urllib.request.urlopen(url, timeout=120) as r, open(dest, "wb") as f:
+                expected = int(r.headers.get("Content-Length", 0))
                 shutil.copyfileobj(r, f, length=1 << 22)
+            got = Path(dest).stat().st_size
+            if expected and got != expected:
+                raise IOError(f"truncated: {got} of {expected} bytes")
+            if not zipfile.is_zipfile(dest):
+                raise IOError("not a valid zip archive")
             return
         except Exception as e:  # noqa: BLE001
             if i == retries - 1:
                 raise
             wait = 2 ** (i + 1)
-            print(f"    download failed ({e}); retrying in {wait}s")
+            print(f"    download failed ({e}); retrying in {wait}s", flush=True)
             time.sleep(wait)
 
 
@@ -85,7 +94,13 @@ def main():
         t0 = time.time()
         download(f"{RECORD}/{stem}.zip?download=1", tmp)
         size = tmp.stat().st_size / 2 ** 20
-        kept, total = extract_sample(tmp, out, args.fraction, args.seed)
+        # extract into a scratch folder and rename at the end, so an
+        # interrupted run never leaves a half-extracted attack behind
+        scratch = out / f".partial_{stem}"
+        shutil.rmtree(scratch, ignore_errors=True)
+        kept, total = extract_sample(tmp, scratch, args.fraction, args.seed)
+        (scratch / stem).rename(out / stem)
+        shutil.rmtree(scratch)
         tmp.unlink()
         print(f"{stem}: {size:.0f} MB, kept {kept}/{total} receiver files "
               f"({time.time() - t0:.0f}s)", flush=True)
