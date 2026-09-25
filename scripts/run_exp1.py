@@ -101,7 +101,7 @@ def main():
             rows.append({"Model": name, "Seed": seed, **m})
             r_te, u_te = res["test"]
             # attack-wise: each NextGen subset holds one attack type plus benign traffic
-            for atk, sub in data.steps.iloc[te].groupby("attack_type").indices.items():
+            for atk, sub in data.steps.iloc[te].groupby("attack_type", observed=True).indices.items():
                 mm = detection_metrics(y_te[sub], r_te[sub], res["threshold"])
                 attack_rows.append({"Attack": ATTACK_NAMES.get(atk, atk), "Model": name, "Seed": seed,
                                     "Precision": mm["Precision"], "Recall": mm["Recall"],
@@ -109,7 +109,7 @@ def main():
                                     "attack_steps": int(y_te[sub].sum()), "steps": len(sub)})
             if res.get("test_gates") is not None:
                 g = res["test_gates"]
-                for atk, sub in data.steps.iloc[te].groupby("attack_type").indices.items():
+                for atk, sub in data.steps.iloc[te].groupby("attack_type", observed=True).indices.items():
                     for lab in (0, 1):
                         s = sub[y_te[sub] == lab]
                         if len(s):

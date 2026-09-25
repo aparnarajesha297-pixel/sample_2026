@@ -13,7 +13,7 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 
-from .config import ATTACKS, BIN_SECONDS, FEATURES, NEIGHBOR_RADIUS, SEQ_LEN
+from .config import ATTACKS, BIN_SECONDS, FEATURES, MAX_NEIGHBORS, NEIGHBOR_RADIUS, SEQ_LEN
 from .features import Normalizer, build_steps, build_windows
 from .graph import Graph, build_graph, graph_stats
 
@@ -41,7 +41,7 @@ class StepData:
         return np.where(m)[0]
 
 
-def prepare(msgs: pd.DataFrame, bin_s=BIN_SECONDS, radius=NEIGHBOR_RADIUS,
+def prepare(msgs: pd.DataFrame, bin_s=BIN_SECONDS, radius=NEIGHBOR_RADIUS, max_neighbors=MAX_NEIGHBORS,
             T=SEQ_LEN, fit_split="train", verbose=True) -> StepData:
     t0 = time.time()
     steps = build_steps(msgs, bin_s)
@@ -53,7 +53,7 @@ def prepare(msgs: pd.DataFrame, bin_s=BIN_SECONDS, radius=NEIGHBOR_RADIUS,
     rows = np.nonzero(valid)[0]
     assert (split[win[valid]] == split[rows]).all(), "temporal leakage across splits"
     assert (stream[win[valid]] == stream[rows]).all(), "window crosses streams"
-    graph, group = build_graph(steps, radius)
+    graph, group = build_graph(steps, radius, max_neighbors)
     assert (split[graph.src] == split[graph.dst]).all(), "graph edge crosses splits"
 
     X_raw = steps[FEATURES].values.astype(np.float32)
@@ -89,6 +89,8 @@ def add_data_args(p: argparse.ArgumentParser):
     g.add_argument("--observers", type=int, default=8, help="synthetic only: receivers logged")
     g.add_argument("--bin", type=float, default=BIN_SECONDS, help="step / snapshot length (s)")
     g.add_argument("--radius", type=float, default=NEIGHBOR_RADIUS, help="neighbour radius (m)")
+    g.add_argument("--max-neighbors", type=int, default=MAX_NEIGHBORS,
+                   help="keep each vehicle's k nearest neighbours within the radius (0 = no cap)")
     g.add_argument("--seq-len", type=int, default=SEQ_LEN, help="T, window length")
     g.add_argument("--cache", type=str, default="cache", help="cache folder ('' disables)")
     g.add_argument("--seed", type=int, default=0)
@@ -121,7 +123,7 @@ def load_messages(args) -> pd.DataFrame:
 def load_data(args, verbose=True) -> tuple[pd.DataFrame, StepData]:
     """Messages + prepared steps, cached on disk by the data arguments."""
     keys = ["data", "root", "attacks", "scenarios", "density_map", "max_files",
-            "duration", "observers", "bin", "radius", "seq_len", "seed"]
+            "duration", "observers", "bin", "radius", "max_neighbors", "seq_len", "seed"]
     sig = json.dumps({**{k: getattr(args, k) for k in keys}, "features": FEATURES},
                      sort_keys=True, default=str)
     h = hashlib.md5(sig.encode()).hexdigest()[:12]
@@ -132,7 +134,8 @@ def load_data(args, verbose=True) -> tuple[pd.DataFrame, StepData]:
         with open(path, "rb") as f:
             return pickle.load(f)
     msgs = load_messages(args)
-    data = prepare(msgs, args.bin, args.radius, args.seq_len, verbose=verbose)
+    data = prepare(msgs, args.bin, args.radius, args.max_neighbors or None, args.seq_len,
+                   verbose=verbose)
     if path is not None:
         path.parent.mkdir(parents=True, exist_ok=True)
         with open(path, "wb") as f:
@@ -144,9 +147,9 @@ def dataset_summary(msgs: pd.DataFrame, data: StepData) -> dict:
     """Checkpoint numbers from plan phases 1, 2 and 5."""
     out = {
         "messages": int(len(msgs)),
-        "unique_vehicles(sender_id per run)": int(msgs.groupby("run")["sender_id"].nunique().sum()),
-        "unique_pseudonyms(alias per run)": int(msgs.groupby("run")["alias"].nunique().sum()),
-        "attacker_vehicles": int(msgs[msgs["attacker"] == 1].groupby("run")["sender_id"].nunique().sum()),
+        "unique_vehicles(sender_id per run)": int(msgs.groupby("run", observed=True)["sender_id"].nunique().sum()),
+        "unique_pseudonyms(alias per run)": int(msgs.groupby("run", observed=True)["alias"].nunique().sum()),
+        "attacker_vehicles": int(msgs[msgs["attacker"] == 1].groupby("run", observed=True)["sender_id"].nunique().sum()),
         "attack_messages": int((msgs["attacker"] == 1).sum()),
         "normal_messages": int((msgs["attacker"] == 0).sum()),
         "attack_percentage": float(100 * msgs["attacker"].mean()),
@@ -166,7 +169,7 @@ def dataset_summary(msgs: pd.DataFrame, data: StepData) -> dict:
         "mean_avg_neighbors": float(gs["avg_neighbors"].mean()),
         "max_neighbors": int(gs["max_neighbors"].max()),
     }
-    per_attack = (msgs.groupby("attack_type")["attacker"]
+    per_attack = (msgs.groupby("attack_type", observed=True)["attacker"]
                   .agg(messages="size", attack_messages="sum", attack_rate="mean"))
     out["per_attack"] = per_attack.reset_index().to_dict(orient="records")
     return out

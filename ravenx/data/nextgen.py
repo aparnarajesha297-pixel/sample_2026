@@ -130,7 +130,7 @@ def load_nextgen(root: str | Path,
         raise FileNotFoundError(f"No .json files under {root}")
 
     per_subset: dict[tuple, int] = {}
-    frames = []
+    frames, metas = [], []
     for f in files:
         meta = parse_path_meta(f, root)
         if meta["split"] is None:
@@ -151,21 +151,32 @@ def load_nextgen(root: str | Path,
         df = _flatten(_read_messages(f))
         if df.empty:
             continue
+        # compact per-file columns; metadata is attached once, after concat
+        df["rcv_time"] = _to_seconds(df["rcv_time"])
+        df["send_time"] = _to_seconds(df["send_time"])
+        df["alias"] = df["alias"].astype(str)
+        df["attacker"] = pd.to_numeric(df["attacker"], errors="coerce").fillna(0).astype(np.int8)
+        for c in ("spd", "hed", "acl", "rx_spd", "rx_hed", "road_edge"):
+            df[c] = df[c].astype(np.float32)
         run = f"{meta['scenario']}/{meta['attack_type']}/{meta['split']}"
-        df["run"] = run
         # One NextGen file = one receiving vehicle's log.
-        df["receiver"] = f"{run}/{f.stem}"
-        for k, v in meta.items():
-            df[k] = v
+        metas.append({**meta, "run": run, "receiver": f"{run}/{f.stem}"})
         frames.append(df)
 
     if not frames:
         raise ValueError("No files matched the requested filters")
+    sizes = np.array([len(df) for df in frames])
     msgs = pd.concat(frames, ignore_index=True)
-    msgs["rcv_time"] = _to_seconds(msgs["rcv_time"])
-    msgs["send_time"] = _to_seconds(msgs["send_time"])
-    msgs["alias"] = msgs["alias"].astype(str)
-    msgs["attacker"] = pd.to_numeric(msgs["attacker"], errors="coerce").fillna(0).astype(int)
+    del frames
+    # metadata as categoricals: one small code array per column, not one
+    # Python string per message
+    for key in ("run", "receiver", "split", "attack_type", "scenario", "road", "density"):
+        values = pd.Series([mt[key] for mt in metas], dtype="object")
+        codes, cats = pd.factorize(values, sort=True)
+        msgs[key] = pd.Categorical.from_codes(np.repeat(codes, sizes), categories=cats)
+    for key in ("alias", "sender_id", "profile"):
+        msgs[key] = msgs[key].astype("category")
+    msgs["attacker"] = msgs["attacker"].astype(int)
     if verbose:
-        print(f"Loaded {len(msgs):,} messages from {len(frames)} files")
+        print(f"Loaded {len(msgs):,} messages from {len(sizes)} files")
     return msgs

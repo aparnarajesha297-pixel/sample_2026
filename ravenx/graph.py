@@ -16,7 +16,7 @@ import numpy as np
 import pandas as pd
 from scipy.spatial import cKDTree
 
-from .config import NEIGHBOR_RADIUS
+from .config import MAX_NEIGHBORS, NEIGHBOR_RADIUS
 
 
 class Graph:
@@ -65,14 +65,21 @@ class Graph:
         return nodes, loc_src, loc_dst, e, loc_t
 
 
-def build_graph(steps: pd.DataFrame, radius: float = NEIGHBOR_RADIUS):
+def build_graph(steps: pd.DataFrame, radius: float = NEIGHBOR_RADIUS,
+                max_neighbors: int | None = MAX_NEIGHBORS):
     """Build edges between steps sharing a (receiver, bin) snapshot.
 
     All snapshots go into one KD-tree: each snapshot is shifted along x by
-    more than the whole coordinate span plus the radius, so a radius query
-    can only ever pair nodes of the same snapshot.
+    more than the whole coordinate span plus the radius, so a query can only
+    ever pair nodes of the same snapshot.
+
+    With ``max_neighbors`` = k, each vehicle receives edges from at most its
+    k nearest neighbours within ``radius`` (a k-NN graph capped by distance).
+    Dense traffic (NextGen highway_7 averages 60 vehicles per snapshot)
+    otherwise gives ~35 neighbours per vehicle and ~100M edges. ``None``
+    keeps every pair within the radius.
     """
-    g = steps.groupby(["receiver", "bin"], sort=False).ngroup().values
+    g = steps.groupby(["receiver", "bin"], sort=False, observed=True).ngroup().values
     n = len(steps)
     x = steps["x"].values.astype(np.float64)
     y = steps["y"].values.astype(np.float64)
@@ -82,12 +89,21 @@ def build_graph(steps: pd.DataFrame, radius: float = NEIGHBOR_RADIUS):
     if n > 1:
         shift = (np.nanmax(x) - np.nanmin(x)) + 2 * radius + 1.0
         pts = np.stack([x - np.nanmin(x) + g * shift, y], axis=1)
-        pairs = cKDTree(pts).query_pairs(radius, output_type="ndarray")
-        pairs = pairs[g[pairs[:, 0]] == g[pairs[:, 1]]]      # belt and braces
+        tree = cKDTree(pts)
+        if max_neighbors is None:
+            pairs = tree.query_pairs(radius, output_type="ndarray")
+            src = np.concatenate([pairs[:, 0], pairs[:, 1]])
+            dst = np.concatenate([pairs[:, 1], pairs[:, 0]])
+        else:
+            # k + 1 because the nearest hit is the node itself
+            d, nb = tree.query(pts, k=max_neighbors + 1, distance_upper_bound=radius)
+            dst = np.repeat(np.arange(n), max_neighbors + 1).reshape(n, -1)
+            ok = np.isfinite(d) & (nb != dst)
+            src, dst = nb[ok].astype(np.int64), dst[ok].astype(np.int64)
+        keep = g[src] == g[dst]                                # belt and braces
+        src, dst = src[keep], dst[keep]
     else:
-        pairs = np.zeros((0, 2), dtype=np.int64)
-    src = np.concatenate([pairs[:, 0], pairs[:, 1]])
-    dst = np.concatenate([pairs[:, 1], pairs[:, 0]])
+        src = dst = np.zeros(0, dtype=np.int64)
 
     dist = np.hypot(x[src] - x[dst], y[src] - y[dst])
     eattr = np.stack([

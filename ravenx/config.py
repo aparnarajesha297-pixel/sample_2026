@@ -76,4 +76,5 @@ SPLITS = ("train", "val", "test")
 # Defaults (all overridable from the command line).
 BIN_SECONDS = 1.0      # length of one graph snapshot / one observation step
 NEIGHBOR_RADIUS = 150.0  # metres; edge if reported positions are closer than this
+MAX_NEIGHBORS = 10       # at most this many nearest neighbours per vehicle
 SEQ_LEN = 10           # T in the plan (t1 ... t10)

@@ -109,7 +109,7 @@ def partition_rsus(data, train_idx, n_rsus, how="spatial", seed=0):
               non-IID)
     """
     st = data.steps.iloc[train_idx]
-    rec = st.groupby("receiver").agg(x=("x", "mean"), y=("y", "mean"),
+    rec = st.groupby("receiver", observed=True).agg(x=("x", "mean"), y=("y", "mean"),
                                      attack=("attack_type", "first"))
     rng = np.random.default_rng(seed)
     if how == "spatial":
