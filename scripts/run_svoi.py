@@ -89,6 +89,9 @@ def main():
     ap.add_argument("--batch-size", type=int, default=256)
     ap.add_argument("--lr", type=float, default=1e-3)
     ap.add_argument("--quiet", action="store_true")
+    ap.add_argument("--evidence", nargs="*", default=list(svoi.EVIDENCE), choices=list(svoi.EVIDENCE),
+                    help="evidence actions SVoI may use; 'a1' alone = real passive observation only")
+    ap.add_argument("--policies", nargs="*", default=POLICIES, choices=POLICIES)
     ap.add_argument("--out", default="results/svoi")
     args = ap.parse_args()
     out = Path(args.out); out.mkdir(parents=True, exist_ok=True)
@@ -115,7 +118,8 @@ def main():
     grid = svoi.BeliefGrid.fit(p_va, u_va, args.p_bins, args.u_bins)
     P = {"a1": svoi.passive_transitions(grid, p_va, u_va, st["stream"].values[va], args.n_min)[0]}
     for a, r in svoi.DEFAULT_RHO.items():
-        P[a] = svoi.check_transitions(grid, r)
+        if a in args.evidence:
+            P[a] = svoi.check_transitions(grid, r)
     H_max = max(args.horizons)
     policy = svoi.solve(grid, P, svoi.DEFAULT_COST, H_max, args.C_FA, args.C_FR, args.gamma)
     boundary = args.C_FR / (args.C_FA + args.C_FR)
@@ -133,7 +137,7 @@ def main():
     print(f"Replaying {len(starts):,} test episodes per policy and horizon")
     rows, hist = [], []
     for H in args.horizons:
-        for name in POLICIES:
+        for name in args.policies:
             ep = evaluate(policy, p_te, u_te, y_te, stream, pos, starts, H, MODE[name], args.seed)
             r = {"H": H, "Policy": name, **summarise(ep)}
             rows.append(r)
@@ -150,7 +154,7 @@ def main():
     # F1 vs evidence cost, one point per (policy, horizon)
     import matplotlib.pyplot as plt
     fig, ax = plt.subplots(figsize=(6, 4.2))
-    for name in POLICIES:
+    for name in args.policies:
         d = res[res.Policy == name]
         ax.plot(d["Evidence cost"], d["F1"], "o-", label=name)
     ax.set_xlabel("mean evidence cost per vehicle"); ax.set_ylabel("F1 of final decisions")
@@ -163,7 +167,8 @@ def main():
     md = [f"# SVoI controller ({args.data} data)", "",
           f"Detector {args.model}, temperature T = {T:.3f} fitted on validation (single-step PR-AUC "
           f"of the calibrated belief on test: {single_pr:.4f}). Costs: C_FA = {args.C_FA:g}, "
-          f"C_FR = {args.C_FR:g}; evidence a1..a4 = 1 / 2 / 3 / 5; check reliabilities "
+          f"C_FR = {args.C_FR:g}; SVoI evidence actions: {', '.join(args.evidence)}; "
+          f"costs a1..a4 = 1 / 2 / 3 / 5; check reliabilities "
           f"a2..a4 = 0.80 / 0.90 / 0.99 (assumed); gamma = {args.gamma:g}; criticality K = 1. "
           f"Grid, p(b), transitions and the policy are fitted on validation; "
           f"{len(starts):,} test episodes per row.", "",
