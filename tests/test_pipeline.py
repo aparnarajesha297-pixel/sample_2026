@@ -237,3 +237,60 @@ def test_rs_weightedtrim_resists_poisoned_updates():
         out = agg(U, w)
     assert out.mean() > 0.8
     assert all(W.max() <= 2.0 / 20 + 1e-12 for W in agg.weights)
+
+
+# ---------------------------------------------------------------------------
+# SVoI controller
+# ---------------------------------------------------------------------------
+
+def _small_svoi(seed=0, n_p=6, n_u=2):
+    from ravenx import svoi
+    rng = np.random.default_rng(seed)
+    # two-humped like real detector beliefs: mostly near 0, a fifth near 1
+    p = np.where(rng.random(4000) < 0.8, rng.beta(0.5, 8, 4000), rng.beta(8, 0.5, 4000))
+    u = rng.uniform(0.02, 0.3, 4000)
+    grid = svoi.BeliefGrid.fit(p, u, n_p, n_u)
+    stream = np.repeat(np.arange(400), 10)
+    P = {"a1": svoi.passive_transitions(grid, p, u, stream, n_min=5)[0]}
+    for a, r in svoi.DEFAULT_RHO.items():
+        P[a] = svoi.check_transitions(grid, r)
+    return svoi, grid, P
+
+
+def test_svoi_transition_rows_sum_to_one():
+    svoi, grid, P = _small_svoi()
+    for M in P.values():
+        assert np.allclose(M.sum(1), 1.0) and (M >= 0).all()
+
+
+def test_svoi_solution_matches_bruteforce_expectimax():
+    svoi, grid, P = _small_svoi()
+    cost = svoi.DEFAULT_COST
+    pol = svoi.solve(grid, P, cost, H_max=3, C_FA=100, C_FR=20)
+    for h in (1, 2, 3):
+        for s in range(grid.n_states):
+            assert np.isclose(pol.V[h, s], svoi.expectimax(grid, P, cost, h, s, 100, 20))
+
+
+def test_svoi_one_step_rule_corollary():
+    svoi, grid, P = _small_svoi()
+    cost = svoi.DEFAULT_COST
+    pol = svoi.solve(grid, P, cost, H_max=1, C_FA=100, C_FR=20)
+    acc, rej = svoi.stop_costs(grid.p_value, 100, 20)
+    c_stop = np.minimum(acc, rej)
+    one_step = np.min(np.vstack([c_stop] + [cost[a] + P[a] @ c_stop for a in P]), axis=0)
+    assert np.allclose(pol.V[1], one_step)
+
+
+def test_svoi_cost_scale_matters():
+    """With C_FA=5, C_FR=1 the stopping cost never exceeds 5/6 < Cost(a1) = 1,
+    so evidence is never bought; with C_FA=100, C_FR=20 it is bought near the
+    decision boundary p = C_FR / (C_FA + C_FR)."""
+    svoi, grid, P = _small_svoi()
+    small = svoi.solve(grid, P, svoi.DEFAULT_COST, H_max=3, C_FA=5, C_FR=1)
+    assert all(small.actions[i] in ("accept", "reject") for i in np.unique(small.action))
+    big = svoi.solve(grid, P, svoi.DEFAULT_COST, H_max=3, C_FA=100, C_FR=20)
+    chosen = {big.actions[i] for i in np.unique(big.action[3])}
+    assert chosen & set(svoi.EVIDENCE)
+    # far from the boundary the policy stops
+    assert big.decide(0.001, 0.05, 3) == "accept" and big.decide(0.999, 0.05, 3) == "reject"
