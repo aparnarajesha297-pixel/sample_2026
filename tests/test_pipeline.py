@@ -145,3 +145,95 @@ def test_temperature_scaling_recovers_known_temperature():
     assert abs(T - 3.0) < 0.15
     p, _ = probs(z, T, "softmax")
     assert ece(y, p) < ece(y, probs(z, 1.0, "softmax")[0])
+
+
+# ---------------------------------------------------------------------------
+# RS-WeightedTrim (capped-simplex weights + weighted trimmed mean)
+# ---------------------------------------------------------------------------
+
+def _guide_projection(raw_scores, kappa):
+    """Line-by-line port of the reference code in the SVoI/RS-WeightedTrim guide."""
+    n = len(raw_scores)
+    cap = kappa / n
+    W = raw_scores / raw_scores.sum()
+    uncapped = set(range(n))
+    while True:
+        over = [i for i in uncapped if W[i] > cap]
+        if not over:
+            break
+        excess = sum(W[i] - cap for i in over)
+        for i in over:
+            W[i] = cap
+            uncapped.discard(i)
+        if uncapped:
+            total_uncapped = sum(W[i] for i in uncapped)
+            for i in uncapped:
+                W[i] += excess * (W[i] / total_uncapped)
+    return W
+
+
+def _guide_aggregate(client_params, W, beta_trim):
+    n = len(client_params)
+    trim_k = int(np.ceil(beta_trim * n))
+    out = np.zeros(client_params.shape[1])
+    for j in range(client_params.shape[1]):
+        col = client_params[:, j]
+        order = np.argsort(col, kind="stable")
+        surv = order[trim_k:n - trim_k]
+        w = W[surv] / W[surv].sum()
+        out[j] = np.dot(w, col[surv])
+    return out
+
+
+def test_capped_simplex_projection_cap_and_sum():
+    from ravenx.federated import capped_simplex_projection
+    rng = np.random.default_rng(0)
+    for trial in range(300):
+        n = int(rng.integers(3, 40))
+        kappa = float(rng.choice([1.0, 1.5, 2.0, 3.0]))
+        raw = rng.lognormal(0, 2, n)                  # heavy-tailed: some huge scores
+        W = capped_simplex_projection(raw, kappa)
+        assert abs(W.sum() - 1) < 1e-9
+        assert W.max() <= kappa / n + 1e-12
+        assert np.allclose(W, _guide_projection(raw.copy(), kappa), atol=1e-12)
+    # kappa = 1 forces exactly equal weights
+    assert np.allclose(capped_simplex_projection(np.array([100., 1, 1, 1]), 1.0), 0.25)
+    # uncapped RSUs keep their relative proportions
+    W = capped_simplex_projection(np.array([100., 1, 2, 3, 4]), 2.0)
+    assert np.isclose(W[0], 0.4) and np.allclose(W[1:] / W[1], [1, 2, 3, 4])
+    # zero-score RSUs: weights still valid (guide's loop would divide by zero)
+    W = capped_simplex_projection(np.array([5., 5, 0, 0, 0, 0, 0, 0, 0, 0]), 1.0)
+    assert abs(W.sum() - 1) < 1e-9 and W.max() <= 0.1 + 1e-12
+
+
+def test_weighted_trimmed_mean_matches_guide_and_trims_outlier():
+    from ravenx.federated import capped_simplex_projection, weighted_trimmed_mean
+    rng = np.random.default_rng(1)
+    U = rng.normal(0, 1, (20, 50))
+    W = capped_simplex_projection(rng.uniform(0.1, 5, 20), 2.0)
+    assert np.allclose(weighted_trimmed_mean(U, W, 0.2), _guide_aggregate(U, W, 0.2))
+    # one wildly extreme RSU with the largest weight is trimmed out entirely
+    honest = rng.normal(1.0, 0.1, (19, 30))
+    U = np.vstack([honest, np.full((1, 30), 1e6)])
+    W = capped_simplex_projection(np.r_[np.ones(19), 1000.0], 2.0)
+    out = weighted_trimmed_mean(U, W, 0.2)
+    assert np.all(np.abs(out - 1.0) < 0.2)
+    # renormalisation is over survivors only: with equal weights it is the
+    # ordinary trimmed mean, not a mean shrunk by the trimmed share
+    U = rng.normal(3.0, 1.0, (10, 5))
+    k = 2
+    ref = np.sort(U, axis=0)[k:10 - k].mean(axis=0)
+    assert np.allclose(weighted_trimmed_mean(U, np.full(10, 0.1), 0.2), ref)
+
+
+def test_rs_weightedtrim_resists_poisoned_updates():
+    from ravenx.federated import RSWeightedTrim
+    rng = np.random.default_rng(2)
+    honest = rng.normal(1.0, 0.1, (16, 40))
+    bad = -20 * np.ones((4, 40))                     # 4 of 20 malicious (f/n = 0.2)
+    U = np.vstack([honest, bad]); w = np.ones(20)
+    agg = RSWeightedTrim(20, kappa=2.0, beta_trim=0.2)
+    for _ in range(3):
+        out = agg(U, w)
+    assert out.mean() > 0.8
+    assert all(W.max() <= 2.0 / 20 + 1e-12 for W in agg.weights)
