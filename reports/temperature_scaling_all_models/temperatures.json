@@ -1,0 +1,9 @@
+{
+  "GRU [softmax]": 1.0414549867434966,
+  "GAT [softmax]": 1.0468086848270441,
+  "GAT+GRU [softmax]": 1.0450553900587056,
+  "RAVEN-X [evidential]": 0.9185761879403948,
+  "RAVEN-X [softmax]": 14.774409048733384,
+  "RAVEN-X-GF [evidential]": 0.7308279170551337,
+  "RAVEN-X-GF [softmax]": 13.994794043695833
+}
