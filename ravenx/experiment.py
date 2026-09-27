@@ -92,7 +92,7 @@ def to_markdown(df: pd.DataFrame, index=True) -> str:
     d = df.reset_index() if index else df
     cols = [str(c) for c in d.columns]
     lines = ["| " + " | ".join(cols) + " |", "|" + "|".join("---" for _ in cols) + "|"]
-    for _, r in d.iterrows():
+    for _, r in d.astype(object).iterrows():          # keep ints as ints
         cells = [f"{float(v):.4f}" if isinstance(v, (float, np.floating)) else str(v) for v in r.values]
         lines.append("| " + " | ".join(cells) + " |")
     return "\n".join(lines)

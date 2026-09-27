@@ -56,6 +56,30 @@ def evaluate(policy, p, u, y, stream, pos, starts, H, mode, seed):
     return pd.DataFrame(rows)
 
 
+def sequential_table(ep, H):
+    """Row 12: cumulative detection quality over the vehicles decided after at
+    most k observations, the share decided by k, and what the vehicles
+    decided exactly at k look like."""
+    rows = []
+    for k in range(1, H + 2):
+        cum = ep[ep.observations <= k]
+        at = ep[ep.observations == k]
+        if len(cum) == 0 or (len(at) == 0 and len(cum) == len(ep)):
+            continue
+        s = summarise(cum)
+        neg = cum[cum.label == 0]
+        rows.append({
+            "Observations": k,
+            "Decided (%)": 100 * len(cum) / len(ep),
+            "F1": s["F1"], "Recall": s["Recall"], "Precision": s["Precision"],
+            "False-positive rate": float(neg.reject.mean()) if len(neg) else float("nan"),
+            "Decided at k": int(len(at)),
+            "Attack rate at k": float(at.label.mean()) if len(at) else float("nan"),
+            "F1 at k": summarise(at)["F1"] if len(at) else float("nan"),
+        })
+    return pd.DataFrame(rows)
+
+
 def summarise(ep):
     tp = int(((ep.reject == 1) & (ep.label == 1)).sum())
     fp = int(((ep.reject == 1) & (ep.label == 0)).sum())
@@ -135,7 +159,7 @@ def main():
     stream, pos = st["stream"].values[te], st["pos_in_stream"].values[te]
     starts = np.flatnonzero(pos % args.stride == 0)
     print(f"Replaying {len(starts):,} test episodes per policy and horizon")
-    rows, hist = [], []
+    rows, hist, svoi_eps = [], [], {}
     for H in args.horizons:
         for name in args.policies:
             ep = evaluate(policy, p_te, u_te, y_te, stream, pos, starts, H, MODE[name], args.seed)
@@ -143,6 +167,7 @@ def main():
             rows.append(r)
             if name == "SVoI":
                 hist.append(ep.observations.value_counts().sort_index().rename(f"H={H}"))
+                svoi_eps[H] = ep
             print(f"  H={H} {name:14s} F1 {r['F1']:.4f}  total cost {r['Total cost']:.3f}  "
                   f"evidence {r['Evidence cost']:.3f}  obs {r['Observations']:.2f}")
     res = pd.DataFrame(rows)
@@ -150,6 +175,19 @@ def main():
     decided = pd.concat(hist, axis=1).fillna(0).astype(int)
     decided.index.name = "observations used"
     decided.to_csv(out / "svoi_observations_used.csv")
+
+    # row 12: how the SVoI controller behaves step by step (largest horizon)
+    seq = sequential_table(svoi_eps[H_max], H_max) if "SVoI" in args.policies else None
+    if seq is not None:
+        seq.to_csv(out / "svoi_sequential.csv", index=False)
+        for metric, fname in (("F1", "seq_f1"), ("Recall", "seq_recall"), ("Precision", "seq_precision"),
+                              ("False-positive rate", "seq_fpr")):
+            plots.line_plot(seq["Observations"], {metric: seq[metric]}, "observations used (k)",
+                            f"{metric} of vehicles decided by k",
+                            f"SVoI, H = {H_max}: {metric} vs observations", out / f"{fname}.png")
+        plots.line_plot(seq["Observations"], {"decided": seq["Decided (%)"]}, "observations used (k)",
+                        "vehicles decided (%)", f"SVoI, H = {H_max}: share decided by k",
+                        out / "seq_decided.png")
 
     # F1 vs evidence cost, one point per (policy, horizon)
     import matplotlib.pyplot as plt
@@ -175,6 +213,12 @@ def main():
           "Lower total cost is better (evidence spent + cost of wrong decisions).", "",
           to_markdown(res[cols], index=False), "",
           "## SVoI: vehicles decided after k observations", "", to_markdown(decided), ""]
+    if seq is not None:
+        md += [f"## SVoI step by step (H = {H_max}; row 12)", "",
+               "Cumulative over vehicles decided after at most k observations; "
+               "'Decided at k' are vehicles whose decision used exactly k observations, and the "
+               "attack rate / F1 of that group show how hard those cases were.", "",
+               to_markdown(seq, index=False), ""]
     if args.data == "synthetic":
         md.insert(1, "> Synthetic data: pipeline check only, not a result.\n")
     (out / "report.md").write_text("\n".join(md))

@@ -1,6 +1,6 @@
 # SVoI controller (nextgen data)
 
-Detector RAVEN-X-GF, temperature T = 0.778 fitted on validation (single-step PR-AUC of the calibrated belief on test: 0.9204). Costs: C_FA = 100, C_FR = 20; evidence a1..a4 = 1 / 2 / 3 / 5; check reliabilities a2..a4 = 0.80 / 0.90 / 0.99 (assumed); gamma = 1; criticality K = 1. Grid, p(b), transitions and the policy are fitted on validation; 123,620 test episodes per row.
+Detector RAVEN-X-GF, temperature T = 0.778 fitted on validation (single-step PR-AUC of the calibrated belief on test: 0.9204). Costs: C_FA = 100, C_FR = 20; SVoI evidence actions: a1, a2, a3, a4; costs a1..a4 = 1 / 2 / 3 / 5; check reliabilities a2..a4 = 0.80 / 0.90 / 0.99 (assumed); gamma = 1; criticality K = 1. Grid, p(b), transitions and the policy are fitted on validation; 123,620 test episodes per row.
 
 Lower total cost is better (evidence spent + cost of wrong decisions).
 
@@ -36,3 +36,15 @@ Lower total cost is better (evidence spent + cost of wrong decisions).
 | 3 | 0 | 0 | 6414 | 3488 |
 | 4 | 0 | 0 | 0 | 1477 |
 | 5 | 0 | 0 | 0 | 2495 |
+
+## SVoI step by step (H = 5; row 12)
+
+Cumulative over vehicles decided after at most k observations; 'Decided at k' are vehicles whose decision used exactly k observations, and the attack rate / F1 of that group show how hard those cases were.
+
+| Observations | Decided (%) | F1 | Recall | Precision | False-positive rate | Decided at k | Attack rate at k | F1 at k |
+|---|---|---|---|---|---|---|---|---|
+| 1 | 72.2796 | 0.9678 | 0.9848 | 0.9515 | 0.0572 | 89352 | 0.5325 | 0.9678 |
+| 2 | 93.9654 | 0.9505 | 0.9804 | 0.9222 | 0.0643 | 26808 | 0.1216 | 0.7415 |
+| 3 | 96.7869 | 0.9462 | 0.9793 | 0.9154 | 0.0685 | 3488 | 0.1929 | 0.6920 |
+| 4 | 97.9817 | 0.9451 | 0.9789 | 0.9135 | 0.0693 | 1477 | 0.2004 | 0.7655 |
+| 5 | 100.0000 | 0.9435 | 0.9787 | 0.9108 | 0.0699 | 2495 | 0.1263 | 0.7410 |
