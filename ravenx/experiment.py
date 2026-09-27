@@ -36,10 +36,10 @@ def add_train_args(p):
     return p
 
 
-def make_model(name, args, seed):
+def make_model(name, args, seed, n_feat=None):
     if name in ("RandomForest", "XGBoost"):
         return TabularDetector(name, seed=seed)
-    return NeuralDetector(name, len(FEATURES), hidden=args.hidden, lr=args.lr,
+    return NeuralDetector(name, n_feat or len(FEATURES), hidden=args.hidden, lr=args.lr,
                           batch_size=args.batch_size, max_epochs=args.epochs,
                           patience=args.patience, seed=seed, verbose=not args.quiet)
 
@@ -48,6 +48,12 @@ def subsample(idx, n, seed):
     if n is None or len(idx) <= n:
         return idx
     return np.sort(np.random.default_rng(seed).choice(idx, n, replace=False))
+
+
+def feature_subset(data, names):
+    """Copy of ``data`` whose model inputs are only the named feature columns."""
+    cols = [FEATURES.index(n) for n in names]
+    return dataclasses.replace(data, X=data.X[:, cols], X_raw=data.X_raw[:, cols])
 
 
 def renormalized(data, fit_idx):
@@ -59,7 +65,7 @@ def renormalized(data, fit_idx):
 
 def fit_and_score(name, data, train_idx, val_idx, test_idx, args, seed):
     """Train, pick the F1 threshold on validation, score on test."""
-    model = make_model(name, args, seed)
+    model = make_model(name, args, seed, n_feat=data.X.shape[1])
     model.fit(data, train_idx, val_idx)
     r_val, u_val = model.predict(data, val_idx)
     thr = best_threshold(data.y[val_idx], r_val)
