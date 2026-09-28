@@ -55,13 +55,25 @@ def main():
         tests.append(("Low → High density", {"density": "low"}, {"density": "high"}, args.models))
     if not args.skip_pairs:
         for a, b in itertools.permutations(sorted(st["scenario"].unique()), 2):
+            # a pair identical to the low -> high density test (one scenario per
+            # density) would retrain the same models on the same data: reuse it
+            same = (tests and {"density": "low"} == tests[-1][1]
+                    and set(st.loc[st.density == "low", "scenario"].unique()) == {a}
+                    and set(st.loc[st.density == "high", "scenario"].unique()) == {b})
+            if same:
+                print(f"{a} → {b}: identical to the low → high density test; reported from it")
+                continue
             tests.append((f"{a} → {b}", {"scenario": a}, {"scenario": b}, args.pair_models))
     if not tests:
         raise SystemExit("Need at least two roads, densities or scenarios in the data "
                          "(for NextGen pass --density-map if folder names lack low/high).")
 
-    rows = []
+    per_seed = out / "cross_scenario_per_seed.csv"
+    rows = pd.read_csv(per_seed).to_dict("records") if per_seed.exists() else []
+    done = {(r["Test"], r["Model"], int(r["Seed"])) for r in rows}
     for name, src, dst, models in tests:
+        if all((name, m, s) in done for s in args.seeds for m in models):
+            continue
         tr_all, va = data.idx("train", **src), data.idx("val", **src)
         te_in, te_out = data.idx("test", **src), data.idx("test", **dst)
         if min(len(tr_all), len(va), len(te_out)) == 0:
@@ -70,7 +82,9 @@ def main():
         for seed in args.seeds:
             tr = subsample(tr_all, args.max_train, seed)
             for model in models:
-                print(f"\n== {name} | {model} | seed {seed} ==")
+                if (name, model, seed) in done:
+                    continue
+                print(f"\n== {name} | {model} | seed {seed} ==", flush=True)
                 res = fit_and_score(model, d, tr, va, te_out, args, seed)
                 r_in, _ = res["model"].predict(d, te_in)
                 m_in = detection_metrics(d.y[te_in], r_in, res["threshold"]) if len(te_in) else {}
@@ -79,11 +93,12 @@ def main():
                 row.update({f"in-domain {c}": m_in.get(c, float("nan")) for c in COLS})
                 row["ΔF1 (cross - in)"] = row["F1"] - row["in-domain F1"]
                 rows.append(row)
+                pd.DataFrame(rows).to_csv(per_seed, index=False)      # resume point
                 print("   cross: " + "  ".join(f"{c} {row[c]:.4f}" for c in COLS)
-                      + f" | in-domain F1 {row['in-domain F1']:.4f}")
+                      + f" | in-domain F1 {row['in-domain F1']:.4f}", flush=True)
 
     df = pd.DataFrame(rows)
-    df.to_csv(out / "cross_scenario_per_seed.csv", index=False)
+    df.to_csv(per_seed, index=False)
     df["Key"] = df["Test"] + " / " + df["Model"]
     cols = COLS + ["in-domain F1", "ΔF1 (cross - in)"]
     mean, std = mean_std_table(df.drop(columns=["Test", "Model"]).to_dict("records"), by="Key", cols=cols)
