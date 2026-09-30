@@ -1,0 +1,124 @@
+{
+  "messages": 1633604,
+  "unique_vehicles(sender_id per run)": 58770,
+  "unique_pseudonyms(alias per run)": 58810,
+  "attacker_vehicles": 45064,
+  "attack_messages": 362603,
+  "normal_messages": 1271001,
+  "attack_percentage": 22.196505395432432,
+  "missing_values": {},
+  "steps": 1591412,
+  "per_split": {
+    "train": {
+      "steps": 601508,
+      "attack_steps": 123424
+    },
+    "val": {
+      "steps": 286384,
+      "attack_steps": 58042
+    },
+    "test": {
+      "steps": 703520,
+      "attack_steps": 138945
+    }
+  },
+  "graph": {
+    "snapshots": 695605,
+    "mean_vehicles_per_snapshot": 2.2878098921083088,
+    "mean_edges_per_snapshot": 1.166999949684088,
+    "mean_avg_neighbors": 0.5496434166054855,
+    "max_neighbors": 10
+  },
+  "per_attack": [
+    {
+      "attack_type": "accelerationMultiplication",
+      "messages": 99937,
+      "attack_messages": 10912,
+      "attack_rate": 0.10918878893703032
+    },
+    {
+      "attack_type": "constantPositionOffset",
+      "messages": 99937,
+      "attack_messages": 19788,
+      "attack_rate": 0.1980047429880825
+    },
+    {
+      "attack_type": "constantSpeedOffset",
+      "messages": 99937,
+      "attack_messages": 20428,
+      "attack_rate": 0.2044087775298438
+    },
+    {
+      "attack_type": "dataReplay",
+      "messages": 99937,
+      "attack_messages": 18496,
+      "attack_rate": 0.18507659825690184
+    },
+    {
+      "attack_type": "dosAttack",
+      "messages": 142129,
+      "attack_messages": 62332,
+      "attack_rate": 0.4385593369403851
+    },
+    {
+      "attack_type": "feignedBraking",
+      "messages": 99937,
+      "attack_messages": 7955,
+      "attack_rate": 0.07960014809329878
+    },
+    {
+      "attack_type": "positionMirroring",
+      "messages": 99937,
+      "attack_messages": 21547,
+      "attack_rate": 0.21560583167395458
+    },
+    {
+      "attack_type": "randomPositionOffset",
+      "messages": 99937,
+      "attack_messages": 19278,
+      "attack_rate": 0.19290152796261645
+    },
+    {
+      "attack_type": "randomSpeedOffset",
+      "messages": 99937,
+      "attack_messages": 19078,
+      "attack_rate": 0.19090026716831604
+    },
+    {
+      "attack_type": "reversedHeading",
+      "messages": 99937,
+      "attack_messages": 17859,
+      "attack_rate": 0.17870258262705505
+    },
+    {
+      "attack_type": "suddenConstantSpeed",
+      "messages": 99937,
+      "attack_messages": 3664,
+      "attack_rate": 0.036663097751583495
+    },
+    {
+      "attack_type": "suddenStop",
+      "messages": 99937,
+      "attack_messages": 9551,
+      "attack_rate": 0.09557020923181604
+    },
+    {
+      "attack_type": "timeDelayAttack",
+      "messages": 99937,
+      "attack_messages": 19857,
+      "attack_rate": 0.19869517796211614
+    },
+    {
+      "attack_type": "trafficCongestionSybil",
+      "messages": 192294,
+      "attack_messages": 92357,
+      "attack_rate": 0.48029059669048435
+    },
+    {
+      "attack_type": "zeroSpeedReport",
+      "messages": 99937,
+      "attack_messages": 19501,
+      "attack_rate": 0.1951329337482614
+    }
+  ]
+}

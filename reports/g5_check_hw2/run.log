@@ -1,0 +1,152 @@
+Loading cached data cache/data_084b7cae707c.pkl
+== G4 (15 features) | RAVEN-X-GF | seed 0 ==
+   F1 0.8821  Recall 0.8446  Precision 0.9230  PR-AUC 0.9187  ROC-AUC 0.9443  ECE 0.0378
+== G4 (15 features) | XGBoost | seed 0 ==
+   F1 0.8106  Recall 0.7705  Precision 0.8551  PR-AUC 0.8590  ROC-AUC 0.9066  ECE 0.0139
+== G4 (15 features) | RAVEN-X-GF | seed 1 ==
+   F1 0.8750  Recall 0.8468  Precision 0.9051  PR-AUC 0.9193  ROC-AUC 0.9449  ECE 0.0278
+== G4 (15 features) | XGBoost | seed 1 ==
+   F1 0.8129  Recall 0.7623  Precision 0.8708  PR-AUC 0.8591  ROC-AUC 0.9065  ECE 0.0174
+== G4 (15 features) | RAVEN-X-GF | seed 2 ==
+   F1 0.8853  Recall 0.8390  Precision 0.9370  PR-AUC 0.9208  ROC-AUC 0.9460  ECE 0.0292
+== G4 (15 features) | XGBoost | seed 2 ==
+   F1 0.8128  Recall 0.7592  Precision 0.8745  PR-AUC 0.8603  ROC-AUC 0.9077  ECE 0.0170
+== G4 + G5 (17 features) | RAVEN-X-GF | seed 0 ==
+   F1 0.8764  Recall 0.8438  Precision 0.9117  PR-AUC 0.9196  ROC-AUC 0.9449  ECE 0.0163
+== G4 + G5 (17 features) | XGBoost | seed 0 ==
+   F1 0.7960  Recall 0.7599  Precision 0.8357  PR-AUC 0.8540  ROC-AUC 0.9063  ECE 0.0299
+== G4 + G5 (17 features) | RAVEN-X-GF | seed 1 ==
+   F1 0.8690  Recall 0.8440  Precision 0.8955  PR-AUC 0.9167  ROC-AUC 0.9444  ECE 0.0402
+== G4 + G5 (17 features) | XGBoost | seed 1 ==
+   F1 0.7931  Recall 0.7782  Precision 0.8086  PR-AUC 0.8544  ROC-AUC 0.9061  ECE 0.0339
+== G4 + G5 (17 features) | RAVEN-X-GF | seed 2 ==
+   F1 0.8871  Recall 0.8355  Precision 0.9456  PR-AUC 0.9194  ROC-AUC 0.9442  ECE 0.0209
+== G4 + G5 (17 features) | XGBoost | seed 2 ==
+   F1 0.7996  Recall 0.7660  Precision 0.8362  PR-AUC 0.8557  ROC-AUC 0.9063  ECE 0.0298
+== G4 + receiver state (17 features) | RAVEN-X-GF | seed 0 ==
+   F1 0.8730  Recall 0.8399  Precision 0.9087  PR-AUC 0.9178  ROC-AUC 0.9437  ECE 0.0406
+== G4 + receiver state (17 features) | XGBoost | seed 0 ==
+   F1 0.8122  Recall 0.7507  Precision 0.8846  PR-AUC 0.8584  ROC-AUC 0.9052  ECE 0.0248
+== G4 + receiver state (17 features) | RAVEN-X-GF | seed 1 ==
+   F1 0.8845  Recall 0.8373  Precision 0.9373  PR-AUC 0.9196  ROC-AUC 0.9446  ECE 0.0461
+== G4 + receiver state (17 features) | XGBoost | seed 1 ==
+   F1 0.8128  Recall 0.7579  Precision 0.8763  PR-AUC 0.8593  ROC-AUC 0.9053  ECE 0.0218
+== G4 + receiver state (17 features) | RAVEN-X-GF | seed 2 ==
+   F1 0.8847  Recall 0.8365  Precision 0.9389  PR-AUC 0.9200  ROC-AUC 0.9450  ECE 0.0240
+== G4 + receiver state (17 features) | XGBoost | seed 2 ==
+   F1 0.8142  Recall 0.7640  Precision 0.8713  PR-AUC 0.8601  ROC-AUC 0.9055  ECE 0.0247
+== G4 + neighbour (19 features) | RAVEN-X-GF | seed 0 ==
+   F1 0.8865  Recall 0.8302  Precision 0.9509  PR-AUC 0.9201  ROC-AUC 0.9453  ECE 0.0146
+== G4 + neighbour (19 features) | XGBoost | seed 0 ==
+   F1 0.8591  Recall 0.7777  Precision 0.9594  PR-AUC 0.8808  ROC-AUC 0.9146  ECE 0.0173
+== G4 + neighbour (19 features) | RAVEN-X-GF | seed 1 ==
+   F1 0.8724  Recall 0.8345  Precision 0.9139  PR-AUC 0.9166  ROC-AUC 0.9438  ECE 0.0368
+== G4 + neighbour (19 features) | XGBoost | seed 1 ==
+   F1 0.8574  Recall 0.7859  Precision 0.9432  PR-AUC 0.8812  ROC-AUC 0.9145  ECE 0.0209
+== G4 + neighbour (19 features) | RAVEN-X-GF | seed 2 ==
+   F1 0.8827  Recall 0.8367  Precision 0.9342  PR-AUC 0.9186  ROC-AUC 0.9431  ECE 0.0196
+== G4 + neighbour (19 features) | XGBoost | seed 2 ==
+   F1 0.8586  Recall 0.7834  Precision 0.9498  PR-AUC 0.8816  ROC-AUC 0.9153  ECE 0.0182
+== G4 + G5 + neighbour (21 features) | RAVEN-X-GF | seed 0 ==
+   F1 0.8796  Recall 0.8351  Precision 0.9292  PR-AUC 0.9152  ROC-AUC 0.9428  ECE 0.0283
+== G4 + G5 + neighbour (21 features) | XGBoost | seed 0 ==
+   F1 0.8504  Recall 0.7842  Precision 0.9287  PR-AUC 0.8801  ROC-AUC 0.9153  ECE 0.0343
+== G4 + G5 + neighbour (21 features) | RAVEN-X-GF | seed 1 ==
+   F1 0.8824  Recall 0.8332  Precision 0.9377  PR-AUC 0.9154  ROC-AUC 0.9424  ECE 0.0386
+== G4 + G5 + neighbour (21 features) | XGBoost | seed 1 ==
+   F1 0.8417  Recall 0.7868  Precision 0.9048  PR-AUC 0.8798  ROC-AUC 0.9149  ECE 0.0312
+== G4 + G5 + neighbour (21 features) | RAVEN-X-GF | seed 2 ==
+   F1 0.8833  Recall 0.8313  Precision 0.9423  PR-AUC 0.9205  ROC-AUC 0.9470  ECE 0.0264
+== G4 + G5 + neighbour (21 features) | XGBoost | seed 2 ==
+   F1 0.8375  Recall 0.7901  Precision 0.8909  PR-AUC 0.8796  ROC-AUC 0.9149  ECE 0.0348
+/home/user/sample_2026/scripts/run_g5_check.py:165: Pandas4Warning: Starting with pandas version 4.0 all arguments of mean will be keyword-only.
+  imp = pd.concat(importances, axis=1).mean(1).sort_values(ascending=False)
+# G5 feature check
+
+Row 13's last group (G5 = RelativeSpeed, RelativeHeading) compares the sender with the receiver. The status document's row 13 instead ends with a neighbour-disagreement group, which was not tested. This checks G5's correctness, why it does not help, and whether neighbour disagreement does.
+
+## 1. Data checks
+
+- Recomputed from raw fields, max |difference|: RelativeSpeed 0.0e+00, RelativeHeading 4.6e-05.
+- Heading convention: honest sender heading within 10° of the compass bearing of its motion in 94% of moving steps; receiver heading in 88%. Same convention (0° = north, clockwise).
+- Honest RelativeHeading on train, share in 0–30 / 30–60 / 60–120 / 120–150 / 150–180°: 0.23 / 0.10 / 0.40 / 0.09 / 0.19. Many crossing directions: the scenario has ramps and crossing roads within range.
+
+Single-feature informativeness and drift:
+
+| Feature | Group | |AUC - 0.5| (train) | KS train vs val | KS train vs test |
+|---|---|---|---|---|
+| MessageGap | G1-G4 | 0.1665 | 0.0133 | 0.0058 |
+| NbrNearestDist | neighbour | 0.1536 | 0.1336 | 0.1967 |
+| NbrCount | neighbour | 0.1525 | 0.1334 | 0.1884 |
+| PositionChange | G1-G4 | 0.1431 | 0.0603 | 0.0801 |
+| HeadingInconsistency | G1-G4 | 0.1119 | 0.0127 | 0.0564 |
+| AccelerationInconsistency | G1-G4 | 0.0741 | 0.0140 | 0.0395 |
+| RoadEdgeDist | G1-G4 | 0.0715 | 0.0634 | 0.0465 |
+| NbrSpeedDev | neighbour | 0.0536 | 0.1343 | 0.1860 |
+| NbrHeadingMisalign | neighbour | 0.0463 | 0.1384 | 0.1909 |
+| MsgCount | G1-G4 | 0.0329 | 0.0015 | 0.0020 |
+| HeadingChange | G1-G4 | 0.0311 | 0.0124 | 0.1212 |
+| Speed | G1-G4 | 0.0280 | 0.0725 | 0.0999 |
+| RelativeSpeed | G5 | 0.0276 | 0.0314 | 0.0618 |
+| SpeedChange | G1-G4 | 0.0174 | 0.0123 | 0.0804 |
+| rx_spd | receiver | 0.0105 | 0.0750 | 0.1016 |
+| rx_hed | receiver | 0.0073 | 0.0919 | 0.2751 |
+| Acceleration | G1-G4 | 0.0070 | 0.0200 | 0.0923 |
+| Heading | G1-G4 | 0.0056 | 0.0943 | 0.2687 |
+| Jerk | G1-G4 | 0.0056 | 0.0097 | 0.0175 |
+| SpeedInconsistency | G1-G4 | 0.0047 | 0.0154 | 0.1233 |
+| DistanceToReceiver | G1-G4 | 0.0046 | 0.0423 | 0.1544 |
+| RelativeHeading | G5 | 0.0044 | 0.0320 | 0.1241 |
+| TimeLag | G1-G4 | 0.0031 | 0.0142 | 0.0117 |
+
+Receiver speed 10th / 50th / 90th percentile (m/s): train 8.0 / 14.6 / 40.3, val 5.5 / 14.0 / 32.8, test 8.2 / 14.0 / 54.7.
+
+## 2. Retraining (test, mean ± std over seeds [0, 1, 2]; thresholds on validation)
+
+### RAVEN-X-GF
+
+| Variant | Features | F1 | Recall | Precision | PR-AUC | ROC-AUC | ECE | ΔF1 vs G4 | ΔPR-AUC vs G4 |
+|---|---|---|---|---|---|---|---|---|---|
+| G4 | 15 | 0.8808 ± 0.0053 | 0.8434 ± 0.0040 | 0.9217 ± 0.0160 | 0.9196 ± 0.0011 | 0.9451 ± 0.0009 | 0.0316 ± 0.0054 | +0.0000 | +0.0000 |
+| G4 + G5 | 17 | 0.8775 ± 0.0091 | 0.8411 ± 0.0049 | 0.9176 ± 0.0256 | 0.9186 ± 0.0016 | 0.9445 ± 0.0003 | 0.0258 ± 0.0127 | -0.0033 | -0.0010 |
+| G4 + receiver state | 17 | 0.8807 ± 0.0067 | 0.8379 ± 0.0018 | 0.9283 ± 0.0169 | 0.9191 ± 0.0012 | 0.9444 ± 0.0006 | 0.0369 ± 0.0115 | -0.0000 | -0.0005 |
+| G4 + neighbour | 19 | 0.8805 ± 0.0073 | 0.8338 ± 0.0033 | 0.9330 ± 0.0185 | 0.9184 ± 0.0017 | 0.9440 ± 0.0011 | 0.0237 ± 0.0116 | -0.0002 | -0.0011 |
+| G4 + G5 + neighbour | 21 | 0.8818 ± 0.0019 | 0.8332 ± 0.0019 | 0.9364 ± 0.0067 | 0.9171 ± 0.0030 | 0.9440 ± 0.0026 | 0.0311 ± 0.0065 | +0.0010 | -0.0025 |
+
+### XGBoost
+
+| Variant | Features | F1 | Recall | Precision | PR-AUC | ROC-AUC | ECE | ΔF1 vs G4 | ΔPR-AUC vs G4 |
+|---|---|---|---|---|---|---|---|---|---|
+| G4 | 15 | 0.8121 ± 0.0013 | 0.7640 ± 0.0059 | 0.8668 ± 0.0103 | 0.8595 ± 0.0007 | 0.9069 ± 0.0007 | 0.0161 ± 0.0019 | +0.0000 | +0.0000 |
+| G4 + G5 | 17 | 0.7962 ± 0.0032 | 0.7680 ± 0.0093 | 0.8269 ± 0.0158 | 0.8547 ± 0.0009 | 0.9062 ± 0.0001 | 0.0312 ± 0.0023 | -0.0159 | -0.0048 |
+| G4 + receiver state | 17 | 0.8130 ± 0.0010 | 0.7575 ± 0.0067 | 0.8774 ± 0.0067 | 0.8593 ± 0.0008 | 0.9053 ± 0.0001 | 0.0238 ± 0.0017 | +0.0009 | -0.0002 |
+| G4 + neighbour | 19 | 0.8583 ± 0.0009 | 0.7823 ± 0.0042 | 0.9508 ± 0.0082 | 0.8812 ± 0.0004 | 0.9148 ± 0.0004 | 0.0188 ± 0.0019 | +0.0462 | +0.0217 |
+| G4 + G5 + neighbour | 21 | 0.8432 ± 0.0066 | 0.7870 ± 0.0029 | 0.9081 ± 0.0191 | 0.8798 ± 0.0003 | 0.9150 ± 0.0002 | 0.0335 ± 0.0019 | +0.0311 | +0.0203 |
+
+### XGBoost feature importance (gain share, all 21 features, mean over seeds)
+
+| index | importance |
+|---|---|
+| NbrNearestDist | 0.1411 |
+| PositionChange | 0.1348 |
+| SpeedInconsistency | 0.1300 |
+| NbrCount | 0.1146 |
+| HeadingInconsistency | 0.0794 |
+| AccelerationInconsistency | 0.0708 |
+| MessageGap | 0.0648 |
+| MsgCount | 0.0647 |
+| RoadEdgeDist | 0.0418 |
+| Acceleration | 0.0325 |
+| Jerk | 0.0310 |
+| SpeedChange | 0.0228 |
+| Speed | 0.0137 |
+| NbrHeadingMisalign | 0.0118 |
+| HeadingChange | 0.0107 |
+| RelativeHeading | 0.0088 |
+| Heading | 0.0079 |
+| RelativeSpeed | 0.0067 |
+| DistanceToReceiver | 0.0054 |
+| NbrSpeedDev | 0.0039 |
+| TimeLag | 0.0029 |
+
+G5_DONE
