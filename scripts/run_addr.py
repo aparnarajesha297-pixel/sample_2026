@@ -252,7 +252,8 @@ def write_report(df, args, out):
           "its ADDR is the noise floor.", ""]
     summ = []
     for (agg, model, kind), g in df.groupby(["Aggregator", "Model", "Kind"], sort=False):
-        summ.append({"Aggregator": agg, "Model": model, "Targets": kind,
+        g = g[g["decisions (future)"] > 0]        # a target the honest controller never decides has no ADDR
+        summ.append({"Aggregator": agg, "Model": model, "Targets": kind, "n targets": len(g),
                      "ADDR future, mean": g["ADDR (future)"].mean(), "ADDR future, worst": g["ADDR (future)"].max(),
                      "wrongly accepted (future)": g["wrongly accepted (future)"].mean(),
                      "wrongly rejected (future)": g["wrongly rejected (future)"].mean(),
@@ -262,7 +263,9 @@ def write_report(df, args, out):
                      "‖Δθ‖ / round update": g["‖Δθ‖ / round update"].mean()})
     summ = pd.DataFrame(summ)
     summ.to_csv(out / "addr_summary.csv", index=False)
-    md += ["## Summary (mean over targets, worst case = highest)", "", to_markdown(summ, index=False), ""]
+    md += ["## Summary (mean over targets, worst case = highest)", "",
+           "Targets on which the honest controller made no decision in the future half are left out "
+           "of the means ('n targets').", "", to_markdown(summ, index=False), ""]
     cols = ["Aggregator", "Model", "Target", "Honest decides (%)", "Honest rejects (% of decisions)",
             "ADDR (future)", "wrongly accepted (future)", "wrongly rejected (future)", "decisions (future)",
             "ADDR (seen)", "val F1", "val ECE", "‖Δθ‖ / round update"]
