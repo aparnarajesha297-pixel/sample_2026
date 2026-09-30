@@ -331,3 +331,12 @@ def test_mobility_proxies():
     hp = mobility.HorizonProxy.fit(st)
     est = hp.predict(st)
     assert set(est) == {"constant", "age", "geometric"} and np.isfinite(est["geometric"]).all()
+
+
+def test_flip_rates_and_decision():
+    from ravenx.adversarial import flip_rates, reject_decision
+    # Eq. 14 boundary with C_FA = 100, C_FR = 20 is p = 1/6
+    assert list(reject_decision([0.1, 0.2, 0.9])) == [False, True, True]
+    fr = flip_rates([True, True, False, False], [True, False, True, False])
+    assert fr == {"ADDR": 0.5, "wrongly accepted": 0.25, "wrongly rejected": 0.25, "decisions": 4}
+    assert flip_rates([], [])["ADDR"] == 0.0

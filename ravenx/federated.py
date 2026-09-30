@@ -219,17 +219,26 @@ def partition_rsus(data, train_idx, n_rsus, how="spatial", seed=0):
 
 def run_federated(make_detector, data, clients, aggregator, rounds=10,
                   local_epochs=1, malicious=(), poisoning="none", sign_scale=3.0,
-                  eval_fn=None, verbose=True):
-    """Returns (global_detector, per-round log, comm_bytes, wall_time)."""
+                  eval_fn=None, verbose=True, theta0=None, round0=0, attack=None):
+    """Returns (global_detector, per-round log, comm_bytes, wall_time).
+
+    theta0 / round0 continue training from given global parameters (rows 18-19
+    start every attacked and honest continuation from the same checkpoint).
+    attack(k, theta, benign_delta, round) -> delta replaces client k's update
+    when k is in ``malicious`` and poisoning == "targeted"; it must use its own
+    detector, so the honest clients' data order does not depend on it.
+    """
     glob = make_detector(seed=0)
     worker = make_detector(seed=1)
+    if theta0 is not None:
+        vector_to_parameters(theta0.clone(), glob.net.parameters())
     theta = parameters_to_vector(glob.net.parameters()).detach().clone()
     n_params = theta.numel()
     sizes = np.array([len(c) for c in clients], dtype=float)
     malicious = set(malicious)
     log, comm = [], 0
     t0 = time.time()
-    for r in range(rounds):
+    for r in range(round0, round0 + rounds):
         updates = []
         for k, idx in enumerate(clients):
             # vector_to_parameters makes the parameters *views* of the vector,
@@ -246,16 +255,24 @@ def run_federated(make_detector, data, clients, aggregator, rounds=10,
             delta = parameters_to_vector(worker.net.parameters()).detach() - theta
             if k in malicious and poisoning == "sign_flip":
                 delta = -sign_scale * delta
+            if k in malicious and poisoning == "targeted":
+                with torch.random.fork_rng():      # keep the honest clients' dropout stream unchanged
+                    delta = attack(k, theta, delta, r)
             updates.append(delta.numpy())
         comm += 2 * len(clients) * n_params * 4          # download + upload, float32
-        agg = aggregator(np.stack(updates), sizes, client_ids=np.arange(len(clients)))
+        U = np.stack(updates)
+        agg = aggregator(U, sizes, client_ids=np.arange(len(clients)))
         theta = theta + torch.from_numpy(agg.astype(np.float32))
         vector_to_parameters(theta.clone(), glob.net.parameters())
-        entry = {"round": r, "elapsed_s": time.time() - t0}
+        honest = [k for k in range(len(clients)) if k not in malicious]
+        entry = {"round": r, "elapsed_s": time.time() - t0,
+                 "update_norm": float(np.linalg.norm(agg)),
+                 "honest_client_norm_median": float(np.median(np.linalg.norm(U[honest], axis=1)))}
         if eval_fn is not None:
             entry.update(eval_fn(glob))
         log.append(entry)
         if verbose:
-            extra = "  ".join(f"{k} {v:.4f}" for k, v in entry.items() if k not in ("round", "elapsed_s"))
+            extra = "  ".join(f"{k} {v:.4f}" for k, v in entry.items()
+                              if k not in ("round", "elapsed_s", "update_norm", "honest_client_norm_median"))
             print(f"    round {r:2d}  {extra}  ({entry['elapsed_s']:.0f}s)")
     return glob, log, comm, time.time() - t0
