@@ -139,13 +139,10 @@ def main():
 
     # --- offline: everything below is fitted on VALIDATION only -------------
     st = data.steps
-    grid = svoi.BeliefGrid.fit(p_va, u_va, args.p_bins, args.u_bins)
-    P = {"a1": svoi.passive_transitions(grid, p_va, u_va, st["stream"].values[va], args.n_min)[0]}
-    for a, r in svoi.DEFAULT_RHO.items():
-        if a in args.evidence:
-            P[a] = svoi.check_transitions(grid, r)
     H_max = max(args.horizons)
-    policy = svoi.solve(grid, P, svoi.DEFAULT_COST, H_max, args.C_FA, args.C_FR, args.gamma)
+    policy = svoi.fit_policy(p_va, u_va, st["stream"].values[va], H_max, args.evidence, args.C_FA,
+                             args.C_FR, args.gamma, p_bins=args.p_bins, u_bins=args.u_bins, n_min=args.n_min)
+    grid = policy.grid
     boundary = args.C_FR / (args.C_FA + args.C_FR)
     print(f"Grid {grid.n_p} x {grid.n_u} = {grid.n_states} beliefs; decision boundary p = {boundary:.3f}")
     mix = {h: pd.Series([policy.actions[i] for i in policy.action[h]]).value_counts().to_dict()

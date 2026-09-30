@@ -30,7 +30,13 @@ reports/checks/svoi_rswt_guide_verification.md):
   (0.80 / 0.90 / 0.99): p is updated by Bayes' rule, and the positive and
   negative outcomes occur with the probabilities p implies. This is an
   assumption, and is reported as one.
-* Criticality: K = 1 level, Cm = 1, until a criticality model exists.
+* Criticality: K = 1 level (Cm = 1) by default. Row 16 adds a second level
+  from a runtime kinematic flag (see ravenx/mobility.py); one table is solved
+  per level and the level is assumed to hold over the planning horizon.
+  Cm scales both stop costs, so it never changes accept vs reject at the
+  moment of stopping, only how much evidence is bought before it.
+* Horizon: fixed H by default; row 15 caps it per step with an estimate of
+  how long the vehicle stays observable (ravenx/mobility.py).
 * gamma = 1 by default (the finite horizon keeps V bounded; gamma < 1 would
   make postponed decisions look cheaper).
 """
@@ -181,7 +187,7 @@ def solve(grid, P, cost, H_max, C_FA=100.0, C_FR=20.0, gamma=1.0, crit=1.0, rho=
 
 
 def run_episode(policy, p_seq, u_seq, label_seq, H, rng, mode="svoi",
-                interval=2, rand_p=0.5, fixed_action="a2"):
+                interval=2, rand_p=0.5, fixed_action="a2", h_cap=None, crit=None, crit_policies=None):
     """Replay one vehicle stream from its current step under a policy.
 
     p_seq / u_seq / label_seq: beliefs and labels from the start step onward
@@ -197,15 +203,25 @@ def run_episode(policy, p_seq, u_seq, label_seq, H, rng, mode="svoi",
           "always" wait for the next message (a1) until the horizon, then decide
           "fixed"  a1 at every step, plus ``fixed_action`` every ``interval``-th step
           "random" a random evidence action with probability rand_p, else decide
+
+    h_cap (row 15): per-step estimate of how many more steps the vehicle stays
+    observable; the planning horizon at step t is min(steps left, h_cap[t]),
+    so the controller decides sooner for a vehicle about to disappear.
+    crit (row 16): per-step criticality multiplier Cm; the table solved for
+    that level (``crit_policies[Cm]``) is used. The vehicle is decided at step
+    ``observations - 1`` of the episode.
     """
     C_FA, C_FR, cost, rho = policy.C_FA, policy.C_FR, policy.cost, policy.rho
     t, p, u, spent, n_obs, queries = 0, float(p_seq[0]), float(u_seq[0]), 0.0, 1, 0
     for h in range(H, -1, -1):
         can_wait = t + 1 < len(p_seq)
+        if h_cap is not None:
+            h = min(h, max(int(h_cap[t]), 0))
         if h == 0:
             a = None
         elif mode == "svoi":
-            a = policy.decide(p, u, h)
+            pol = crit_policies[float(crit[t])] if crit is not None else policy
+            a = pol.decide(p, u, h)
             a = None if a in (STOP_ACCEPT, STOP_REJECT) else a
         elif mode == "never":
             a = None
@@ -237,7 +253,7 @@ def run_episode(policy, p_seq, u_seq, label_seq, H, rng, mode="svoi",
     y = int(label_seq[t])
     error = C_FA if (y == 1 and not reject) else (C_FR if (y == 0 and reject) else 0.0)
     return {"reject": int(reject), "label": y, "evidence_cost": spent, "error_cost": error,
-            "total_cost": spent + error, "observations": n_obs, "queries": queries}
+            "total_cost": spent + error, "observations": n_obs, "queries": queries, "p_final": p}
 
 
 def expectimax(grid, P, cost, h, s, C_FA, C_FR, gamma=1.0):
@@ -252,3 +268,14 @@ def expectimax(grid, P, cost, h, s, C_FA, C_FR, gamma=1.0):
                                     for j in nxt)
         best = min(best, val)
     return best
+
+
+def fit_policy(p_va, u_va, stream_va, H_max, evidence=EVIDENCE, C_FA=100.0, C_FR=20.0,
+               gamma=1.0, crit=1.0, p_bins=20, u_bins=8, n_min=20):
+    """Grid, transitions and value tables from VALIDATION beliefs only."""
+    grid = BeliefGrid.fit(p_va, u_va, p_bins, u_bins)
+    P = {"a1": passive_transitions(grid, p_va, u_va, stream_va, n_min)[0]}
+    for a, r in DEFAULT_RHO.items():
+        if a in evidence:
+            P[a] = check_transitions(grid, r)
+    return solve(grid, P, DEFAULT_COST, H_max, C_FA, C_FR, gamma, crit)

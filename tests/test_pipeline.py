@@ -294,3 +294,40 @@ def test_svoi_cost_scale_matters():
     assert chosen & set(svoi.EVIDENCE)
     # far from the boundary the policy stops
     assert big.decide(0.001, 0.05, 3) == "accept" and big.decide(0.999, 0.05, 3) == "reject"
+
+
+def test_svoi_horizon_cap_and_criticality():
+    from ravenx import svoi
+    rng = np.random.default_rng(0)
+    p = rng.uniform(0.05, 0.6, 4000); u = rng.uniform(0, 0.3, 4000)
+    stream = np.repeat(np.arange(400), 10)
+    pol = svoi.fit_policy(p, u, stream, 3, evidence=["a1"])
+    seq_p, seq_u, lab = np.array([0.3, 0.3, 0.3, 0.3]), np.full(4, 0.1), np.zeros(4, int)
+    # a cap of 0 forces an immediate decision
+    ep = svoi.run_episode(pol, seq_p, seq_u, lab, 3, rng, h_cap=np.zeros(4, int))
+    assert ep["observations"] == 1 and ep["queries"] == 0
+    # criticality scales both stop costs: the stop decision itself is unchanged
+    hi = svoi.fit_policy(p, u, stream, 3, evidence=["a1"], crit=5.0)
+    acc, rej = svoi.stop_costs(hi.grid.p_value, 100, 20, 5.0)
+    assert ((acc <= rej) == (hi.action[0] == 0)).all() and (hi.action[0] == pol.action[0]).all()
+    # higher Cm never makes the controller stop earlier than Cm = 1
+    stop = lambda P: np.isin(P.action[3], [0, 1])
+    assert (stop(hi) <= stop(pol)).all()
+    ep = svoi.run_episode(pol, seq_p, seq_u, lab, 3, rng, crit=np.full(4, 5.0), crit_policies={1.0: pol, 5.0: hi})
+    assert ep["observations"] >= 1
+
+
+def test_mobility_proxies():
+    import pandas as pd
+    from ravenx import mobility
+    st = pd.DataFrame({"stream": [0, 0, 0, 1, 1], "rcv_time": [0.0, 1.0, 2.0, 5.0, 6.0],
+                       "DistanceToReceiver": [100.0, 110.0, 120.0, 40.0, 30.0],
+                       "pos_in_stream": [0, 1, 2, 0, 1]})
+    assert np.allclose(mobility.time_left(st), [2, 1, 0, 1, 0])
+    assert list(mobility.steps_left(st)) == [2, 1, 0, 1, 0]
+    rr = mobility.range_rate(st)
+    assert np.isnan(rr[0]) and np.allclose(rr[[1, 2, 4]], [10, 10, -10])
+    assert list(mobility.critical(st)) == [False, False, False, False, True]   # 30 m, TTC 3 s
+    hp = mobility.HorizonProxy.fit(st)
+    est = hp.predict(st)
+    assert set(est) == {"constant", "age", "geometric"} and np.isfinite(est["geometric"]).all()
