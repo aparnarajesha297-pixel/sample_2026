@@ -50,8 +50,15 @@ ATTACK_NAMES = {
 #   timing / flooding     MessageGap, TimeLag, MsgCount
 #   map / geometry        RoadEdgeDist (NextGen distance_to_road_edge of the
 #                         claimed position), DistanceToReceiver
-#   relative to receiver  RelativeSpeed, RelativeHeading
-FEATURES = [
+#   neighbour disagreement  NbrCount, NbrNearestDist, NbrSpeedDev,
+#                         NbrHeadingMisalign: the sender against the other
+#                         senders the same receiver heard in the same bin
+#                         (ravenx.graph.neighbour_disagreement)
+#
+# RelativeSpeed / RelativeHeading (sender vs the receiver's own state) are
+# still computed into the step table but are not model inputs: the G5 check
+# (reports/g5_check_hw2) found they help no model and hurt XGBoost.
+STEP_FEATURES = [
     "Speed",
     "Heading",
     "Acceleration",
@@ -67,9 +74,9 @@ FEATURES = [
     "MsgCount",
     "RoadEdgeDist",
     "DistanceToReceiver",
-    "RelativeSpeed",
-    "RelativeHeading",
 ]
+NBR_FEATURES = ["NbrCount", "NbrNearestDist", "NbrSpeedDev", "NbrHeadingMisalign"]
+FEATURES = STEP_FEATURES + NBR_FEATURES
 
 SPLITS = ("train", "val", "test")
 

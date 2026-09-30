@@ -36,7 +36,7 @@ from ravenx import plots  # noqa: E402
 from ravenx.config import FEATURES, NEIGHBOR_RADIUS, SEQ_LEN  # noqa: E402
 from ravenx.experiment import to_markdown  # noqa: E402
 from ravenx.features import Normalizer, build_steps, build_windows  # noqa: E402
-from ravenx.graph import build_graph  # noqa: E402
+from ravenx.graph import add_neighbour_features, build_graph  # noqa: E402
 from ravenx.models.train import NeuralDetector  # noqa: E402
 from ravenx.pipeline import StepData  # noqa: E402
 
@@ -102,6 +102,7 @@ def main():
         t_feat = time.perf_counter() - t0
         t0 = time.perf_counter()
         graph, group = build_graph(steps, args.radius)
+        add_neighbour_features(steps, graph, args.radius)
         t_graph = time.perf_counter() - t0
         X_raw = steps[FEATURES].values.astype(np.float32)
         nm = norm or Normalizer().fit(X_raw)

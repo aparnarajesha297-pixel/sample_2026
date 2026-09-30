@@ -17,7 +17,7 @@ from __future__ import annotations
 import numpy as np
 import pandas as pd
 
-from .config import BIN_SECONDS, FEATURES
+from .config import BIN_SECONDS, STEP_FEATURES
 
 
 def _wrap_deg(d):
@@ -127,7 +127,8 @@ def build_steps(msgs: pd.DataFrame, bin_s: float = BIN_SECONDS) -> pd.DataFrame:
     first = np.r_[True, stream[1:] != stream[:-1]]
     ar = np.arange(len(stream))
     steps["pos_in_stream"] = ar - np.maximum.accumulate(np.where(first, ar, 0))
-    steps[FEATURES] = steps[FEATURES].astype(np.float32).fillna(0.0)
+    extra = ["RelativeSpeed", "RelativeHeading"]            # kept for analysis, not model inputs
+    steps[STEP_FEATURES + extra] = steps[STEP_FEATURES + extra].astype(np.float32).fillna(0.0)
     return steps
 
 

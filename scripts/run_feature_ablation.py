@@ -9,7 +9,11 @@ step shows what one group of features adds:
   G3 + self-consistency  SpeedInconsistency, AccelerationInconsistency,
                          HeadingInconsistency
   G4 + map / geometry    RoadEdgeDist, DistanceToReceiver
-  G5 + relative to receiver (all 17)   RelativeSpeed, RelativeHeading
+  G5 + neighbour disagreement (all 19) NbrCount, NbrNearestDist, NbrSpeedDev,
+                         NbrHeadingMisalign
+
+(Until the G5 check, G5 was RelativeSpeed / RelativeHeading, relative to the
+receiver; results with that group are in reports/feature_ablation.)
 
 Thresholds are chosen on validation; metrics are on test. Results are
 written after every training, and a rerun skips (step, model, seed)
@@ -43,7 +47,7 @@ GROUPS = [
     ("G3 + self-consistency", ["SpeedInconsistency", "AccelerationInconsistency",
                                "HeadingInconsistency"]),
     ("G4 + map/geometry", ["RoadEdgeDist", "DistanceToReceiver"]),
-    ("G5 + relative to receiver", ["RelativeSpeed", "RelativeHeading"]),
+    ("G5 + neighbour disagreement", ["NbrCount", "NbrNearestDist", "NbrSpeedDev", "NbrHeadingMisalign"]),
 ]
 assert sorted(sum((g for _, g in GROUPS), [])) == sorted(FEATURES), "groups must cover all features"
 COLS = ["F1", "Recall", "Precision", "PR-AUC", "ROC-AUC", "ECE"]

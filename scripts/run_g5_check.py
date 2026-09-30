@@ -17,7 +17,7 @@ Part 2, retraining with thresholds on validation and metrics on test:
   G4                     the 15 features before G5 (baseline)
   G4 + G5                the current 17
   G4 + receiver state    G4 + rx_spd, rx_hed (what G5 adds beyond Speed/Heading)
-  G4 + neighbour         G4 + the four ravenx.graph.NBR_FEATURES
+  G4 + neighbour         G4 + the four config.NBR_FEATURES (the default set since this check)
   G4 + G5 + neighbour    all 21
 
 Example:
@@ -39,15 +39,14 @@ from sklearn.metrics import roc_auc_score
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
-from ravenx.config import FEATURES  # noqa: E402
+from ravenx.config import NBR_FEATURES, STEP_FEATURES  # noqa: E402
 from ravenx.experiment import add_train_args, fit_and_score, fmt_table, mean_std_table, to_markdown  # noqa: E402
 from ravenx.features import Normalizer  # noqa: E402
-from ravenx.graph import NBR_FEATURES, neighbour_disagreement  # noqa: E402
 from ravenx.pipeline import add_data_args, load_data  # noqa: E402
 
 G5 = ["RelativeSpeed", "RelativeHeading"]
 RX = ["rx_spd", "rx_hed"]
-G4 = [f for f in FEATURES if f not in G5]
+G4 = list(STEP_FEATURES)
 VARIANTS = [("G4", G4), ("G4 + G5", G4 + G5), ("G4 + receiver state", G4 + RX),
             ("G4 + neighbour", G4 + NBR_FEATURES), ("G4 + G5 + neighbour", G4 + G5 + NBR_FEATURES)]
 COLS = ["F1", "Recall", "Precision", "PR-AUC", "ROC-AUC", "ECE"]
@@ -110,9 +109,7 @@ def main():
     _, data = load_data(args)
     st = data.steps
     split = st["split"].values
-    nbr = neighbour_disagreement(st, data.graph)
-    table = pd.concat([pd.DataFrame(data.X_raw, columns=FEATURES),
-                       st[RX].reset_index(drop=True).astype(np.float32), nbr], axis=1)
+    table = st[G4 + G5 + RX + NBR_FEATURES].reset_index(drop=True).astype(np.float32)
     md_checks, inf = data_checks(st, table, data.y, split)
     inf.to_csv(out / "feature_checks.csv", index=False)
 

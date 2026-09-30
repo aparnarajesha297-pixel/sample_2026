@@ -16,7 +16,7 @@ import numpy as np
 import pandas as pd
 from scipy.spatial import cKDTree
 
-from .config import MAX_NEIGHBORS, NEIGHBOR_RADIUS
+from .config import MAX_NEIGHBORS, NBR_FEATURES, NEIGHBOR_RADIUS
 
 
 class Graph:
@@ -114,9 +114,6 @@ def build_graph(steps: pd.DataFrame, radius: float = NEIGHBOR_RADIUS,
     return Graph(src, dst, eattr, n), g
 
 
-NBR_FEATURES = ["NbrCount", "NbrNearestDist", "NbrSpeedDev", "NbrHeadingMisalign"]
-
-
 def neighbour_disagreement(steps: pd.DataFrame, graph: Graph, radius: float = NEIGHBOR_RADIUS) -> pd.DataFrame:
     """Per-step features comparing a sender with its graph neighbours (the
     other senders the same receiver heard in the same bin, within ``radius``).
@@ -144,6 +141,14 @@ def neighbour_disagreement(steps: pd.DataFrame, graph: Graph, radius: float = NE
     out["NbrSpeedDev"] = out["NbrSpeedDev"].fillna(0.0)
     out["NbrHeadingMisalign"] = (1.0 - g["align"].max().reindex(out.index)).fillna(0.0).values
     return out[NBR_FEATURES].astype(np.float32)
+
+
+def add_neighbour_features(steps: pd.DataFrame, graph: Graph, radius: float = NEIGHBOR_RADIUS) -> pd.DataFrame:
+    """Write the neighbour-disagreement columns into ``steps`` (in place)."""
+    nbr = neighbour_disagreement(steps, graph, radius)
+    for c in NBR_FEATURES:
+        steps[c] = nbr[c].values
+    return steps
 
 
 def graph_stats(steps: pd.DataFrame, graph: Graph, group: np.ndarray) -> pd.DataFrame:

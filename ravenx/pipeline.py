@@ -15,7 +15,7 @@ import pandas as pd
 
 from .config import ATTACKS, BIN_SECONDS, FEATURES, MAX_NEIGHBORS, NEIGHBOR_RADIUS, SEQ_LEN
 from .features import Normalizer, build_steps, build_windows
-from .graph import Graph, build_graph, graph_stats
+from .graph import Graph, add_neighbour_features, build_graph, graph_stats
 
 
 @dataclass
@@ -55,6 +55,7 @@ def prepare(msgs: pd.DataFrame, bin_s=BIN_SECONDS, radius=NEIGHBOR_RADIUS, max_n
     assert (stream[win[valid]] == stream[rows]).all(), "window crosses streams"
     graph, group = build_graph(steps, radius, max_neighbors)
     assert (split[graph.src] == split[graph.dst]).all(), "graph edge crosses splits"
+    add_neighbour_features(steps, graph, radius)
 
     X_raw = steps[FEATURES].values.astype(np.float32)
     norm = Normalizer().fit(X_raw[split == fit_split])
