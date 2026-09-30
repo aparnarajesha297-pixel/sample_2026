@@ -78,6 +78,8 @@ def main():
     p.add_argument("--trust-miss", type=float, default=0.02)
     p.add_argument("--unc-quantile", type=float, default=0.90)
     args = p.parse_args()
+    # multithreaded CPU kernels otherwise make the same seed give different neural models
+    torch.use_deterministic_algorithms(True)
     out = Path(args.out); out.mkdir(parents=True, exist_ok=True)
     torch.set_num_threads(max(1, torch.get_num_threads()))
 
