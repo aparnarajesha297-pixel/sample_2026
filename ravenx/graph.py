@@ -114,6 +114,38 @@ def build_graph(steps: pd.DataFrame, radius: float = NEIGHBOR_RADIUS,
     return Graph(src, dst, eattr, n), g
 
 
+NBR_FEATURES = ["NbrCount", "NbrNearestDist", "NbrSpeedDev", "NbrHeadingMisalign"]
+
+
+def neighbour_disagreement(steps: pd.DataFrame, graph: Graph, radius: float = NEIGHBOR_RADIUS) -> pd.DataFrame:
+    """Per-step features comparing a sender with its graph neighbours (the
+    other senders the same receiver heard in the same bin, within ``radius``).
+
+      NbrCount            number of neighbours
+      NbrNearestDist      distance to the nearest neighbour (radius if none)
+      NbrSpeedDev         |speed - median neighbour speed| (0 if none)
+      NbrHeadingMisalign  1 - max |cos(heading difference)| over neighbours:
+                          0 when the sender travels along some neighbour's
+                          line (either direction), 1 when perpendicular to all
+                          (0 if none)
+    """
+    n = len(steps)
+    src, dst = graph.src, graph.dst
+    x, y = steps["x"].values, steps["y"].values
+    spd = steps["Speed"].values.astype(np.float64)
+    hed = np.radians(steps["Heading"].values.astype(np.float64))
+    e = pd.DataFrame({"dst": dst, "dist": np.hypot(x[src] - x[dst], y[src] - y[dst]),
+                      "nspd": spd[src], "align": np.abs(np.cos(hed[src] - hed[dst]))})
+    g = e.groupby("dst", sort=False)
+    out = pd.DataFrame(index=np.arange(n))
+    out["NbrCount"] = np.bincount(dst, minlength=n).astype(np.float32)
+    out["NbrNearestDist"] = g["dist"].min().reindex(out.index).fillna(radius).values
+    out["NbrSpeedDev"] = np.abs(spd - g["nspd"].median().reindex(out.index).values)
+    out["NbrSpeedDev"] = out["NbrSpeedDev"].fillna(0.0)
+    out["NbrHeadingMisalign"] = (1.0 - g["align"].max().reindex(out.index)).fillna(0.0).values
+    return out[NBR_FEATURES].astype(np.float32)
+
+
 def graph_stats(steps: pd.DataFrame, graph: Graph, group: np.ndarray) -> pd.DataFrame:
     """Per-snapshot statistics required by the plan: vehicles, edges,
     average and maximum neighbours."""

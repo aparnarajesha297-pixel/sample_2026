@@ -333,6 +333,21 @@ def test_mobility_proxies():
     assert set(est) == {"constant", "age", "geometric"} and np.isfinite(est["geometric"]).all()
 
 
+def test_neighbour_disagreement():
+    from ravenx.graph import build_graph, neighbour_disagreement
+    # one snapshot: A and B travel east 10 m apart, C crosses north 50 m away, D is alone in another bin
+    st = pd.DataFrame({"receiver": ["r"] * 4, "bin": [0, 0, 0, 1],
+                       "x": [0.0, 10.0, 0.0, 0.0], "y": [0.0, 0.0, 50.0, 0.0],
+                       "Speed": [20.0, 30.0, 10.0, 5.0], "Heading": [90.0, 90.0, 0.0, 90.0]})
+    g, _ = build_graph(st, radius=150, max_neighbors=10)
+    f = neighbour_disagreement(st, g, radius=150)
+    assert list(f.NbrCount) == [2, 2, 2, 0]
+    assert np.isclose(f.NbrNearestDist[0], 10) and f.NbrNearestDist[3] == 150
+    assert np.isclose(f.NbrSpeedDev[0], 0.0) and np.isclose(f.NbrSpeedDev[2], 15.0)   # median of 20, 30
+    assert np.isclose(f.NbrHeadingMisalign[0], 0.0) and np.isclose(f.NbrHeadingMisalign[2], 1.0, atol=1e-6)
+    assert f.NbrSpeedDev[3] == 0 and f.NbrHeadingMisalign[3] == 0
+
+
 def test_flip_rates_and_decision():
     from ravenx.adversarial import flip_rates, reject_decision
     # Eq. 14 boundary with C_FA = 100, C_FR = 20 is p = 1/6
