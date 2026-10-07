@@ -1,0 +1,55 @@
+# Where the horizon gain comes from (row 15 diagnostic)
+
+Run after the test results were seen, to explain them; not a selection step.
+
+## H = 3, split by episode type (test)
+
+| Evidence | Horizon | Episodes | n | F1 | Evidence cost | Total cost | Queries | Observations |
+|---|---|---|---|---|---|---|---|---|
+| a1-a4 | fixed H | first step of stream | 80105 | 0.9858 | 1.7175 | 2.6613 | 0.6481 | 1.1591 |
+| a1-a4 | fixed H | later step | 43515 | 0.9088 | 0.4950 | 2.6065 | 0.2120 | 1.0478 |
+| a1-a4 | fixed H | Sybil runs | 45234 | 0.9991 | 0.2199 | 0.2522 | 0.0882 | 1.0212 |
+| a1-a4 | fixed H | other runs | 78386 | 0.9032 | 1.9031 | 4.0210 | 0.7291 | 1.1769 |
+| a1-a4 | geometric cap | first step of stream | 80105 | 0.9909 | 2.0349 | 2.5997 | 0.5746 | 1.0000 |
+| a1-a4 | geometric cap | later step | 43515 | 0.9093 | 0.5047 | 2.6198 | 0.2130 | 1.0466 |
+| a1-a4 | geometric cap | Sybil runs | 45234 | 0.9991 | 0.2455 | 0.2760 | 0.0765 | 1.0022 |
+| a1-a4 | geometric cap | other runs | 78386 | 0.9224 | 2.2180 | 3.9518 | 0.6613 | 1.0246 |
+| a1 only | fixed H | first step of stream | 80105 | 0.9662 | 0.6857 | 2.9891 | 0.6857 | 1.6857 |
+| a1 only | fixed H | later step | 43515 | 0.8718 | 0.1557 | 2.7198 | 0.1557 | 1.1557 |
+| a1 only | fixed H | Sybil runs | 45234 | 0.9980 | 0.0931 | 0.1638 | 0.0931 | 1.0931 |
+| a1 only | fixed H | other runs | 78386 | 0.8148 | 0.7334 | 4.4700 | 0.7334 | 1.7334 |
+| a1 only | geometric cap | first step of stream | 80105 | 0.9662 | 0.6857 | 2.9891 | 0.6857 | 1.6857 |
+| a1 only | geometric cap | later step | 43515 | 0.8718 | 0.1557 | 2.7198 | 0.1557 | 1.1557 |
+| a1 only | geometric cap | Sybil runs | 45234 | 0.9980 | 0.0931 | 0.1638 | 0.0931 | 1.0931 |
+| a1 only | geometric cap | other runs | 78386 | 0.8148 | 0.7334 | 4.4700 | 0.7334 | 1.7334 |
+
+## Trivial rule vs the geometric cap (test)
+
+Trivial rule: plan one step at a stream's first message, otherwise use the full horizon.
+
+| Evidence | H | Horizon | F1 | Evidence cost | Total cost |
+|---|---|---|---|---|---|
+| a1-a4 | 2 | fixed H | 0.9812 | 1.4982 | 2.6179 |
+| a1-a4 | 2 | geometric cap | 0.9812 | 1.4982 | 2.6179 |
+| a1-a4 | 2 | trivial rule | 0.9812 | 1.4982 | 2.6179 |
+| a1-a4 | 3 | fixed H | 0.9766 | 1.2872 | 2.6420 |
+| a1-a4 | 3 | geometric cap | 0.9811 | 1.4963 | 2.6068 |
+| a1-a4 | 3 | trivial rule | 0.9809 | 1.4932 | 2.6175 |
+| a1-a4 | 5 | fixed H | 0.9687 | 1.2769 | 3.1872 |
+| a1-a4 | 5 | geometric cap | 0.9807 | 1.4992 | 2.6523 |
+| a1-a4 | 5 | trivial rule | 0.9804 | 1.4964 | 2.6465 |
+| a1-a4 | 10 | fixed H | 0.9663 | 1.2936 | 3.3491 |
+| a1-a4 | 10 | geometric cap | 0.9801 | 1.5072 | 2.6742 |
+| a1-a4 | 10 | trivial rule | 0.9799 | 1.5044 | 2.6685 |
+| a1 only | 2 | fixed H | 0.9521 | 0.4344 | 2.8976 |
+| a1 only | 2 | geometric cap | 0.9521 | 0.4344 | 2.8976 |
+| a1 only | 2 | trivial rule | 0.9521 | 0.4344 | 2.8976 |
+| a1 only | 3 | fixed H | 0.9546 | 0.4991 | 2.8943 |
+| a1 only | 3 | geometric cap | 0.9546 | 0.4991 | 2.8943 |
+| a1 only | 3 | trivial rule | 0.9546 | 0.4991 | 2.8943 |
+| a1 only | 5 | fixed H | 0.9566 | 0.5844 | 2.9249 |
+| a1 only | 5 | geometric cap | 0.9566 | 0.5844 | 2.9249 |
+| a1 only | 5 | trivial rule | 0.9566 | 0.5844 | 2.9249 |
+| a1 only | 10 | fixed H | 0.9614 | 0.6699 | 2.9295 |
+| a1 only | 10 | geometric cap | 0.9614 | 0.6699 | 2.9295 |
+| a1 only | 10 | trivial rule | 0.9614 | 0.6699 | 2.9295 |
