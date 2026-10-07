@@ -26,6 +26,7 @@ from pathlib import Path
 
 import numpy as np
 import pandas as pd
+import torch
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
@@ -119,6 +120,7 @@ def main():
     ap.add_argument("--out", default="results/svoi")
     args = ap.parse_args()
     out = Path(args.out); out.mkdir(parents=True, exist_ok=True)
+    torch.use_deterministic_algorithms(True)     # same seed -> same detector
 
     _, data = load_data(args)
     va, te = data.idx("val"), data.idx("test")

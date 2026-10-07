@@ -20,6 +20,7 @@ from pathlib import Path
 
 import numpy as np
 import pandas as pd
+import torch
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
@@ -48,6 +49,7 @@ def main():
     p.add_argument("--out", default="results/temperature_scaling")
     args = p.parse_args()
     out = Path(args.out); out.mkdir(parents=True, exist_ok=True)
+    torch.use_deterministic_algorithms(True)     # same seed -> same neural model
     bad = [m for m in args.models if m not in MODEL_SPECS]
     if bad:
         raise SystemExit(f"temperature scaling needs logits; not a neural model: {bad}")
@@ -82,6 +84,12 @@ def main():
                 rows.append({"Model": label, "Seed": seed, "T": T,
                              **{f"{k} before": v for k, v in before.items()},
                              **{f"{k} after": v for k, v in after.items()}})
+                if mode == "evidential":
+                    # calibrated beliefs for the uncertainty analysis (run_uncertainty.py)
+                    u_va_T = probs(z_va, T, mode)[1]
+                    u_te_T = probs(z_te, T, mode)[1]
+                    np.savez(out / f"beliefs_{name}_seed{seed}.npz", p_va=p_va_T, u_va=u_va_T,
+                             p_te=p_te_T, u_te=u_te_T, T=T, thr=best_threshold(y_va, p_va_T))
                 if seed == args.seeds[0]:
                     curves[f"{label} before"] = (y_te, p_te)
                     curves[f"{label} after (T={T:.2f})"] = (y_te, p_te_T)

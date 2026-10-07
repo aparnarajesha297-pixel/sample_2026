@@ -22,6 +22,7 @@ from pathlib import Path
 
 import numpy as np
 import pandas as pd
+import torch
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
@@ -54,6 +55,7 @@ def main():
     p.add_argument("--out", default="results/federated")
     args = p.parse_args()
     out = Path(args.out); out.mkdir(parents=True, exist_ok=True)
+    torch.use_deterministic_algorithms(True)     # same seed -> same federated model
 
     _, data = load_data(args)
     tr = subsample(data.idx("train"), args.max_train, args.seed)
