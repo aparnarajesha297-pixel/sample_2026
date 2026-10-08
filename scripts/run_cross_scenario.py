@@ -24,6 +24,7 @@ import sys
 from pathlib import Path
 
 import pandas as pd
+import torch
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
@@ -45,6 +46,7 @@ def main():
     p.add_argument("--out", default="results/cross_scenario")
     args = p.parse_args()
     out = Path(args.out); out.mkdir(parents=True, exist_ok=True)
+    torch.use_deterministic_algorithms(True)     # same seed -> same neural models
 
     _, data = load_data(args)
     st = data.steps
