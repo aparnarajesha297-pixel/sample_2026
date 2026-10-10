@@ -355,3 +355,21 @@ def test_flip_rates_and_decision():
     fr = flip_rates([True, True, False, False], [True, False, True, False])
     assert fr == {"ADDR": 0.5, "wrongly accepted": 0.25, "wrongly rejected": 0.25, "decisions": 4}
     assert flip_rates([], [])["ADDR"] == 0.0
+
+
+def test_target_threshold_slice_and_retune():
+    from ravenx.target_threshold import draw_slice, retune
+    rng = np.random.default_rng(0)
+    run = np.repeat(np.arange(3), 400)
+    unit = np.repeat(np.arange(30), 40)                  # 10 receivers per run
+    cal = draw_slice(run, unit, 0.2, rng)
+    for r in range(3):                                   # 2 whole receivers from every run
+        assert len(np.unique(unit[cal & (run == r)])) == 2
+    assert not set(unit[cal]) & set(unit[~cal])          # no receiver on both sides
+    assert draw_slice(run, unit, 0.0, rng).sum() == 3 * 40   # at least one per run
+    # scores shifted upwards on the target: the source threshold is too low
+    y = rng.integers(0, 2, len(run))
+    p = np.clip(0.5 + 0.3 * y + rng.normal(0, 0.1, len(run)), 0, 1)
+    df = retune(y, p, 0.3, run, unit, fracs=(0.1,), draws=5)
+    f1 = df.groupby("Kind").F1.mean()
+    assert f1["tuned"] > f1["source"] and f1["oracle"] >= f1["tuned"] - 1e-9

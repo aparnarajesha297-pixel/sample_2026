@@ -23,6 +23,7 @@ import itertools
 import sys
 from pathlib import Path
 
+import numpy as np
 import pandas as pd
 import torch
 
@@ -43,6 +44,10 @@ def main():
     p.add_argument("--pair-models", nargs="*", default=["XGBoost", "RAVEN-X", "RAVEN-X-GF"],
                    help="models for the scenario-pair matrix (test 3)")
     p.add_argument("--skip-pairs", action="store_true")
+    p.add_argument("--tests", nargs="*", default=None,
+                   help="run only these tests (names as printed, e.g. 'Urban → Highway' 'urban_2 → highway_7')")
+    p.add_argument("--save-scores", default=None,
+                   help="directory for target-test scores (used by run_target_threshold.py)")
     p.add_argument("--out", default="results/cross_scenario")
     args = p.parse_args()
     out = Path(args.out); out.mkdir(parents=True, exist_ok=True)
@@ -70,6 +75,15 @@ def main():
         raise SystemExit("Need at least two roads, densities or scenarios in the data "
                          "(for NextGen pass --density-map if folder names lack low/high).")
 
+    if args.tests:
+        unknown = set(args.tests) - {t[0] for t in tests}
+        if unknown:
+            raise SystemExit(f"unknown tests: {sorted(unknown)}; have {[t[0] for t in tests]}")
+        tests = [t for t in tests if t[0] in args.tests]
+    save = Path(args.save_scores) if args.save_scores else None
+    if save:
+        save.mkdir(parents=True, exist_ok=True)
+
     per_seed = out / "cross_scenario_per_seed.csv"
     rows = pd.read_csv(per_seed).to_dict("records") if per_seed.exists() else []
     done = {(r["Test"], r["Model"], int(r["Seed"])) for r in rows}
@@ -81,6 +95,12 @@ def main():
         if min(len(tr_all), len(va), len(te_out)) == 0:
             print(f"skip {name}: empty split"); continue
         d = renormalized(data, tr_all)
+        tag = name.replace(" → ", "__to__").replace(" ", "_")
+        if save and not (save / f"{tag}__target.npz").exists():
+            # receiver file and run of every target step (shared by all models)
+            np.savez_compressed(save / f"{tag}__target.npz", y=d.y[te_out].astype(np.int8),
+                                run=pd.factorize(st["run"].values[te_out])[0].astype(np.int16),
+                                unit=pd.factorize(st["receiver"].values[te_out])[0].astype(np.int32))
         for seed in args.seeds:
             tr = subsample(tr_all, args.max_train, seed)
             for model in models:
@@ -88,6 +108,9 @@ def main():
                     continue
                 print(f"\n== {name} | {model} | seed {seed} ==", flush=True)
                 res = fit_and_score(model, d, tr, va, te_out, args, seed)
+                if save:
+                    np.savez_compressed(save / f"{tag}__{model}__seed{seed}.npz",
+                                        p=np.asarray(res["test"][0]), thr=res["threshold"])
                 r_in, _ = res["model"].predict(d, te_in)
                 m_in = detection_metrics(d.y[te_in], r_in, res["threshold"]) if len(te_in) else {}
                 row = {"Test": name, "Model": model, "Seed": seed}
