@@ -43,9 +43,10 @@ def main():
     args = p.parse_args()
     out = Path(args.out); out.mkdir(parents=True, exist_ok=True)
 
-    rows, checks = [], []
+    rows, checks, order = [], [], []
     for run_dir in map(Path, args.runs):
         ref = pd.read_csv(run_dir / "cross_scenario_per_seed.csv")
+        order.append(ref)
         for f in sorted((run_dir / "scores").glob("*__seed*.npz")):
             tag, model, seed = re.match(r"(.+)__(.+?)__seed(\d+)\.npz", f.name).groups()
             seed = int(seed)
@@ -85,9 +86,11 @@ def main():
            .reset_index())
     agg.to_csv(out / "target_threshold_mean_std.csv", index=False)
 
-    test_order = list(dict.fromkeys(raw["Test"]))
+    # same test / model order as the cross-scenario report
+    ref_all = pd.concat(order)
+    test_order = [t for t in dict.fromkeys(ref_all["Test"]) if t in set(raw["Test"])]
     ref_b = 0.10 if 0.10 in args.fracs else args.fracs[-1]   # budget whose held-out set shows source/oracle
-    model_order = list(dict.fromkeys(raw["Model"]))
+    model_order = [m for m in dict.fromkeys(ref_all["Model"]) if m in set(raw["Model"])]
     md = ["# Threshold re-tuning on target data", "",
           f"Seeds {sorted(raw.Seed.unique().tolist())}, {args.draws} slice draws per budget. "
           "Budget = share of target receiver files labelled in every attack run (at least one). "
@@ -118,7 +121,7 @@ def main():
                                            for b, r in sl.iterrows()), ""]
     # compact summary: gain of the tuned threshold at each budget
     summ = []
-    for (test, model), b in agg.groupby(["Test", "Model"], sort=False):
+    for (test, model), b in agg.groupby(["Test", "Model"]):
         def f1(kind, fr):
             return b[(b.Kind == kind) & (b.Budget == fr)].F1.iloc[0]
         # paired: tuned and source on the same held-out receivers of each budget

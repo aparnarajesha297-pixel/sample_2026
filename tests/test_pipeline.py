@@ -373,3 +373,18 @@ def test_target_threshold_slice_and_retune():
     df = retune(y, p, 0.3, run, unit, fracs=(0.1,), draws=5)
     f1 = df.groupby("Kind").F1.mean()
     assert f1["tuned"] > f1["source"] and f1["oracle"] >= f1["tuned"] - 1e-9
+
+
+def test_target_threshold_matches_reference_metrics():
+    from ravenx.metrics import detection_metrics
+    from ravenx.target_threshold import _best_threshold_sorted, _prf
+    rng = np.random.default_rng(1)
+    y = rng.integers(0, 2, 3000)
+    p = np.round(np.clip(0.4 * y + rng.normal(0.3, 0.2, 3000), 0, 1), 2)   # many ties
+    o = np.argsort(-p, kind="stable")
+    t = _best_threshold_sorted(y[o], p[o])
+    assert t == best_threshold(y, p)
+    ref = detection_metrics(y, p, t)
+    got = _prf(y, p, t)
+    for c in ("F1", "Precision", "Recall"):
+        assert abs(got[c] - ref[c]) < 1e-12
