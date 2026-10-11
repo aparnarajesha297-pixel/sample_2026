@@ -1,0 +1,89 @@
+Loading cached data cache/data_01bb7458c904.pkl
+highway_2 → highway_7: identical to the low → high density test; reported from it
+
+== Urban → Highway | RandomForest | seed 1 ==
+   cross: F1 0.8397  Recall 0.8301  PR-AUC 0.8740  ECE 0.0784 | in-domain F1 0.8908
+
+== Urban → Highway | XGBoost | seed 1 ==
+   cross: F1 0.8382  Recall 0.8187  PR-AUC 0.8768  ECE 0.0384 | in-domain F1 0.8918
+
+== Urban → Highway | GRU | seed 1 ==
+   cross: F1 0.7048  Recall 0.8487  PR-AUC 0.8468  ECE 0.1131 | in-domain F1 0.9126
+
+== Urban → Highway | GAT | seed 1 ==
+   cross: F1 0.8089  Recall 0.7738  PR-AUC 0.8578  ECE 0.0403 | in-domain F1 0.8848
+
+== Urban → Highway | RAVEN-X | seed 1 ==
+   cross: F1 0.8035  Recall 0.8169  PR-AUC 0.8760  ECE 0.0408 | in-domain F1 0.9088
+
+== Urban → Highway | RAVEN-X-GF | seed 1 ==
+   cross: F1 0.5633  Recall 0.8893  PR-AUC 0.8186  ECE 0.2619 | in-domain F1 0.9153
+
+== Low → High density | RandomForest | seed 1 ==
+   cross: F1 0.8291  Recall 0.8111  PR-AUC 0.8045  ECE 0.3044 | in-domain F1 0.8616
+
+== Low → High density | XGBoost | seed 1 ==
+   cross: F1 0.7441  Recall 0.8483  PR-AUC 0.8294  ECE 0.1552 | in-domain F1 0.8574
+
+== Low → High density | GRU | seed 1 ==
+   cross: F1 0.5935  Recall 0.9186  PR-AUC 0.7452  ECE 0.3068 | in-domain F1 0.8801
+
+== Low → High density | GAT | seed 1 ==
+   cross: F1 0.4552  Recall 0.9149  PR-AUC 0.7516  ECE 0.3519 | in-domain F1 0.8454
+
+== Low → High density | RAVEN-X | seed 1 ==
+   cross: F1 0.6200  Recall 0.8658  PR-AUC 0.7583  ECE 0.2274 | in-domain F1 0.8753
+
+== Low → High density | RAVEN-X-GF | seed 1 ==
+   cross: F1 0.6277  Recall 0.8785  PR-AUC 0.8513  ECE 0.1894 | in-domain F1 0.8774
+
+== highway_2 → urban_2 | XGBoost | seed 1 ==
+   cross: F1 0.8726  Recall 0.8215  PR-AUC 0.8938  ECE 0.0402 | in-domain F1 0.8574
+
+== highway_2 → urban_2 | RAVEN-X | seed 1 ==
+   cross: F1 0.8760  Recall 0.8518  PR-AUC 0.9230  ECE 0.0253 | in-domain F1 0.8753
+
+== highway_2 → urban_2 | RAVEN-X-GF | seed 1 ==
+   cross: F1 0.9020  Recall 0.8737  PR-AUC 0.9348  ECE 0.0187 | in-domain F1 0.8774
+
+== urban_2 → highway_2 | XGBoost | seed 1 ==
+   cross: F1 0.8555  Recall 0.7811  PR-AUC 0.8753  ECE 0.0221 | in-domain F1 0.8918
+
+== urban_2 → highway_2 | RAVEN-X | seed 1 ==
+   cross: F1 0.8587  Recall 0.8216  PR-AUC 0.9033  ECE 0.0171 | in-domain F1 0.9088
+
+== urban_2 → highway_2 | RAVEN-X-GF | seed 1 ==
+   cross: F1 0.8798  Recall 0.8253  PR-AUC 0.9143  ECE 0.0174 | in-domain F1 0.9153
+
+== urban_2 → highway_7 | XGBoost | seed 1 ==
+   cross: F1 0.8294  Recall 0.8401  PR-AUC 0.8768  ECE 0.0466 | in-domain F1 0.8918
+
+== urban_2 → highway_7 | RAVEN-X | seed 1 ==
+   cross: F1 0.7750  Recall 0.8143  PR-AUC 0.8613  ECE 0.0529 | in-domain F1 0.9088
+
+== urban_2 → highway_7 | RAVEN-X-GF | seed 1 ==
+   cross: F1 0.4767  Recall 0.9256  PR-AUC 0.8204  ECE 0.3895 | in-domain F1 0.9153
+
+| Key | F1 | Recall | PR-AUC | ECE | in-domain F1 | ΔF1 (cross - in) |
+|---|---|---|---|---|---|---|
+| Urban → Highway / RandomForest | 0.8397 | 0.8301 | 0.8740 | 0.0784 | 0.8908 | -0.0511 |
+| Urban → Highway / XGBoost | 0.8382 | 0.8187 | 0.8768 | 0.0384 | 0.8918 | -0.0535 |
+| Urban → Highway / GRU | 0.7048 | 0.8487 | 0.8468 | 0.1131 | 0.9126 | -0.2078 |
+| Urban → Highway / GAT | 0.8089 | 0.7738 | 0.8578 | 0.0403 | 0.8848 | -0.0759 |
+| Urban → Highway / RAVEN-X | 0.8035 | 0.8169 | 0.8760 | 0.0408 | 0.9088 | -0.1053 |
+| Urban → Highway / RAVEN-X-GF | 0.5633 | 0.8893 | 0.8186 | 0.2619 | 0.9153 | -0.3520 |
+| Low → High density / RandomForest | 0.8291 | 0.8111 | 0.8045 | 0.3044 | 0.8616 | -0.0324 |
+| Low → High density / XGBoost | 0.7441 | 0.8483 | 0.8294 | 0.1552 | 0.8574 | -0.1133 |
+| Low → High density / GRU | 0.5935 | 0.9186 | 0.7452 | 0.3068 | 0.8801 | -0.2866 |
+| Low → High density / GAT | 0.4552 | 0.9149 | 0.7516 | 0.3519 | 0.8454 | -0.3902 |
+| Low → High density / RAVEN-X | 0.6200 | 0.8658 | 0.7583 | 0.2274 | 0.8753 | -0.2554 |
+| Low → High density / RAVEN-X-GF | 0.6277 | 0.8785 | 0.8513 | 0.1894 | 0.8774 | -0.2497 |
+| highway_2 → urban_2 / XGBoost | 0.8726 | 0.8215 | 0.8938 | 0.0402 | 0.8574 | 0.0152 |
+| highway_2 → urban_2 / RAVEN-X | 0.8760 | 0.8518 | 0.9230 | 0.0253 | 0.8753 | 0.0007 |
+| highway_2 → urban_2 / RAVEN-X-GF | 0.9020 | 0.8737 | 0.9348 | 0.0187 | 0.8774 | 0.0246 |
+| urban_2 → highway_2 / XGBoost | 0.8555 | 0.7811 | 0.8753 | 0.0221 | 0.8918 | -0.0363 |
+| urban_2 → highway_2 / RAVEN-X | 0.8587 | 0.8216 | 0.9033 | 0.0171 | 0.9088 | -0.0502 |
+| urban_2 → highway_2 / RAVEN-X-GF | 0.8798 | 0.8253 | 0.9143 | 0.0174 | 0.9153 | -0.0355 |
+| urban_2 → highway_7 / XGBoost | 0.8294 | 0.8401 | 0.8768 | 0.0466 | 0.8918 | -0.0623 |
+| urban_2 → highway_7 / RAVEN-X | 0.7750 | 0.8143 | 0.8613 | 0.0529 | 0.9088 | -0.1338 |
+| urban_2 → highway_7 / RAVEN-X-GF | 0.4767 | 0.9256 | 0.8204 | 0.3895 | 0.9153 | -0.4386 |

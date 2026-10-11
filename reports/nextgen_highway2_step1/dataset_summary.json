@@ -1,0 +1,40 @@
+{
+  "messages": 99937,
+  "unique_vehicles(sender_id per run)": 1110,
+  "unique_pseudonyms(alias per run)": 1110,
+  "attacker_vehicles": 221,
+  "attack_messages": 19788,
+  "normal_messages": 80149,
+  "attack_percentage": 19.80047429880825,
+  "missing_values": {},
+  "steps": 99937,
+  "per_split": {
+    "train": {
+      "steps": 37701,
+      "attack_steps": 7831
+    },
+    "val": {
+      "steps": 17977,
+      "attack_steps": 3247
+    },
+    "test": {
+      "steps": 44259,
+      "attack_steps": 8710
+    }
+  },
+  "graph": {
+    "snapshots": 45307,
+    "mean_vehicles_per_snapshot": 2.2057739422164344,
+    "mean_edges_per_snapshot": 0.8762222173174123,
+    "mean_avg_neighbors": 0.4492444315518012,
+    "max_neighbors": 6
+  },
+  "per_attack": [
+    {
+      "attack_type": "constantPositionOffset",
+      "messages": 99937,
+      "attack_messages": 19788,
+      "attack_rate": 0.1980047429880825
+    }
+  ]
+}

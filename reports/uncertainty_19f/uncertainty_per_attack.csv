@@ -1,0 +1,17 @@
+,mean_u,error_rate
+Sudden Stop,0.2362 ± 0.0767,0.2316 ± 0.1327
+Acceleration Multiplication,0.1947 ± 0.0098,0.2282 ± 0.0432
+Position Mirroring,0.1414 ± 0.0043,0.5328 ± 0.0166
+Data Replay,0.1179 ± 0.0304,0.2841 ± 0.0172
+benign,0.0938 ± 0.0121,0.0155 ± 0.0045
+Time Delay,0.0888 ± 0.0128,0.9888 ± 0.0062
+Feigned Braking,0.0822 ± 0.0056,0.1168 ± 0.0130
+Sudden Constant Speed,0.0818 ± 0.0164,0.1031 ± 0.0210
+Constant Speed Offset,0.0489 ± 0.0091,0.0758 ± 0.0028
+Constant Position Offset,0.0454 ± 0.0038,0.2294 ± 0.0119
+Zero Speed Report,0.0389 ± 0.0072,0.0379 ± 0.0051
+Random Speed Offset,0.0372 ± 0.0017,0.0661 ± 0.0014
+Reversed Heading,0.0294 ± 0.0032,0.0617 ± 0.0005
+Random Position Offset,0.0220 ± 0.0015,0.0213 ± 0.0016
+Traffic Congestion Sybil,0.0096 ± 0.0012,0.0000 ± 0.0000
+DoS,0.0084 ± 0.0004,0.0000 ± 0.0000

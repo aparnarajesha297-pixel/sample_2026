@@ -1,0 +1,325 @@
+Aggregator,Direction,Family,Scale (rounds),‖Δθ‖ / ‖θ‖,ADDR,wrongly accepted,wrongly rejected,decisions
+RS-WeightedTrim,random 1,random,0.1,0.003080853775236539,0.0,0.0,0.0,10031
+RS-WeightedTrim,random 1,random,0.3,0.009242561325709617,0.0,0.0,0.0,10031
+RS-WeightedTrim,random 1,random,1.0,0.03080853775236539,0.0,0.0,0.0,10031
+RS-WeightedTrim,random 1,random,3.0,0.09242561325709617,0.0,0.0,0.0,10031
+RS-WeightedTrim,random 1,random,10.0,0.3080853775236539,0.00209351011863224,0.0015950553284817066,0.0004984547901505334,10031
+RS-WeightedTrim,random 1,random,30.0,0.9242561325709616,0.10587179742797329,0.020536337354201975,0.08533546007377131,10031
+RS-WeightedTrim,random 2,random,0.1,0.003080853775236539,0.0,0.0,0.0,10031
+RS-WeightedTrim,random 2,random,0.3,0.009242561325709617,0.0,0.0,0.0,10031
+RS-WeightedTrim,random 2,random,1.0,0.03080853775236539,0.0,0.0,0.0,10031
+RS-WeightedTrim,random 2,random,3.0,0.09242561325709617,0.0,0.0,0.0,10031
+RS-WeightedTrim,random 2,random,10.0,0.3080853775236539,0.0007975276642408533,0.0006978367062107466,9.969095803010666e-05,10031
+RS-WeightedTrim,random 2,random,30.0,0.9242561325709616,0.12770411723656663,0.01924035489981059,0.10846376233675606,10031
+RS-WeightedTrim,random 3,random,0.1,0.003080853775236539,0.0,0.0,0.0,10031
+RS-WeightedTrim,random 3,random,0.3,0.009242561325709617,0.0,0.0,0.0,10031
+RS-WeightedTrim,random 3,random,1.0,0.03080853775236539,0.0,0.0,0.0,10031
+RS-WeightedTrim,random 3,random,3.0,0.09242561325709617,0.0,0.0,0.0,10031
+RS-WeightedTrim,random 3,random,10.0,0.3080853775236539,0.0032898016149935203,0.0005981457481806401,0.00269165586681288,10031
+RS-WeightedTrim,random 3,random,30.0,0.9242561325709616,0.11753563951749577,0.016349317116937493,0.10118632240055828,10031
+RS-WeightedTrim,random 4,random,0.1,0.003080853775236539,0.0,0.0,0.0,10031
+RS-WeightedTrim,random 4,random,0.3,0.009242561325709617,0.0,0.0,0.0,10031
+RS-WeightedTrim,random 4,random,1.0,0.03080853775236539,0.0,0.0,0.0,10031
+RS-WeightedTrim,random 4,random,3.0,0.09242561325709617,0.0,0.0,0.0,10031
+RS-WeightedTrim,random 4,random,10.0,0.3080853775236539,0.0006978367062107466,0.0006978367062107466,0.0,10031
+RS-WeightedTrim,random 4,random,30.0,0.9242561325709616,0.0627056126009371,0.04984547901505333,0.012860133585883761,10031
+RS-WeightedTrim,random 5,random,0.1,0.003080853775236539,0.0,0.0,0.0,10031
+RS-WeightedTrim,random 5,random,0.3,0.009242561325709617,0.0,0.0,0.0,10031
+RS-WeightedTrim,random 5,random,1.0,0.03080853775236539,0.0,0.0,0.0,10031
+RS-WeightedTrim,random 5,random,3.0,0.09242561325709617,0.0,0.0,0.0,10031
+RS-WeightedTrim,random 5,random,10.0,0.3080853775236539,0.0006978367062107466,0.00039876383212042666,0.00029907287409032003,10031
+RS-WeightedTrim,random 5,random,30.0,0.9242561325709616,0.1061708703020636,0.009670022928920347,0.09650084737314325,10031
+RS-WeightedTrim,reverse training,reverse,0.1,0.003080853775236539,0.0,0.0,0.0,10031
+RS-WeightedTrim,reverse training,reverse,0.3,0.009242561325709617,0.0,0.0,0.0,10031
+RS-WeightedTrim,reverse training,reverse,1.0,0.03080853775236539,0.0,0.0,0.0,10031
+RS-WeightedTrim,reverse training,reverse,3.0,0.09242561325709617,0.0,0.0,0.0,10031
+RS-WeightedTrim,reverse training,reverse,10.0,0.3080853775236539,0.0028910377828730936,0.00179443724454192,0.0010966005383311734,10031
+RS-WeightedTrim,reverse training,reverse,30.0,0.9242561325709616,0.68228491675805,0.0,0.68228491675805,10031
+RS-WeightedTrim,attack boosted | attacker_dataReplay_4623714049,attack boosted,0.1,0.003080853775236539,0.0,0.0,0.0,10031
+RS-WeightedTrim,attack boosted | attacker_dataReplay_4623714049,attack boosted,0.3,0.009242561325709617,0.0,0.0,0.0,10031
+RS-WeightedTrim,attack boosted | attacker_dataReplay_4623714049,attack boosted,1.0,0.03080853775236539,0.0,0.0,0.0,10031
+RS-WeightedTrim,attack boosted | attacker_dataReplay_4623714049,attack boosted,3.0,0.09242561325709617,0.00019938191606021333,0.00019938191606021333,0.0,10031
+RS-WeightedTrim,attack boosted | attacker_dataReplay_4623714049,attack boosted,10.0,0.3080853775236539,0.007078058020137574,0.003987638321204267,0.0030904196989333067,10031
+RS-WeightedTrim,attack boosted | attacker_dataReplay_4623714049,attack boosted,30.0,0.9242561325709616,0.22350712790349916,0.0314026517794836,0.19210447612401554,10031
+RS-WeightedTrim,attack boosted | attacker_dosAttack_2334700212,attack boosted,0.1,0.003080853775236539,0.0,0.0,0.0,10031
+RS-WeightedTrim,attack boosted | attacker_dosAttack_2334700212,attack boosted,0.3,0.009242561325709617,0.0,0.0,0.0,10031
+RS-WeightedTrim,attack boosted | attacker_dosAttack_2334700212,attack boosted,1.0,0.03080853775236539,0.0,0.0,0.0,10031
+RS-WeightedTrim,attack boosted | attacker_dosAttack_2334700212,attack boosted,3.0,0.09242561325709617,0.0,0.0,0.0,10031
+RS-WeightedTrim,attack boosted | attacker_dosAttack_2334700212,attack boosted,10.0,0.3080853775236539,0.009769713886950453,0.004286711195294586,0.005483002691655867,10031
+RS-WeightedTrim,attack boosted | attacker_dosAttack_2334700212,attack boosted,30.0,0.9242561325709616,0.25221812381616987,0.025221812381616988,0.2269963114345529,10031
+RS-WeightedTrim,attack boosted | attacker_positionMirroring_2530385657,attack boosted,0.1,0.003080853775236539,0.0,0.0,0.0,10031
+RS-WeightedTrim,attack boosted | attacker_positionMirroring_2530385657,attack boosted,0.3,0.009242561325709617,0.0,0.0,0.0,10031
+RS-WeightedTrim,attack boosted | attacker_positionMirroring_2530385657,attack boosted,1.0,0.03080853775236539,0.0,0.0,0.0,10031
+RS-WeightedTrim,attack boosted | attacker_positionMirroring_2530385657,attack boosted,3.0,0.09242561325709617,0.00019938191606021333,0.00019938191606021333,0.0,10031
+RS-WeightedTrim,attack boosted | attacker_positionMirroring_2530385657,attack boosted,10.0,0.3080853775236539,0.01525271657860632,0.00418702023726448,0.01106569634134184,10031
+RS-WeightedTrim,attack boosted | attacker_positionMirroring_2530385657,attack boosted,30.0,0.9242561325709616,0.3199082843186123,0.04615691356793939,0.2737513707506729,10031
+RS-WeightedTrim,attack boosted | attacker_randomPositionOffset_5274206664,attack boosted,0.1,0.003080853775236539,0.0,0.0,0.0,10031
+RS-WeightedTrim,attack boosted | attacker_randomPositionOffset_5274206664,attack boosted,0.3,0.009242561325709617,0.0,0.0,0.0,10031
+RS-WeightedTrim,attack boosted | attacker_randomPositionOffset_5274206664,attack boosted,1.0,0.03080853775236539,0.0,0.0,0.0,10031
+RS-WeightedTrim,attack boosted | attacker_randomPositionOffset_5274206664,attack boosted,3.0,0.09242561325709617,0.0,0.0,0.0,10031
+RS-WeightedTrim,attack boosted | attacker_randomPositionOffset_5274206664,attack boosted,10.0,0.3080853775236539,0.0194397368158708,0.0031901106569634133,0.016249626158907387,10031
+RS-WeightedTrim,attack boosted | attacker_randomPositionOffset_5274206664,attack boosted,30.0,0.9242561325709616,0.2790349915262686,0.04326587578506629,0.23576911574120227,10031
+RS-WeightedTrim,attack boosted | attacker_randomSpeedOffset_7761870589,attack boosted,0.1,0.003080853775236539,0.0,0.0,0.0,10031
+RS-WeightedTrim,attack boosted | attacker_randomSpeedOffset_7761870589,attack boosted,0.3,0.009242561325709617,0.0,0.0,0.0,10031
+RS-WeightedTrim,attack boosted | attacker_randomSpeedOffset_7761870589,attack boosted,1.0,0.03080853775236539,0.0,0.0,0.0,10031
+RS-WeightedTrim,attack boosted | attacker_randomSpeedOffset_7761870589,attack boosted,3.0,0.09242561325709617,0.0,0.0,0.0,10031
+RS-WeightedTrim,attack boosted | attacker_randomSpeedOffset_7761870589,attack boosted,10.0,0.3080853775236539,0.01166384208952248,0.0014953643704516,0.01016847771907088,10031
+RS-WeightedTrim,attack boosted | attacker_randomSpeedOffset_7761870589,attack boosted,30.0,0.9242561325709616,0.28421892134383414,0.01016847771907088,0.2740504436247632,10031
+RS-WeightedTrim,attack boosted | honest_dataReplay_5628007782,attack boosted,0.1,0.003080853775236539,0.0,0.0,0.0,10031
+RS-WeightedTrim,attack boosted | honest_dataReplay_5628007782,attack boosted,0.3,0.009242561325709617,0.0,0.0,0.0,10031
+RS-WeightedTrim,attack boosted | honest_dataReplay_5628007782,attack boosted,1.0,0.03080853775236539,0.0,0.0,0.0,10031
+RS-WeightedTrim,attack boosted | honest_dataReplay_5628007782,attack boosted,3.0,0.09242561325709617,0.00019938191606021333,0.00019938191606021333,0.0,10031
+RS-WeightedTrim,attack boosted | honest_dataReplay_5628007782,attack boosted,10.0,0.3080853775236539,0.02033695543814176,0.00209351011863224,0.01824344531950952,10031
+RS-WeightedTrim,attack boosted | honest_dataReplay_5628007782,attack boosted,30.0,0.9242561325709616,0.45788057023227996,0.008174658558468747,0.4497059116738112,10031
+RS-WeightedTrim,attack boosted | honest_feignedBraking_4434209032,attack boosted,0.1,0.003080853775236539,0.0,0.0,0.0,10031
+RS-WeightedTrim,attack boosted | honest_feignedBraking_4434209032,attack boosted,0.3,0.009242561325709617,0.0,0.0,0.0,10031
+RS-WeightedTrim,attack boosted | honest_feignedBraking_4434209032,attack boosted,1.0,0.03080853775236539,0.0,0.0,0.0,10031
+RS-WeightedTrim,attack boosted | honest_feignedBraking_4434209032,attack boosted,3.0,0.09242561325709617,0.0,0.0,0.0,10031
+RS-WeightedTrim,attack boosted | honest_feignedBraking_4434209032,attack boosted,10.0,0.3080853775236539,0.044661549197487785,0.0022928920346924533,0.04236865716279534,10031
+RS-WeightedTrim,attack boosted | honest_feignedBraking_4434209032,attack boosted,30.0,0.9242561325709616,0.5642508224504037,0.0023925829927225603,0.5618582394576812,10031
+RS-WeightedTrim,attack boosted | honest_randomSpeedOffset_5142823020,attack boosted,0.1,0.003080853775236539,0.0,0.0,0.0,10031
+RS-WeightedTrim,attack boosted | honest_randomSpeedOffset_5142823020,attack boosted,0.3,0.009242561325709617,0.0,0.0,0.0,10031
+RS-WeightedTrim,attack boosted | honest_randomSpeedOffset_5142823020,attack boosted,1.0,0.03080853775236539,0.0,0.0,0.0,10031
+RS-WeightedTrim,attack boosted | honest_randomSpeedOffset_5142823020,attack boosted,3.0,0.09242561325709617,0.0,0.0,0.0,10031
+RS-WeightedTrim,attack boosted | honest_randomSpeedOffset_5142823020,attack boosted,10.0,0.3080853775236539,0.004286711195294586,0.002492273950752667,0.00179443724454192,10031
+RS-WeightedTrim,attack boosted | honest_randomSpeedOffset_5142823020,attack boosted,30.0,0.9242561325709616,0.2632838201575117,0.021134483102382615,0.2421493370551291,10031
+RS-WeightedTrim,attack boosted | honest_trafficCongestionSybil_7802626606,attack boosted,0.1,0.003080853775236539,0.0,0.0,0.0,10031
+RS-WeightedTrim,attack boosted | honest_trafficCongestionSybil_7802626606,attack boosted,0.3,0.009242561325709617,0.0,0.0,0.0,10031
+RS-WeightedTrim,attack boosted | honest_trafficCongestionSybil_7802626606,attack boosted,1.0,0.03080853775236539,0.0,0.0,0.0,10031
+RS-WeightedTrim,attack boosted | honest_trafficCongestionSybil_7802626606,attack boosted,3.0,0.09242561325709617,9.969095803010666e-05,9.969095803010666e-05,0.0,10031
+RS-WeightedTrim,attack boosted | honest_trafficCongestionSybil_7802626606,attack boosted,10.0,0.3080853775236539,0.01016847771907088,0.0031901106569634133,0.006978367062107467,10031
+RS-WeightedTrim,attack boosted | honest_trafficCongestionSybil_7802626606,attack boosted,30.0,0.9242561325709616,0.21323895922639816,0.02721563154221912,0.18602332768417904,10031
+RS-WeightedTrim,attack boosted | honest_zeroSpeedReport_9129455203,attack boosted,0.1,0.003080853775236539,0.0,0.0,0.0,10031
+RS-WeightedTrim,attack boosted | honest_zeroSpeedReport_9129455203,attack boosted,0.3,0.009242561325709617,0.0,0.0,0.0,10031
+RS-WeightedTrim,attack boosted | honest_zeroSpeedReport_9129455203,attack boosted,1.0,0.03080853775236539,0.0,0.0,0.0,10031
+RS-WeightedTrim,attack boosted | honest_zeroSpeedReport_9129455203,attack boosted,3.0,0.09242561325709617,0.0,0.0,0.0,10031
+RS-WeightedTrim,attack boosted | honest_zeroSpeedReport_9129455203,attack boosted,10.0,0.3080853775236539,0.0194397368158708,0.0015950553284817066,0.017844681487389095,10031
+RS-WeightedTrim,attack boosted | honest_zeroSpeedReport_9129455203,attack boosted,30.0,0.9242561325709616,0.4482105473033596,0.0089721862227096,0.43923836108065,10031
+RS-WeightedTrim,attack norm-matched | attacker_dataReplay_4623714049,attack norm-matched,0.1,0.003080853775236539,0.0,0.0,0.0,10031
+RS-WeightedTrim,attack norm-matched | attacker_dataReplay_4623714049,attack norm-matched,0.3,0.009242561325709617,0.0,0.0,0.0,10031
+RS-WeightedTrim,attack norm-matched | attacker_dataReplay_4623714049,attack norm-matched,1.0,0.03080853775236539,0.0,0.0,0.0,10031
+RS-WeightedTrim,attack norm-matched | attacker_dataReplay_4623714049,attack norm-matched,3.0,0.09242561325709617,0.00029907287409032003,0.00029907287409032003,0.0,10031
+RS-WeightedTrim,attack norm-matched | attacker_dataReplay_4623714049,attack norm-matched,10.0,0.3080853775236539,0.0284119230385804,0.007476821852258,0.0209351011863224,10031
+RS-WeightedTrim,attack norm-matched | attacker_dataReplay_4623714049,attack norm-matched,30.0,0.9242561325709616,0.34602731532250025,0.03479214435250723,0.31123517096999304,10031
+RS-WeightedTrim,attack norm-matched | attacker_dosAttack_2334700212,attack norm-matched,0.1,0.003080853775236539,0.0,0.0,0.0,10031
+RS-WeightedTrim,attack norm-matched | attacker_dosAttack_2334700212,attack norm-matched,0.3,0.009242561325709617,0.0,0.0,0.0,10031
+RS-WeightedTrim,attack norm-matched | attacker_dosAttack_2334700212,attack norm-matched,1.0,0.03080853775236539,0.0,0.0,0.0,10031
+RS-WeightedTrim,attack norm-matched | attacker_dosAttack_2334700212,attack norm-matched,3.0,0.09242561325709617,0.00029907287409032003,0.00029907287409032003,0.0,10031
+RS-WeightedTrim,attack norm-matched | attacker_dosAttack_2334700212,attack norm-matched,10.0,0.3080853775236539,0.01704715382314824,0.014554879872395574,0.002492273950752667,10031
+RS-WeightedTrim,attack norm-matched | attacker_dosAttack_2334700212,attack norm-matched,30.0,0.9242561325709616,0.22101485395274648,0.061609012062605925,0.15940584189014056,10031
+RS-WeightedTrim,attack norm-matched | attacker_positionMirroring_2530385657,attack norm-matched,0.1,0.003080853775236539,0.0,0.0,0.0,10031
+RS-WeightedTrim,attack norm-matched | attacker_positionMirroring_2530385657,attack norm-matched,0.3,0.009242561325709617,0.0,0.0,0.0,10031
+RS-WeightedTrim,attack norm-matched | attacker_positionMirroring_2530385657,attack norm-matched,1.0,0.03080853775236539,0.0,0.0,0.0,10031
+RS-WeightedTrim,attack norm-matched | attacker_positionMirroring_2530385657,attack norm-matched,3.0,0.09242561325709617,0.00029907287409032003,0.00019938191606021333,9.969095803010666e-05,10031
+RS-WeightedTrim,attack norm-matched | attacker_positionMirroring_2530385657,attack norm-matched,10.0,0.3080853775236539,0.0403748380021932,0.0007975276642408533,0.03957731033795235,10031
+RS-WeightedTrim,attack norm-matched | attacker_positionMirroring_2530385657,attack norm-matched,30.0,0.9242561325709616,0.379423786262586,0.008872495264679493,0.3705512909979065,10031
+RS-WeightedTrim,attack norm-matched | attacker_randomPositionOffset_5274206664,attack norm-matched,0.1,0.003080853775236539,0.0,0.0,0.0,10031
+RS-WeightedTrim,attack norm-matched | attacker_randomPositionOffset_5274206664,attack norm-matched,0.3,0.009242561325709617,0.0,0.0,0.0,10031
+RS-WeightedTrim,attack norm-matched | attacker_randomPositionOffset_5274206664,attack norm-matched,1.0,0.03080853775236539,0.0,0.0,0.0,10031
+RS-WeightedTrim,attack norm-matched | attacker_randomPositionOffset_5274206664,attack norm-matched,3.0,0.09242561325709617,0.0,0.0,0.0,10031
+RS-WeightedTrim,attack norm-matched | attacker_randomPositionOffset_5274206664,attack norm-matched,10.0,0.3080853775236539,0.023028611304954642,0.005183929817565547,0.017844681487389095,10031
+RS-WeightedTrim,attack norm-matched | attacker_randomPositionOffset_5274206664,attack norm-matched,30.0,0.9242561325709616,0.4349516498853554,0.025919649087827734,0.40903200079752766,10031
+RS-WeightedTrim,attack norm-matched | attacker_randomSpeedOffset_7761870589,attack norm-matched,0.1,0.003080853775236539,0.0,0.0,0.0,10031
+RS-WeightedTrim,attack norm-matched | attacker_randomSpeedOffset_7761870589,attack norm-matched,0.3,0.009242561325709617,0.0,0.0,0.0,10031
+RS-WeightedTrim,attack norm-matched | attacker_randomSpeedOffset_7761870589,attack norm-matched,1.0,0.03080853775236539,0.0,0.0,0.0,10031
+RS-WeightedTrim,attack norm-matched | attacker_randomSpeedOffset_7761870589,attack norm-matched,3.0,0.09242561325709617,0.0,0.0,0.0,10031
+RS-WeightedTrim,attack norm-matched | attacker_randomSpeedOffset_7761870589,attack norm-matched,10.0,0.3080853775236539,0.01884159106769016,0.0025919649087827734,0.016249626158907387,10031
+RS-WeightedTrim,attack norm-matched | attacker_randomSpeedOffset_7761870589,attack norm-matched,30.0,0.9242561325709616,0.44571827335260694,0.046057222609909285,0.39966105074269764,10031
+RS-WeightedTrim,attack norm-matched | honest_dataReplay_5628007782,attack norm-matched,0.1,0.003080853775236539,0.0,0.0,0.0,10031
+RS-WeightedTrim,attack norm-matched | honest_dataReplay_5628007782,attack norm-matched,0.3,0.009242561325709617,0.0,0.0,0.0,10031
+RS-WeightedTrim,attack norm-matched | honest_dataReplay_5628007782,attack norm-matched,1.0,0.03080853775236539,0.0,0.0,0.0,10031
+RS-WeightedTrim,attack norm-matched | honest_dataReplay_5628007782,attack norm-matched,3.0,0.09242561325709617,9.969095803010666e-05,9.969095803010666e-05,0.0,10031
+RS-WeightedTrim,attack norm-matched | honest_dataReplay_5628007782,attack norm-matched,10.0,0.3080853775236539,0.05273651679792643,0.00089721862227096,0.05183929817565547,10031
+RS-WeightedTrim,attack norm-matched | honest_dataReplay_5628007782,attack norm-matched,30.0,0.9242561325709616,0.4926727145847872,0.008772804306649387,0.4838999102781378,10031
+RS-WeightedTrim,attack norm-matched | honest_feignedBraking_4434209032,attack norm-matched,0.1,0.003080853775236539,0.0,0.0,0.0,10031
+RS-WeightedTrim,attack norm-matched | honest_feignedBraking_4434209032,attack norm-matched,0.3,0.009242561325709617,0.0,0.0,0.0,10031
+RS-WeightedTrim,attack norm-matched | honest_feignedBraking_4434209032,attack norm-matched,1.0,0.03080853775236539,0.0,0.0,0.0,10031
+RS-WeightedTrim,attack norm-matched | honest_feignedBraking_4434209032,attack norm-matched,3.0,0.09242561325709617,0.0,0.0,0.0,10031
+RS-WeightedTrim,attack norm-matched | honest_feignedBraking_4434209032,attack norm-matched,10.0,0.3080853775236539,0.013657661250124613,0.00179443724454192,0.011863224005582694,10031
+RS-WeightedTrim,attack norm-matched | honest_feignedBraking_4434209032,attack norm-matched,30.0,0.9242561325709616,0.4277739009071877,0.004087329279234373,0.42368657162795337,10031
+RS-WeightedTrim,attack norm-matched | honest_randomSpeedOffset_5142823020,attack norm-matched,0.1,0.003080853775236539,0.0,0.0,0.0,10031
+RS-WeightedTrim,attack norm-matched | honest_randomSpeedOffset_5142823020,attack norm-matched,0.3,0.009242561325709617,0.0,0.0,0.0,10031
+RS-WeightedTrim,attack norm-matched | honest_randomSpeedOffset_5142823020,attack norm-matched,1.0,0.03080853775236539,0.0,0.0,0.0,10031
+RS-WeightedTrim,attack norm-matched | honest_randomSpeedOffset_5142823020,attack norm-matched,3.0,0.09242561325709617,0.00019938191606021333,0.00019938191606021333,0.0,10031
+RS-WeightedTrim,attack norm-matched | honest_randomSpeedOffset_5142823020,attack norm-matched,10.0,0.3080853775236539,0.009670022928920347,0.00358887448908384,0.006081148439836507,10031
+RS-WeightedTrim,attack norm-matched | honest_randomSpeedOffset_5142823020,attack norm-matched,30.0,0.9242561325709616,0.6796929518492673,0.0,0.6796929518492673,10031
+RS-WeightedTrim,attack norm-matched | honest_trafficCongestionSybil_7802626606,attack norm-matched,0.1,0.003080853775236539,0.0,0.0,0.0,10031
+RS-WeightedTrim,attack norm-matched | honest_trafficCongestionSybil_7802626606,attack norm-matched,0.3,0.009242561325709617,0.0,0.0,0.0,10031
+RS-WeightedTrim,attack norm-matched | honest_trafficCongestionSybil_7802626606,attack norm-matched,1.0,0.03080853775236539,0.0,0.0,0.0,10031
+RS-WeightedTrim,attack norm-matched | honest_trafficCongestionSybil_7802626606,attack norm-matched,3.0,0.09242561325709617,0.0,0.0,0.0,10031
+RS-WeightedTrim,attack norm-matched | honest_trafficCongestionSybil_7802626606,attack norm-matched,10.0,0.3080853775236539,0.01734622669723856,0.0015950553284817066,0.015751171368756853,10031
+RS-WeightedTrim,attack norm-matched | honest_trafficCongestionSybil_7802626606,attack norm-matched,30.0,0.9242561325709616,0.5568736915561758,0.0027913468248429866,0.5540823447313329,10031
+RS-WeightedTrim,attack norm-matched | honest_zeroSpeedReport_9129455203,attack norm-matched,0.1,0.003080853775236539,0.0,0.0,0.0,10031
+RS-WeightedTrim,attack norm-matched | honest_zeroSpeedReport_9129455203,attack norm-matched,0.3,0.009242561325709617,0.0,0.0,0.0,10031
+RS-WeightedTrim,attack norm-matched | honest_zeroSpeedReport_9129455203,attack norm-matched,1.0,0.03080853775236539,0.0,0.0,0.0,10031
+RS-WeightedTrim,attack norm-matched | honest_zeroSpeedReport_9129455203,attack norm-matched,3.0,0.09242561325709617,0.00029907287409032003,0.00029907287409032003,0.0,10031
+RS-WeightedTrim,attack norm-matched | honest_zeroSpeedReport_9129455203,attack norm-matched,10.0,0.3080853775236539,0.019938191606021335,0.0032898016149935203,0.016648389991027815,10031
+RS-WeightedTrim,attack norm-matched | honest_zeroSpeedReport_9129455203,attack norm-matched,30.0,0.9242561325709616,0.5873791247133885,0.0011962914963612801,0.5861828332170272,10031
+RS-WeightedTrim,gradient (worst case),gradient,0.1,0.003080853775236539,0.0,0.0,0.0,10031
+RS-WeightedTrim,gradient (worst case),gradient,0.3,0.009242561325709617,0.05403249925231782,0.0,0.05403249925231782,10031
+RS-WeightedTrim,gradient (worst case),gradient,1.0,0.03080853775236539,0.6460970989931213,0.00089721862227096,0.6451998803708504,10031
+RS-WeightedTrim,gradient (worst case),gradient,3.0,0.09242561325709617,0.72903997607417,0.04795135081248131,0.6810886252616888,10031
+RS-WeightedTrim,gradient (worst case),gradient,10.0,0.3080853775236539,0.68228491675805,0.0,0.68228491675805,10031
+RS-WeightedTrim,gradient (worst case),gradient,30.0,0.9242561325709616,0.32100488485694345,0.05124115242747483,0.26976373242946866,10031
+FedAvg,random 1,random,0.1,0.004053669986164142,0.0,0.0,0.0,9520
+FedAvg,random 1,random,0.3,0.012161009958492425,0.0,0.0,0.0,9520
+FedAvg,random 1,random,1.0,0.04053669986164142,0.0,0.0,0.0,9520
+FedAvg,random 1,random,3.0,0.12161009958492426,0.0,0.0,0.0,9520
+FedAvg,random 1,random,10.0,0.4053669986164142,0.010924369747899159,0.002310924369747899,0.008613445378151261,9520
+FedAvg,random 1,random,30.0,1.2161009958492426,0.2536764705882353,0.08539915966386555,0.16827731092436976,9520
+FedAvg,random 2,random,0.1,0.004053669986164142,0.0,0.0,0.0,9520
+FedAvg,random 2,random,0.3,0.012161009958492425,0.0,0.0,0.0,9520
+FedAvg,random 2,random,1.0,0.04053669986164142,0.0,0.0,0.0,9520
+FedAvg,random 2,random,3.0,0.12161009958492426,0.0,0.0,0.0,9520
+FedAvg,random 2,random,10.0,0.4053669986164142,0.016176470588235296,0.0027310924369747898,0.013445378151260505,9520
+FedAvg,random 2,random,30.0,1.2161009958492426,0.33907563025210086,0.05178571428571429,0.28728991596638653,9520
+FedAvg,random 3,random,0.1,0.004053669986164142,0.0,0.0,0.0,9520
+FedAvg,random 3,random,0.3,0.012161009958492425,0.0,0.0,0.0,9520
+FedAvg,random 3,random,1.0,0.04053669986164142,0.0,0.0,0.0,9520
+FedAvg,random 3,random,3.0,0.12161009958492426,0.0,0.0,0.0,9520
+FedAvg,random 3,random,10.0,0.4053669986164142,0.015021008403361345,0.005567226890756303,0.009453781512605041,9520
+FedAvg,random 3,random,30.0,1.2161009958492426,0.22573529411764706,0.05934873949579832,0.16638655462184873,9520
+FedAvg,random 4,random,0.1,0.004053669986164142,0.0,0.0,0.0,9520
+FedAvg,random 4,random,0.3,0.012161009958492425,0.0,0.0,0.0,9520
+FedAvg,random 4,random,1.0,0.04053669986164142,0.0,0.0,0.0,9520
+FedAvg,random 4,random,3.0,0.12161009958492426,0.0,0.0,0.0,9520
+FedAvg,random 4,random,10.0,0.4053669986164142,0.00703781512605042,0.002310924369747899,0.004726890756302521,9520
+FedAvg,random 4,random,30.0,1.2161009958492426,0.21764705882352942,0.026365546218487395,0.191281512605042,9520
+FedAvg,random 5,random,0.1,0.004053669986164142,0.0,0.0,0.0,9520
+FedAvg,random 5,random,0.3,0.012161009958492425,0.0,0.0,0.0,9520
+FedAvg,random 5,random,1.0,0.04053669986164142,0.0,0.0,0.0,9520
+FedAvg,random 5,random,3.0,0.12161009958492426,0.0,0.0,0.0,9520
+FedAvg,random 5,random,10.0,0.4053669986164142,0.003781512605042017,0.0026260504201680674,0.0011554621848739496,9520
+FedAvg,random 5,random,30.0,1.2161009958492426,0.1467436974789916,0.02741596638655462,0.11932773109243698,9520
+FedAvg,reverse training,reverse,0.1,0.004053669986164142,0.0,0.0,0.0,9520
+FedAvg,reverse training,reverse,0.3,0.012161009958492425,0.0,0.0,0.0,9520
+FedAvg,reverse training,reverse,1.0,0.04053669986164142,0.0,0.0,0.0,9520
+FedAvg,reverse training,reverse,3.0,0.12161009958492426,0.0001050420168067227,0.0001050420168067227,0.0,9520
+FedAvg,reverse training,reverse,10.0,0.4053669986164142,0.013865546218487394,0.007142857142857143,0.0067226890756302525,9520
+FedAvg,reverse training,reverse,30.0,1.2161009958492426,0.6553571428571429,0.0,0.6553571428571429,9520
+FedAvg,attack boosted | attacker_dataReplay_4623714049,attack boosted,0.1,0.004053669986164142,0.0,0.0,0.0,9520
+FedAvg,attack boosted | attacker_dataReplay_4623714049,attack boosted,0.3,0.012161009958492425,0.0,0.0,0.0,9520
+FedAvg,attack boosted | attacker_dataReplay_4623714049,attack boosted,1.0,0.04053669986164142,0.0,0.0,0.0,9520
+FedAvg,attack boosted | attacker_dataReplay_4623714049,attack boosted,3.0,0.12161009958492426,0.0002100840336134454,0.0002100840336134454,0.0,9520
+FedAvg,attack boosted | attacker_dataReplay_4623714049,attack boosted,10.0,0.4053669986164142,0.03413865546218487,0.011449579831932772,0.0226890756302521,9520
+FedAvg,attack boosted | attacker_dataReplay_4623714049,attack boosted,30.0,1.2161009958492426,0.23771008403361343,0.04411764705882353,0.19359243697478992,9520
+FedAvg,attack boosted | attacker_dosAttack_2334700212,attack boosted,0.1,0.004053669986164142,0.0,0.0,0.0,9520
+FedAvg,attack boosted | attacker_dosAttack_2334700212,attack boosted,0.3,0.012161009958492425,0.0,0.0,0.0,9520
+FedAvg,attack boosted | attacker_dosAttack_2334700212,attack boosted,1.0,0.04053669986164142,0.0,0.0,0.0,9520
+FedAvg,attack boosted | attacker_dosAttack_2334700212,attack boosted,3.0,0.12161009958492426,0.0,0.0,0.0,9520
+FedAvg,attack boosted | attacker_dosAttack_2334700212,attack boosted,10.0,0.4053669986164142,0.014915966386554623,0.0031512605042016808,0.011764705882352941,9520
+FedAvg,attack boosted | attacker_dosAttack_2334700212,attack boosted,30.0,1.2161009958492426,0.28403361344537814,0.0365546218487395,0.24747899159663866,9520
+FedAvg,attack boosted | attacker_positionMirroring_2530385657,attack boosted,0.1,0.004053669986164142,0.0,0.0,0.0,9520
+FedAvg,attack boosted | attacker_positionMirroring_2530385657,attack boosted,0.3,0.012161009958492425,0.0,0.0,0.0,9520
+FedAvg,attack boosted | attacker_positionMirroring_2530385657,attack boosted,1.0,0.04053669986164142,0.0,0.0,0.0,9520
+FedAvg,attack boosted | attacker_positionMirroring_2530385657,attack boosted,3.0,0.12161009958492426,0.0002100840336134454,0.0002100840336134454,0.0,9520
+FedAvg,attack boosted | attacker_positionMirroring_2530385657,attack boosted,10.0,0.4053669986164142,0.008928571428571428,0.004831932773109244,0.004096638655462185,9520
+FedAvg,attack boosted | attacker_positionMirroring_2530385657,attack boosted,30.0,1.2161009958492426,0.11974789915966387,0.058823529411764705,0.06092436974789916,9520
+FedAvg,attack boosted | attacker_randomPositionOffset_5274206664,attack boosted,0.1,0.004053669986164142,0.0,0.0,0.0,9520
+FedAvg,attack boosted | attacker_randomPositionOffset_5274206664,attack boosted,0.3,0.012161009958492425,0.0,0.0,0.0,9520
+FedAvg,attack boosted | attacker_randomPositionOffset_5274206664,attack boosted,1.0,0.04053669986164142,0.0,0.0,0.0,9520
+FedAvg,attack boosted | attacker_randomPositionOffset_5274206664,attack boosted,3.0,0.12161009958492426,0.0033613445378151263,0.0032563025210084035,0.0001050420168067227,9520
+FedAvg,attack boosted | attacker_randomPositionOffset_5274206664,attack boosted,10.0,0.4053669986164142,0.15588235294117647,0.03046218487394958,0.1254201680672269,9520
+FedAvg,attack boosted | attacker_randomPositionOffset_5274206664,attack boosted,30.0,1.2161009958492426,0.48403361344537815,0.11008403361344538,0.3739495798319328,9520
+FedAvg,attack boosted | attacker_randomSpeedOffset_7761870589,attack boosted,0.1,0.004053669986164142,0.0,0.0,0.0,9520
+FedAvg,attack boosted | attacker_randomSpeedOffset_7761870589,attack boosted,0.3,0.012161009958492425,0.0,0.0,0.0,9520
+FedAvg,attack boosted | attacker_randomSpeedOffset_7761870589,attack boosted,1.0,0.04053669986164142,0.0,0.0,0.0,9520
+FedAvg,attack boosted | attacker_randomSpeedOffset_7761870589,attack boosted,3.0,0.12161009958492426,0.0003151260504201681,0.0002100840336134454,0.0001050420168067227,9520
+FedAvg,attack boosted | attacker_randomSpeedOffset_7761870589,attack boosted,10.0,0.4053669986164142,0.06281512605042017,0.01365546218487395,0.04915966386554622,9520
+FedAvg,attack boosted | attacker_randomSpeedOffset_7761870589,attack boosted,30.0,1.2161009958492426,0.18182773109243697,0.048634453781512606,0.13319327731092437,9520
+FedAvg,attack boosted | honest_dataReplay_5628007782,attack boosted,0.1,0.004053669986164142,0.0,0.0,0.0,9520
+FedAvg,attack boosted | honest_dataReplay_5628007782,attack boosted,0.3,0.012161009958492425,0.0,0.0,0.0,9520
+FedAvg,attack boosted | honest_dataReplay_5628007782,attack boosted,1.0,0.04053669986164142,0.0,0.0,0.0,9520
+FedAvg,attack boosted | honest_dataReplay_5628007782,attack boosted,3.0,0.12161009958492426,0.0007352941176470588,0.0003151260504201681,0.0004201680672268908,9520
+FedAvg,attack boosted | honest_dataReplay_5628007782,attack boosted,10.0,0.4053669986164142,0.02426470588235294,0.006197478991596638,0.018067226890756304,9520
+FedAvg,attack boosted | honest_dataReplay_5628007782,attack boosted,30.0,1.2161009958492426,0.4255252100840336,0.017331932773109245,0.40819327731092436,9520
+FedAvg,attack boosted | honest_feignedBraking_4434209032,attack boosted,0.1,0.004053669986164142,0.0,0.0,0.0,9520
+FedAvg,attack boosted | honest_feignedBraking_4434209032,attack boosted,0.3,0.012161009958492425,0.0,0.0,0.0,9520
+FedAvg,attack boosted | honest_feignedBraking_4434209032,attack boosted,1.0,0.04053669986164142,0.0,0.0,0.0,9520
+FedAvg,attack boosted | honest_feignedBraking_4434209032,attack boosted,3.0,0.12161009958492426,0.0012605042016806723,0.0008403361344537816,0.0004201680672268908,9520
+FedAvg,attack boosted | honest_feignedBraking_4434209032,attack boosted,10.0,0.4053669986164142,0.04159663865546218,0.010294117647058823,0.03130252100840336,9520
+FedAvg,attack boosted | honest_feignedBraking_4434209032,attack boosted,30.0,1.2161009958492426,0.3365546218487395,0.02153361344537815,0.31502100840336134,9520
+FedAvg,attack boosted | honest_randomSpeedOffset_5142823020,attack boosted,0.1,0.004053669986164142,0.0,0.0,0.0,9520
+FedAvg,attack boosted | honest_randomSpeedOffset_5142823020,attack boosted,0.3,0.012161009958492425,0.0,0.0,0.0,9520
+FedAvg,attack boosted | honest_randomSpeedOffset_5142823020,attack boosted,1.0,0.04053669986164142,0.0,0.0,0.0,9520
+FedAvg,attack boosted | honest_randomSpeedOffset_5142823020,attack boosted,3.0,0.12161009958492426,0.0005252100840336134,0.0001050420168067227,0.0004201680672268908,9520
+FedAvg,attack boosted | honest_randomSpeedOffset_5142823020,attack boosted,10.0,0.4053669986164142,0.017331932773109245,0.001995798319327731,0.015336134453781512,9520
+FedAvg,attack boosted | honest_randomSpeedOffset_5142823020,attack boosted,30.0,1.2161009958492426,0.5340336134453781,0.0021008403361344537,0.5319327731092437,9520
+FedAvg,attack boosted | honest_trafficCongestionSybil_7802626606,attack boosted,0.1,0.004053669986164142,0.0,0.0,0.0,9520
+FedAvg,attack boosted | honest_trafficCongestionSybil_7802626606,attack boosted,0.3,0.012161009958492425,0.0,0.0,0.0,9520
+FedAvg,attack boosted | honest_trafficCongestionSybil_7802626606,attack boosted,1.0,0.04053669986164142,0.0,0.0,0.0,9520
+FedAvg,attack boosted | honest_trafficCongestionSybil_7802626606,attack boosted,3.0,0.12161009958492426,0.0017857142857142857,0.0002100840336134454,0.0015756302521008404,9520
+FedAvg,attack boosted | honest_trafficCongestionSybil_7802626606,attack boosted,10.0,0.4053669986164142,0.061869747899159666,0.007878151260504201,0.053991596638655465,9520
+FedAvg,attack boosted | honest_trafficCongestionSybil_7802626606,attack boosted,30.0,1.2161009958492426,0.5207983193277311,0.007142857142857143,0.5136554621848739,9520
+FedAvg,attack boosted | honest_zeroSpeedReport_9129455203,attack boosted,0.1,0.004053669986164142,0.0,0.0,0.0,9520
+FedAvg,attack boosted | honest_zeroSpeedReport_9129455203,attack boosted,0.3,0.012161009958492425,0.0,0.0,0.0,9520
+FedAvg,attack boosted | honest_zeroSpeedReport_9129455203,attack boosted,1.0,0.04053669986164142,0.0,0.0,0.0,9520
+FedAvg,attack boosted | honest_zeroSpeedReport_9129455203,attack boosted,3.0,0.12161009958492426,0.0010504201680672268,0.0008403361344537816,0.0002100840336134454,9520
+FedAvg,attack boosted | honest_zeroSpeedReport_9129455203,attack boosted,10.0,0.4053669986164142,0.041701680672268905,0.006407563025210084,0.03529411764705882,9520
+FedAvg,attack boosted | honest_zeroSpeedReport_9129455203,attack boosted,30.0,1.2161009958492426,0.5381302521008403,0.006617647058823529,0.5315126050420168,9520
+FedAvg,attack norm-matched | attacker_dataReplay_4623714049,attack norm-matched,0.1,0.004053669986164142,0.0,0.0,0.0,9520
+FedAvg,attack norm-matched | attacker_dataReplay_4623714049,attack norm-matched,0.3,0.012161009958492425,0.0,0.0,0.0,9520
+FedAvg,attack norm-matched | attacker_dataReplay_4623714049,attack norm-matched,1.0,0.04053669986164142,0.0,0.0,0.0,9520
+FedAvg,attack norm-matched | attacker_dataReplay_4623714049,attack norm-matched,3.0,0.12161009958492426,0.0009453781512605042,0.0007352941176470588,0.0002100840336134454,9520
+FedAvg,attack norm-matched | attacker_dataReplay_4623714049,attack norm-matched,10.0,0.4053669986164142,0.07027310924369748,0.006407563025210084,0.06386554621848739,9520
+FedAvg,attack norm-matched | attacker_dataReplay_4623714049,attack norm-matched,30.0,1.2161009958492426,0.43151260504201683,0.09989495798319328,0.3316176470588235,9520
+FedAvg,attack norm-matched | attacker_dosAttack_2334700212,attack norm-matched,0.1,0.004053669986164142,0.0,0.0,0.0,9520
+FedAvg,attack norm-matched | attacker_dosAttack_2334700212,attack norm-matched,0.3,0.012161009958492425,0.0,0.0,0.0,9520
+FedAvg,attack norm-matched | attacker_dosAttack_2334700212,attack norm-matched,1.0,0.04053669986164142,0.0,0.0,0.0,9520
+FedAvg,attack norm-matched | attacker_dosAttack_2334700212,attack norm-matched,3.0,0.12161009958492426,0.0004201680672268908,0.0004201680672268908,0.0,9520
+FedAvg,attack norm-matched | attacker_dosAttack_2334700212,attack norm-matched,10.0,0.4053669986164142,0.03560924369747899,0.024474789915966386,0.011134453781512605,9520
+FedAvg,attack norm-matched | attacker_dosAttack_2334700212,attack norm-matched,30.0,1.2161009958492426,0.2963235294117647,0.1661764705882353,0.13014705882352942,9520
+FedAvg,attack norm-matched | attacker_positionMirroring_2530385657,attack norm-matched,0.1,0.004053669986164142,0.0,0.0,0.0,9520
+FedAvg,attack norm-matched | attacker_positionMirroring_2530385657,attack norm-matched,0.3,0.012161009958492425,0.0,0.0,0.0,9520
+FedAvg,attack norm-matched | attacker_positionMirroring_2530385657,attack norm-matched,1.0,0.04053669986164142,0.0,0.0,0.0,9520
+FedAvg,attack norm-matched | attacker_positionMirroring_2530385657,attack norm-matched,3.0,0.12161009958492426,0.0004201680672268908,0.0004201680672268908,0.0,9520
+FedAvg,attack norm-matched | attacker_positionMirroring_2530385657,attack norm-matched,10.0,0.4053669986164142,0.09506302521008403,0.007668067226890756,0.08739495798319327,9520
+FedAvg,attack norm-matched | attacker_positionMirroring_2530385657,attack norm-matched,30.0,1.2161009958492426,0.3821428571428571,0.07930672268907563,0.3028361344537815,9520
+FedAvg,attack norm-matched | attacker_randomPositionOffset_5274206664,attack norm-matched,0.1,0.004053669986164142,0.0,0.0,0.0,9520
+FedAvg,attack norm-matched | attacker_randomPositionOffset_5274206664,attack norm-matched,0.3,0.012161009958492425,0.0,0.0,0.0,9520
+FedAvg,attack norm-matched | attacker_randomPositionOffset_5274206664,attack norm-matched,1.0,0.04053669986164142,0.0,0.0,0.0,9520
+FedAvg,attack norm-matched | attacker_randomPositionOffset_5274206664,attack norm-matched,3.0,0.12161009958492426,0.0005252100840336134,0.0003151260504201681,0.0002100840336134454,9520
+FedAvg,attack norm-matched | attacker_randomPositionOffset_5274206664,attack norm-matched,10.0,0.4053669986164142,0.054936974789915966,0.021323529411764706,0.03361344537815126,9520
+FedAvg,attack norm-matched | attacker_randomPositionOffset_5274206664,attack norm-matched,30.0,1.2161009958492426,0.29285714285714287,0.1495798319327731,0.14327731092436974,9520
+FedAvg,attack norm-matched | attacker_randomSpeedOffset_7761870589,attack norm-matched,0.1,0.004053669986164142,0.0,0.0,0.0,9520
+FedAvg,attack norm-matched | attacker_randomSpeedOffset_7761870589,attack norm-matched,0.3,0.012161009958492425,0.0,0.0,0.0,9520
+FedAvg,attack norm-matched | attacker_randomSpeedOffset_7761870589,attack norm-matched,1.0,0.04053669986164142,0.0,0.0,0.0,9520
+FedAvg,attack norm-matched | attacker_randomSpeedOffset_7761870589,attack norm-matched,3.0,0.12161009958492426,0.0006302521008403362,0.0006302521008403362,0.0,9520
+FedAvg,attack norm-matched | attacker_randomSpeedOffset_7761870589,attack norm-matched,10.0,0.4053669986164142,0.06302521008403361,0.011554621848739496,0.051470588235294115,9520
+FedAvg,attack norm-matched | attacker_randomSpeedOffset_7761870589,attack norm-matched,30.0,1.2161009958492426,0.4467436974789916,0.05273109243697479,0.3940126050420168,9520
+FedAvg,attack norm-matched | honest_dataReplay_5628007782,attack norm-matched,0.1,0.004053669986164142,0.0,0.0,0.0,9520
+FedAvg,attack norm-matched | honest_dataReplay_5628007782,attack norm-matched,0.3,0.012161009958492425,0.0,0.0,0.0,9520
+FedAvg,attack norm-matched | honest_dataReplay_5628007782,attack norm-matched,1.0,0.04053669986164142,0.0,0.0,0.0,9520
+FedAvg,attack norm-matched | honest_dataReplay_5628007782,attack norm-matched,3.0,0.12161009958492426,0.0013655462184873949,0.0005252100840336134,0.0008403361344537816,9520
+FedAvg,attack norm-matched | honest_dataReplay_5628007782,attack norm-matched,10.0,0.4053669986164142,0.06302521008403361,0.008298319327731092,0.05472689075630252,9520
+FedAvg,attack norm-matched | honest_dataReplay_5628007782,attack norm-matched,30.0,1.2161009958492426,0.40304621848739497,0.031407563025210083,0.3716386554621849,9520
+FedAvg,attack norm-matched | honest_feignedBraking_4434209032,attack norm-matched,0.1,0.004053669986164142,0.0,0.0,0.0,9520
+FedAvg,attack norm-matched | honest_feignedBraking_4434209032,attack norm-matched,0.3,0.012161009958492425,0.0,0.0,0.0,9520
+FedAvg,attack norm-matched | honest_feignedBraking_4434209032,attack norm-matched,1.0,0.04053669986164142,0.0002100840336134454,0.0002100840336134454,0.0,9520
+FedAvg,attack norm-matched | honest_feignedBraking_4434209032,attack norm-matched,3.0,0.12161009958492426,0.0006302521008403362,0.0006302521008403362,0.0,9520
+FedAvg,attack norm-matched | honest_feignedBraking_4434209032,attack norm-matched,10.0,0.4053669986164142,0.05945378151260504,0.006617647058823529,0.05283613445378151,9520
+FedAvg,attack norm-matched | honest_feignedBraking_4434209032,attack norm-matched,30.0,1.2161009958492426,0.5685924369747899,0.03760504201680672,0.5309873949579832,9520
+FedAvg,attack norm-matched | honest_randomSpeedOffset_5142823020,attack norm-matched,0.1,0.004053669986164142,0.0,0.0,0.0,9520
+FedAvg,attack norm-matched | honest_randomSpeedOffset_5142823020,attack norm-matched,0.3,0.012161009958492425,0.0,0.0,0.0,9520
+FedAvg,attack norm-matched | honest_randomSpeedOffset_5142823020,attack norm-matched,1.0,0.04053669986164142,0.0,0.0,0.0,9520
+FedAvg,attack norm-matched | honest_randomSpeedOffset_5142823020,attack norm-matched,3.0,0.12161009958492426,0.0005252100840336134,0.0003151260504201681,0.0002100840336134454,9520
+FedAvg,attack norm-matched | honest_randomSpeedOffset_5142823020,attack norm-matched,10.0,0.4053669986164142,0.04327731092436975,0.009558823529411765,0.03371848739495798,9520
+FedAvg,attack norm-matched | honest_randomSpeedOffset_5142823020,attack norm-matched,30.0,1.2161009958492426,0.5173319327731093,0.08403361344537816,0.4332983193277311,9520
+FedAvg,attack norm-matched | honest_trafficCongestionSybil_7802626606,attack norm-matched,0.1,0.004053669986164142,0.0,0.0,0.0,9520
+FedAvg,attack norm-matched | honest_trafficCongestionSybil_7802626606,attack norm-matched,0.3,0.012161009958492425,0.0,0.0,0.0,9520
+FedAvg,attack norm-matched | honest_trafficCongestionSybil_7802626606,attack norm-matched,1.0,0.04053669986164142,0.0,0.0,0.0,9520
+FedAvg,attack norm-matched | honest_trafficCongestionSybil_7802626606,attack norm-matched,3.0,0.12161009958492426,0.002415966386554622,0.0013655462184873949,0.0010504201680672268,9520
+FedAvg,attack norm-matched | honest_trafficCongestionSybil_7802626606,attack norm-matched,10.0,0.4053669986164142,0.04485294117647059,0.031407563025210083,0.013445378151260505,9520
+FedAvg,attack norm-matched | honest_trafficCongestionSybil_7802626606,attack norm-matched,30.0,1.2161009958492426,0.29737394957983193,0.09663865546218488,0.20073529411764707,9520
+FedAvg,attack norm-matched | honest_zeroSpeedReport_9129455203,attack norm-matched,0.1,0.004053669986164142,0.0,0.0,0.0,9520
+FedAvg,attack norm-matched | honest_zeroSpeedReport_9129455203,attack norm-matched,0.3,0.012161009958492425,0.0,0.0,0.0,9520
+FedAvg,attack norm-matched | honest_zeroSpeedReport_9129455203,attack norm-matched,1.0,0.04053669986164142,0.0,0.0,0.0,9520
+FedAvg,attack norm-matched | honest_zeroSpeedReport_9129455203,attack norm-matched,3.0,0.12161009958492426,0.0009453781512605042,0.0006302521008403362,0.0003151260504201681,9520
+FedAvg,attack norm-matched | honest_zeroSpeedReport_9129455203,attack norm-matched,10.0,0.4053669986164142,0.06953781512605042,0.009453781512605041,0.06008403361344538,9520
+FedAvg,attack norm-matched | honest_zeroSpeedReport_9129455203,attack norm-matched,30.0,1.2161009958492426,0.4982142857142857,0.014180672268907563,0.48403361344537815,9520
+FedAvg,gradient (worst case),gradient,0.1,0.004053669986164142,0.0032563025210084035,0.0,0.0032563025210084035,9520
+FedAvg,gradient (worst case),gradient,0.3,0.012161009958492425,0.32573529411764707,0.0001050420168067227,0.32563025210084034,9520
+FedAvg,gradient (worst case),gradient,1.0,0.04053669986164142,0.6559873949579832,0.019852941176470587,0.6361344537815126,9520
+FedAvg,gradient (worst case),gradient,3.0,0.12161009958492426,0.7298319327731092,0.0782563025210084,0.6515756302521009,9520
+FedAvg,gradient (worst case),gradient,10.0,0.4053669986164142,0.6553571428571429,0.0,0.6553571428571429,9520
+FedAvg,gradient (worst case),gradient,30.0,1.2161009958492426,0.378781512605042,0.23298319327731093,0.1457983193277311,9520
