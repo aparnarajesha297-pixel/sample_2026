@@ -1,0 +1,29 @@
+Loading cached data cache/data_c3e01574e51e.pkl
+# Stream-level bootstrap of the SVoI cost comparison
+
+Beliefs from `results/svoi_hw2_nbr/beliefs.npz`; evidence actions ['a1', 'a2', 'a3', 'a4']; 1000 replicates; 80,105 streams carry the test episodes. 95% percentile intervals; replicates are paired.
+
+## SVoI against baselines
+
+| H | Compared with | SVoI total cost | Baseline total cost | Difference (baseline - SVoI) | Difference 95% CI | Reduction (%) | Reduction 95% CI (%) | F1 difference (SVoI - baseline) | F1 difference 95% CI |
+|---|---|---|---|---|---|---|---|---|---|
+| 1 | Always-query | 2.760 | 3.164 | 0.405 | [+0.327, +0.481] | 12.787 | [10.6, 14.8] | -0.002 | [-0.0032, -0.0000] |
+| 1 | Never-query | 2.760 | 4.390 | 1.630 | [+1.531, +1.728] | 37.130 | [35.7, 38.5] | 0.029 | [+0.0274, +0.0311] |
+| 2 | Always-query | 2.618 | 3.692 | 1.074 | [+1.005, +1.148] | 29.089 | [27.7, 30.5] | 0.028 | [+0.0267, +0.0294] |
+| 2 | Never-query | 2.618 | 4.390 | 1.772 | [+1.683, +1.868] | 40.360 | [39.1, 41.5] | 0.058 | [+0.0562, +0.0594] |
+| 3 | Always-query | 2.642 | 4.169 | 1.527 | [+1.464, +1.589] | 36.626 | [35.5, 37.8] | 0.021 | [+0.0194, +0.0219] |
+| 3 | Never-query | 2.642 | 4.390 | 1.748 | [+1.654, +1.830] | 39.812 | [38.4, 41.1] | 0.053 | [+0.0517, +0.0547] |
+| 5 | Always-query | 3.187 | 5.117 | 1.929 | [+1.874, +1.990] | 37.709 | [36.6, 38.9] | 0.010 | [+0.0088, +0.0114] |
+| 5 | Never-query | 3.187 | 4.390 | 1.202 | [+1.124, +1.290] | 27.391 | [26.0, 28.9] | 0.045 | [+0.0440, +0.0469] |
+
+## SVoI across horizons
+
+| SVoI at | versus | cost (H=a) | cost (H=b) | difference (b - a) | 95% CI | excludes 0 |
+|---|---|---|---|---|---|---|
+| H = 1 | H = 2 | 2.760 | 2.618 | -0.142 | [-0.188, -0.098] | True |
+| H = 1 | H = 3 | 2.760 | 2.642 | -0.118 | [-0.171, -0.068] | True |
+| H = 1 | H = 5 | 2.760 | 3.187 | 0.427 | [+0.363, +0.488] | True |
+| H = 2 | H = 3 | 2.618 | 2.642 | 0.024 | [-0.021, +0.075] | False |
+| H = 2 | H = 5 | 2.618 | 3.187 | 0.569 | [+0.510, +0.631] | True |
+| H = 3 | H = 5 | 2.642 | 3.187 | 0.545 | [+0.491, +0.599] | True |
+
