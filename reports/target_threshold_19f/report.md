@@ -58,6 +58,26 @@ Slice size: 1% → 75 receivers / 7,410 steps, 5% → 360 receivers / 35,582 ste
 
 Slice size: 1% → 15 receivers / 98,270 steps, 5% → 15 receivers / 89,350 steps, 10% → 30 receivers / 181,748 steps, 20% → 45 receivers / 291,310 steps
 
+## highway_7 → highway_2
+
+| Model | source | tuned 1% | tuned 5% | tuned 10% | tuned 20% | oracle |
+|---|---|---|---|---|---|---|
+| XGBoost | 0.7388 ± 0.0166 | 0.8116 ± 0.0040 | 0.8139 ± 0.0038 | 0.8140 ± 0.0034 | 0.8142 ± 0.0036 | 0.8149 ± 0.0034 |
+| RAVEN-X | 0.8067 ± 0.0066 | 0.8085 ± 0.0071 | 0.8128 ± 0.0066 | 0.8129 ± 0.0060 | 0.8129 ± 0.0062 | 0.8135 ± 0.0060 |
+| RAVEN-X-GF | 0.8303 ± 0.0021 | 0.8447 ± 0.0118 | 0.8479 ± 0.0117 | 0.8482 ± 0.0117 | 0.8483 ± 0.0122 | 0.8489 ± 0.0115 |
+
+Slice size: 1% → 75 receivers / 7,410 steps, 5% → 360 receivers / 35,582 steps, 10% → 720 receivers / 71,055 steps, 20% → 1440 receivers / 141,282 steps
+
+## highway_7 → urban_2
+
+| Model | source | tuned 1% | tuned 5% | tuned 10% | tuned 20% | oracle |
+|---|---|---|---|---|---|---|
+| XGBoost | 0.7937 ± 0.0165 | 0.8616 ± 0.0021 | 0.8629 ± 0.0017 | 0.8629 ± 0.0019 | 0.8630 ± 0.0010 | 0.8634 ± 0.0019 |
+| RAVEN-X | 0.8573 ± 0.0056 | 0.8642 ± 0.0050 | 0.8663 ± 0.0037 | 0.8667 ± 0.0041 | 0.8667 ± 0.0028 | 0.8674 ± 0.0039 |
+| RAVEN-X-GF | 0.8761 ± 0.0063 | 0.8879 ± 0.0014 | 0.8892 ± 0.0009 | 0.8897 ± 0.0007 | 0.8897 ± 0.0013 | 0.8903 ± 0.0007 |
+
+Slice size: 1% → 30 receivers / 13,008 steps, 5% → 120 receivers / 50,955 steps, 10% → 240 receivers / 103,173 steps, 20% → 465 receivers / 198,047 steps
+
 ## F1 gain over the source threshold
 
 | Test | Model | source F1 | Δ 1% | Δ 5% | Δ 10% | Δ 20% | Δ oracle |
@@ -83,4 +103,10 @@ Slice size: 1% → 15 receivers / 98,270 steps, 5% → 15 receivers / 89,350 ste
 | urban_2 → highway_7 | XGBoost | 0.8291 | +0.0069 | +0.0085 | +0.0087 | +0.0098 | +0.0106 |
 | urban_2 → highway_7 | RAVEN-X | 0.6931 | +0.0513 | +0.0525 | +0.0547 | +0.0563 | +0.0595 |
 | urban_2 → highway_7 | RAVEN-X-GF | 0.6400 | +0.1481 | +0.1494 | +0.1500 | +0.1498 | +0.1519 |
+| highway_7 → highway_2 | XGBoost | 0.7388 | +0.0726 | +0.0748 | +0.0753 | +0.0757 | +0.0761 |
+| highway_7 → highway_2 | RAVEN-X | 0.8067 | +0.0017 | +0.0059 | +0.0062 | +0.0064 | +0.0068 |
+| highway_7 → highway_2 | RAVEN-X-GF | 0.8303 | +0.0143 | +0.0174 | +0.0178 | +0.0182 | +0.0186 |
+| highway_7 → urban_2 | XGBoost | 0.7937 | +0.0679 | +0.0692 | +0.0692 | +0.0694 | +0.0697 |
+| highway_7 → urban_2 | RAVEN-X | 0.8573 | +0.0070 | +0.0090 | +0.0094 | +0.0097 | +0.0101 |
+| highway_7 → urban_2 | RAVEN-X-GF | 0.8761 | +0.0119 | +0.0133 | +0.0136 | +0.0138 | +0.0142 |
 
