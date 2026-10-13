@@ -1,0 +1,10 @@
+{
+  "d_max": 100.0,
+  "ttc_max": 10.0,
+  "multipliers": [
+    1.0,
+    2.0,
+    5.0
+  ],
+  "critical_share_test_starts": 0.047492315159359325
+}

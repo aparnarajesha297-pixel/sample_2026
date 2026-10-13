@@ -1,0 +1,232 @@
+=== addr start 11:17 ===
+Loading cached data cache/data_c3e01574e51e.pkl
+attacking RSU 17 (96437 steps); targets:
+   attacker:positionMirroring:2530385657         steps  117  poison 58  eval 59
+   attacker:randomPositionOffset:5274206664      steps   79  poison 39  eval 40
+   attacker:randomSpeedOffset:7761870589         steps  232  poison 116  eval 116
+   attacker:dosAttack:2334700212                 steps   82  poison 41  eval 41
+   attacker:dataReplay:4623714049                steps  117  poison 58  eval 59
+   honest:zeroSpeedReport:9129455203             steps  286  poison 143  eval 143
+   honest:feignedBraking:4434209032              steps   60  poison 30  eval 30
+   honest:trafficCongestionSybil:7802626606      steps   90  poison 45  eval 45
+   honest:dataReplay:5628007782                  steps  160  poison 80  eval 80
+   honest:randomSpeedOffset:5142823020           steps  112  poison 56  eval 56
+
+== base training: FedAvg, 10 rounds ==
+    round  0    (109s)
+    round  1    (217s)
+    round  2    (323s)
+    round  3    (433s)
+    round  4    (544s)
+    round  5    (651s)
+    round  6    (756s)
+    round  7    (861s)
+    round  8    (967s)
+    round  9    (1072s)
+
+== FedAvg: honest continuation ==
+== FedAvg | honest (rerun) | all targets ==
+   attacker:positionMirroring:2530385657         ADDR future 0.000 seen 0.000  val F1 0.8575 (honest 0.8575)
+   attacker:randomPositionOffset:5274206664      ADDR future 0.000 seen 0.000  val F1 0.8575 (honest 0.8575)
+   attacker:randomSpeedOffset:7761870589         ADDR future 0.000 seen 0.000  val F1 0.8575 (honest 0.8575)
+   attacker:dosAttack:2334700212                 ADDR future 0.000 seen 0.000  val F1 0.8575 (honest 0.8575)
+   attacker:dataReplay:4623714049                ADDR future 0.000 seen 0.000  val F1 0.8575 (honest 0.8575)
+   honest:zeroSpeedReport:9129455203             ADDR future 0.000 seen 0.000  val F1 0.8575 (honest 0.8575)
+   honest:feignedBraking:4434209032              ADDR future 0.000 seen 0.000  val F1 0.8575 (honest 0.8575)
+   honest:trafficCongestionSybil:7802626606      ADDR future 0.000 seen 0.000  val F1 0.8575 (honest 0.8575)
+   honest:dataReplay:5628007782                  ADDR future 0.000 seen 0.000  val F1 0.8575 (honest 0.8575)
+   honest:randomSpeedOffset:5142823020           ADDR future 0.000 seen 0.000  val F1 0.8575 (honest 0.8575)
+== FedAvg | norm-matched | attacker:positionMirroring:2530385657 ==
+   attacker:positionMirroring:2530385657         ADDR future 0.000 seen 0.211  val F1 0.8413 (honest 0.8575)
+== FedAvg | boosted | attacker:positionMirroring:2530385657 ==
+   attacker:positionMirroring:2530385657         ADDR future 0.244 seen 0.000  val F1 0.4958 (honest 0.8575)
+== FedAvg | norm-matched | attacker:randomPositionOffset:5274206664 ==
+   attacker:randomPositionOffset:5274206664      ADDR future 0.000 seen 0.000  val F1 0.8461 (honest 0.8575)
+== FedAvg | boosted | attacker:randomPositionOffset:5274206664 ==
+   attacker:randomPositionOffset:5274206664      ADDR future 0.000 seen 0.500  val F1 0.5885 (honest 0.8575)
+== FedAvg | norm-matched | attacker:randomSpeedOffset:7761870589 ==
+   attacker:randomSpeedOffset:7761870589         ADDR future 0.000 seen 0.000  val F1 0.8468 (honest 0.8575)
+== FedAvg | boosted | attacker:randomSpeedOffset:7761870589 ==
+   attacker:randomSpeedOffset:7761870589         ADDR future 0.435 seen 0.927  val F1 0.5221 (honest 0.8575)
+== FedAvg | norm-matched | attacker:dosAttack:2334700212 ==
+   attacker:dosAttack:2334700212                 ADDR future 0.000 seen 0.000  val F1 0.8437 (honest 0.8575)
+== FedAvg | boosted | attacker:dosAttack:2334700212 ==
+   attacker:dosAttack:2334700212                 ADDR future 0.829 seen 1.000  val F1 0.5378 (honest 0.8575)
+== FedAvg | norm-matched | attacker:dataReplay:4623714049 ==
+   attacker:dataReplay:4623714049                ADDR future 0.000 seen 0.000  val F1 0.8378 (honest 0.8575)
+== FedAvg | boosted | attacker:dataReplay:4623714049 ==
+   attacker:dataReplay:4623714049                ADDR future 0.271 seen 0.143  val F1 0.4646 (honest 0.8575)
+== FedAvg | norm-matched | honest:zeroSpeedReport:9129455203 ==
+   honest:zeroSpeedReport:9129455203             ADDR future 0.000 seen 0.000  val F1 0.8225 (honest 0.8575)
+== FedAvg | boosted | honest:zeroSpeedReport:9129455203 ==
+   honest:zeroSpeedReport:9129455203             ADDR future 1.000 seen 0.900  val F1 0.3353 (honest 0.8575)
+== FedAvg | norm-matched | honest:feignedBraking:4434209032 ==
+   honest:feignedBraking:4434209032              ADDR future 0.000 seen 0.000  val F1 0.8398 (honest 0.8575)
+== FedAvg | boosted | honest:feignedBraking:4434209032 ==
+   honest:feignedBraking:4434209032              ADDR future 0.357 seen 0.000  val F1 0.4408 (honest 0.8575)
+== FedAvg | norm-matched | honest:trafficCongestionSybil:7802626606 ==
+   honest:trafficCongestionSybil:7802626606      ADDR future 0.000 seen 0.000  val F1 0.8284 (honest 0.8575)
+== FedAvg | boosted | honest:trafficCongestionSybil:7802626606 ==
+   honest:trafficCongestionSybil:7802626606      ADDR future 1.000 seen 1.000  val F1 0.3353 (honest 0.8575)
+== FedAvg | norm-matched | honest:dataReplay:5628007782 ==
+   honest:dataReplay:5628007782                  ADDR future 0.000 seen 0.000  val F1 0.8447 (honest 0.8575)
+== FedAvg | boosted | honest:dataReplay:5628007782 ==
+   honest:dataReplay:5628007782                  ADDR future 0.588 seen 1.000  val F1 0.3403 (honest 0.8575)
+== FedAvg | norm-matched | honest:randomSpeedOffset:5142823020 ==
+   honest:randomSpeedOffset:5142823020           ADDR future 0.000 seen 0.000  val F1 0.8483 (honest 0.8575)
+== FedAvg | boosted | honest:randomSpeedOffset:5142823020 ==
+   honest:randomSpeedOffset:5142823020           ADDR future 0.059 seen 0.485  val F1 0.6532 (honest 0.8575)
+
+== base training: RS-WeightedTrim, 10 rounds ==
+    round  0    (118s)
+    round  1    (241s)
+    round  2    (357s)
+    round  3    (475s)
+    round  4    (582s)
+    round  5    (692s)
+    round  6    (808s)
+    round  7    (923s)
+    round  8    (1040s)
+    round  9    (1150s)
+
+== RS-WeightedTrim: honest continuation ==
+== RS-WeightedTrim | honest (rerun) | all targets ==
+   attacker:positionMirroring:2530385657         ADDR future 0.000 seen 0.000  val F1 0.8357 (honest 0.8353)
+   attacker:randomPositionOffset:5274206664      ADDR future 0.000 seen 0.000  val F1 0.8357 (honest 0.8353)
+   attacker:randomSpeedOffset:7761870589         ADDR future 0.000 seen 0.000  val F1 0.8357 (honest 0.8353)
+   attacker:dosAttack:2334700212                 ADDR future 0.000 seen 0.000  val F1 0.8357 (honest 0.8353)
+   attacker:dataReplay:4623714049                ADDR future 0.000 seen 0.000  val F1 0.8357 (honest 0.8353)
+   honest:zeroSpeedReport:9129455203             ADDR future 0.000 seen 0.000  val F1 0.8357 (honest 0.8353)
+   honest:feignedBraking:4434209032              ADDR future 0.000 seen 0.000  val F1 0.8357 (honest 0.8353)
+   honest:trafficCongestionSybil:7802626606      ADDR future 0.000 seen 0.000  val F1 0.8357 (honest 0.8353)
+   honest:dataReplay:5628007782                  ADDR future 0.000 seen 0.000  val F1 0.8357 (honest 0.8353)
+   honest:randomSpeedOffset:5142823020           ADDR future 0.000 seen 0.000  val F1 0.8357 (honest 0.8353)
+== RS-WeightedTrim | norm-matched | attacker:positionMirroring:2530385657 ==
+   attacker:positionMirroring:2530385657         ADDR future 0.000 seen 0.000  val F1 0.8427 (honest 0.8353)
+== RS-WeightedTrim | boosted | attacker:positionMirroring:2530385657 ==
+   attacker:positionMirroring:2530385657         ADDR future 0.000 seen 0.000  val F1 0.8481 (honest 0.8353)
+== RS-WeightedTrim | norm-matched | attacker:randomPositionOffset:5274206664 ==
+   attacker:randomPositionOffset:5274206664      ADDR future 0.000 seen 0.000  val F1 0.8274 (honest 0.8353)
+== RS-WeightedTrim | boosted | attacker:randomPositionOffset:5274206664 ==
+   attacker:randomPositionOffset:5274206664      ADDR future 0.000 seen 0.000  val F1 0.8432 (honest 0.8353)
+== RS-WeightedTrim | norm-matched | attacker:randomSpeedOffset:7761870589 ==
+   attacker:randomSpeedOffset:7761870589         ADDR future 0.000 seen 0.000  val F1 0.8287 (honest 0.8353)
+== RS-WeightedTrim | boosted | attacker:randomSpeedOffset:7761870589 ==
+   attacker:randomSpeedOffset:7761870589         ADDR future 0.000 seen 0.000  val F1 0.8236 (honest 0.8353)
+== RS-WeightedTrim | norm-matched | attacker:dosAttack:2334700212 ==
+   attacker:dosAttack:2334700212                 ADDR future 0.000 seen 0.000  val F1 0.8357 (honest 0.8353)
+== RS-WeightedTrim | boosted | attacker:dosAttack:2334700212 ==
+   attacker:dosAttack:2334700212                 ADDR future 0.000 seen 0.000  val F1 0.8321 (honest 0.8353)
+== RS-WeightedTrim | norm-matched | attacker:dataReplay:4623714049 ==
+   attacker:dataReplay:4623714049                ADDR future 0.000 seen 0.000  val F1 0.8385 (honest 0.8353)
+== RS-WeightedTrim | boosted | attacker:dataReplay:4623714049 ==
+   attacker:dataReplay:4623714049                ADDR future 0.000 seen 0.000  val F1 0.8335 (honest 0.8353)
+== RS-WeightedTrim | norm-matched | honest:zeroSpeedReport:9129455203 ==
+   honest:zeroSpeedReport:9129455203             ADDR future 0.000 seen 0.000  val F1 0.8352 (honest 0.8353)
+== RS-WeightedTrim | boosted | honest:zeroSpeedReport:9129455203 ==
+   honest:zeroSpeedReport:9129455203             ADDR future 0.000 seen 0.000  val F1 0.8379 (honest 0.8353)
+== RS-WeightedTrim | norm-matched | honest:feignedBraking:4434209032 ==
+   honest:feignedBraking:4434209032              ADDR future 0.000 seen 0.000  val F1 0.8484 (honest 0.8353)
+== RS-WeightedTrim | boosted | honest:feignedBraking:4434209032 ==
+   honest:feignedBraking:4434209032              ADDR future 0.000 seen 0.000  val F1 0.8355 (honest 0.8353)
+== RS-WeightedTrim | norm-matched | honest:trafficCongestionSybil:7802626606 ==
+   honest:trafficCongestionSybil:7802626606      ADDR future 0.000 seen 0.000  val F1 0.8417 (honest 0.8353)
+== RS-WeightedTrim | boosted | honest:trafficCongestionSybil:7802626606 ==
+   honest:trafficCongestionSybil:7802626606      ADDR future 0.000 seen 0.000  val F1 0.8277 (honest 0.8353)
+== RS-WeightedTrim | norm-matched | honest:dataReplay:5628007782 ==
+   honest:dataReplay:5628007782                  ADDR future 0.000 seen 0.000  val F1 0.8446 (honest 0.8353)
+== RS-WeightedTrim | boosted | honest:dataReplay:5628007782 ==
+   honest:dataReplay:5628007782                  ADDR future 0.000 seen 0.000  val F1 0.8254 (honest 0.8353)
+== RS-WeightedTrim | norm-matched | honest:randomSpeedOffset:5142823020 ==
+   honest:randomSpeedOffset:5142823020           ADDR future 0.000 seen 0.000  val F1 0.8335 (honest 0.8353)
+== RS-WeightedTrim | boosted | honest:randomSpeedOffset:5142823020 ==
+   honest:randomSpeedOffset:5142823020           ADDR future 0.000 seen 0.000  val F1 0.8342 (honest 0.8353)
+# ADDR: stealthy targeted poisoning (row 18)
+
+RAVEN-X-GF, 20 RSUs (spatial), one compromised RSU. 10 honest rounds, then 3 rounds with the attacker active. Boost 20; target messages ≈ 20% of the attacker's local training stream. Decisions at the steps where the honest SVoI controller (H = 3) stops; Eq. 14 decision on each model's own validation-calibrated belief. 'future' = the half of the target's messages the attacker never saw; 'seen' = the half it trained on (upper bound). 'honest (rerun)' is a second honest continuation: its ADDR is the noise floor.
+
+## Summary (mean over targets, worst case = highest)
+
+Targets on which the honest controller made no decision in the future half are left out of the means ('n targets').
+
+| Aggregator | Model | Targets | n targets | ADDR future, mean | ADDR future, worst | wrongly accepted (future) | wrongly rejected (future) | ADDR seen, mean | ADDR seen, worst | val F1 | val F1 (honest) | val ECE | val ECE (honest) | ‖Δθ‖ / round update |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| FedAvg | honest (rerun) | attacker | 5 | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.8575 | 0.8575 | 0.0221 | 0.0221 | 0.0000 |
+| FedAvg | honest (rerun) | honest | 5 | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.8575 | 0.8575 | 0.0221 | 0.0221 | 0.0000 |
+| FedAvg | norm-matched | attacker | 5 | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.0421 | 0.2105 | 0.8431 | 0.8575 | 0.0254 | 0.0221 | 1.4003 |
+| FedAvg | boosted | attacker | 5 | 0.3560 | 0.8293 | 0.3116 | 0.0444 | 0.5140 | 1.0000 | 0.5217 | 0.8575 | 0.1079 | 0.0221 | 18.1746 |
+| FedAvg | norm-matched | honest | 5 | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.8367 | 0.8575 | 0.0292 | 0.0221 | 1.4510 |
+| FedAvg | boosted | honest | 5 | 0.6008 | 1.0000 | 0.0000 | 0.6008 | 0.6770 | 1.0000 | 0.4210 | 0.8575 | 0.1502 | 0.0221 | 19.0198 |
+| RS-WeightedTrim | honest (rerun) | attacker | 5 | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.8357 | 0.8353 | 0.0349 | 0.0349 | 0.0000 |
+| RS-WeightedTrim | honest (rerun) | honest | 5 | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.8357 | 0.8353 | 0.0349 | 0.0349 | 0.0000 |
+| RS-WeightedTrim | norm-matched | attacker | 5 | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.8346 | 0.8353 | 0.0358 | 0.0349 | 0.9540 |
+| RS-WeightedTrim | boosted | attacker | 5 | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.8361 | 0.8353 | 0.0354 | 0.0349 | 1.1102 |
+| RS-WeightedTrim | norm-matched | honest | 5 | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.8407 | 0.8353 | 0.0345 | 0.0349 | 0.9626 |
+| RS-WeightedTrim | boosted | honest | 5 | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.8321 | 0.8353 | 0.0362 | 0.0349 | 1.1334 |
+
+## Per target
+
+| Aggregator | Model | Target | Honest decides (%) | Honest rejects (% of decisions) | ADDR (future) | wrongly accepted (future) | wrongly rejected (future) | decisions (future) | ADDR (seen) | val F1 | val ECE | ‖Δθ‖ / round update |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| FedAvg | honest (rerun) | attacker:positionMirroring:2530385657 | 54.7009 | 26.5625 | 0.0000 | 0.0000 | 0.0000 | 45 | 0.0000 | 0.8575 | 0.0221 | 0.0000 |
+| FedAvg | honest (rerun) | attacker:randomPositionOffset:5274206664 | 94.9367 | 100.0000 | 0.0000 | 0.0000 | 0.0000 | 39 | 0.0000 | 0.8575 | 0.0221 | 0.0000 |
+| FedAvg | honest (rerun) | attacker:randomSpeedOffset:7761870589 | 93.9655 | 100.0000 | 0.0000 | 0.0000 | 0.0000 | 108 | 0.0000 | 0.8575 | 0.0221 | 0.0000 |
+| FedAvg | honest (rerun) | attacker:dosAttack:2334700212 | 100.0000 | 100.0000 | 0.0000 | 0.0000 | 0.0000 | 41 | 0.0000 | 0.8575 | 0.0221 | 0.0000 |
+| FedAvg | honest (rerun) | attacker:dataReplay:4623714049 | 74.3590 | 96.5517 | 0.0000 | 0.0000 | 0.0000 | 59 | 0.0000 | 0.8575 | 0.0221 | 0.0000 |
+| FedAvg | honest (rerun) | honest:zeroSpeedReport:9129455203 | 49.6503 | 2.8169 | 0.0000 | 0.0000 | 0.0000 | 102 | 0.0000 | 0.8575 | 0.0221 | 0.0000 |
+| FedAvg | honest (rerun) | honest:feignedBraking:4434209032 | 23.3333 | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 14 | 0.0000 | 0.8575 | 0.0221 | 0.0000 |
+| FedAvg | honest (rerun) | honest:trafficCongestionSybil:7802626606 | 88.8889 | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 45 | 0.0000 | 0.8575 | 0.0221 | 0.0000 |
+| FedAvg | honest (rerun) | honest:dataReplay:5628007782 | 40.0000 | 21.8750 | 0.0000 | 0.0000 | 0.0000 | 34 | 0.0000 | 0.8575 | 0.0221 | 0.0000 |
+| FedAvg | honest (rerun) | honest:randomSpeedOffset:5142823020 | 59.8214 | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 34 | 0.0000 | 0.8575 | 0.0221 | 0.0000 |
+| FedAvg | norm-matched | attacker:positionMirroring:2530385657 | 54.7009 | 26.5625 | 0.0000 | 0.0000 | 0.0000 | 45 | 0.2105 | 0.8413 | 0.0243 | 1.1770 |
+| FedAvg | boosted | attacker:positionMirroring:2530385657 | 54.7009 | 26.5625 | 0.2444 | 0.0222 | 0.2222 | 45 | 0.0000 | 0.4958 | 0.1222 | 16.3007 |
+| FedAvg | norm-matched | attacker:randomPositionOffset:5274206664 | 94.9367 | 100.0000 | 0.0000 | 0.0000 | 0.0000 | 39 | 0.0000 | 0.8461 | 0.0247 | 1.4980 |
+| FedAvg | boosted | attacker:randomPositionOffset:5274206664 | 94.9367 | 100.0000 | 0.0000 | 0.0000 | 0.0000 | 39 | 0.5000 | 0.5885 | 0.0724 | 19.5230 |
+| FedAvg | norm-matched | attacker:randomSpeedOffset:7761870589 | 93.9655 | 100.0000 | 0.0000 | 0.0000 | 0.0000 | 108 | 0.0000 | 0.8468 | 0.0257 | 1.5379 |
+| FedAvg | boosted | attacker:randomSpeedOffset:7761870589 | 93.9655 | 100.0000 | 0.4352 | 0.4352 | 0.0000 | 108 | 0.9273 | 0.5221 | 0.1132 | 19.6579 |
+| FedAvg | norm-matched | attacker:dosAttack:2334700212 | 100.0000 | 100.0000 | 0.0000 | 0.0000 | 0.0000 | 41 | 0.0000 | 0.8437 | 0.0254 | 1.4506 |
+| FedAvg | boosted | attacker:dosAttack:2334700212 | 100.0000 | 100.0000 | 0.8293 | 0.8293 | 0.0000 | 41 | 1.0000 | 0.5378 | 0.0790 | 18.1115 |
+| FedAvg | norm-matched | attacker:dataReplay:4623714049 | 74.3590 | 96.5517 | 0.0000 | 0.0000 | 0.0000 | 59 | 0.0000 | 0.8378 | 0.0267 | 1.3383 |
+| FedAvg | boosted | attacker:dataReplay:4623714049 | 74.3590 | 96.5517 | 0.2712 | 0.2712 | 0.0000 | 59 | 0.1429 | 0.4646 | 0.1527 | 17.2800 |
+| FedAvg | norm-matched | honest:zeroSpeedReport:9129455203 | 49.6503 | 2.8169 | 0.0000 | 0.0000 | 0.0000 | 102 | 0.0000 | 0.8225 | 0.0328 | 1.5298 |
+| FedAvg | boosted | honest:zeroSpeedReport:9129455203 | 49.6503 | 2.8169 | 1.0000 | 0.0000 | 1.0000 | 102 | 0.9000 | 0.3353 | 0.1987 | 20.3678 |
+| FedAvg | norm-matched | honest:feignedBraking:4434209032 | 23.3333 | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 14 | 0.0000 | 0.8398 | 0.0289 | 1.3965 |
+| FedAvg | boosted | honest:feignedBraking:4434209032 | 23.3333 | 0.0000 | 0.3571 | 0.0000 | 0.3571 | 14 | 0.0000 | 0.4408 | 0.1356 | 17.1690 |
+| FedAvg | norm-matched | honest:trafficCongestionSybil:7802626606 | 88.8889 | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 45 | 0.0000 | 0.8284 | 0.0315 | 1.4750 |
+| FedAvg | boosted | honest:trafficCongestionSybil:7802626606 | 88.8889 | 0.0000 | 1.0000 | 0.0000 | 1.0000 | 45 | 1.0000 | 0.3353 | 0.1868 | 18.4962 |
+| FedAvg | norm-matched | honest:dataReplay:5628007782 | 40.0000 | 21.8750 | 0.0000 | 0.0000 | 0.0000 | 34 | 0.0000 | 0.8447 | 0.0251 | 1.3411 |
+| FedAvg | boosted | honest:dataReplay:5628007782 | 40.0000 | 21.8750 | 0.5882 | 0.0000 | 0.5882 | 34 | 1.0000 | 0.3403 | 0.1949 | 17.8993 |
+| FedAvg | norm-matched | honest:randomSpeedOffset:5142823020 | 59.8214 | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 34 | 0.0000 | 0.8483 | 0.0276 | 1.5124 |
+| FedAvg | boosted | honest:randomSpeedOffset:5142823020 | 59.8214 | 0.0000 | 0.0588 | 0.0000 | 0.0588 | 34 | 0.4848 | 0.6532 | 0.0352 | 21.1670 |
+| RS-WeightedTrim | honest (rerun) | attacker:positionMirroring:2530385657 | 35.8974 | 76.1905 | 0.0000 | 0.0000 | 0.0000 | 25 | 0.0000 | 0.8357 | 0.0349 | 0.0000 |
+| RS-WeightedTrim | honest (rerun) | attacker:randomPositionOffset:5274206664 | 94.9367 | 100.0000 | 0.0000 | 0.0000 | 0.0000 | 39 | 0.0000 | 0.8357 | 0.0349 | 0.0000 |
+| RS-WeightedTrim | honest (rerun) | attacker:randomSpeedOffset:7761870589 | 96.1207 | 100.0000 | 0.0000 | 0.0000 | 0.0000 | 111 | 0.0000 | 0.8357 | 0.0349 | 0.0000 |
+| RS-WeightedTrim | honest (rerun) | attacker:dosAttack:2334700212 | 100.0000 | 100.0000 | 0.0000 | 0.0000 | 0.0000 | 41 | 0.0000 | 0.8357 | 0.0349 | 0.0000 |
+| RS-WeightedTrim | honest (rerun) | attacker:dataReplay:4623714049 | 79.4872 | 95.6989 | 0.0000 | 0.0000 | 0.0000 | 59 | 0.0000 | 0.8357 | 0.0349 | 0.0000 |
+| RS-WeightedTrim | honest (rerun) | honest:zeroSpeedReport:9129455203 | 52.4476 | 14.0000 | 0.0000 | 0.0000 | 0.0000 | 112 | 0.0000 | 0.8357 | 0.0349 | 0.0000 |
+| RS-WeightedTrim | honest (rerun) | honest:feignedBraking:4434209032 | 23.3333 | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 14 | 0.0000 | 0.8357 | 0.0349 | 0.0000 |
+| RS-WeightedTrim | honest (rerun) | honest:trafficCongestionSybil:7802626606 | 77.7778 | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 40 | 0.0000 | 0.8357 | 0.0349 | 0.0000 |
+| RS-WeightedTrim | honest (rerun) | honest:dataReplay:5628007782 | 23.1250 | 48.6486 | 0.0000 | 0.0000 | 0.0000 | 20 | 0.0000 | 0.8357 | 0.0349 | 0.0000 |
+| RS-WeightedTrim | honest (rerun) | honest:randomSpeedOffset:5142823020 | 53.5714 | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 28 | 0.0000 | 0.8357 | 0.0349 | 0.0000 |
+| RS-WeightedTrim | norm-matched | attacker:positionMirroring:2530385657 | 35.8974 | 76.1905 | 0.0000 | 0.0000 | 0.0000 | 25 | 0.0000 | 0.8427 | 0.0337 | 0.8847 |
+| RS-WeightedTrim | boosted | attacker:positionMirroring:2530385657 | 35.8974 | 76.1905 | 0.0000 | 0.0000 | 0.0000 | 25 | 0.0000 | 0.8481 | 0.0320 | 1.0615 |
+| RS-WeightedTrim | norm-matched | attacker:randomPositionOffset:5274206664 | 94.9367 | 100.0000 | 0.0000 | 0.0000 | 0.0000 | 39 | 0.0000 | 0.8274 | 0.0387 | 0.9988 |
+| RS-WeightedTrim | boosted | attacker:randomPositionOffset:5274206664 | 94.9367 | 100.0000 | 0.0000 | 0.0000 | 0.0000 | 39 | 0.0000 | 0.8432 | 0.0335 | 1.1384 |
+| RS-WeightedTrim | norm-matched | attacker:randomSpeedOffset:7761870589 | 96.1207 | 100.0000 | 0.0000 | 0.0000 | 0.0000 | 111 | 0.0000 | 0.8287 | 0.0370 | 1.0083 |
+| RS-WeightedTrim | boosted | attacker:randomSpeedOffset:7761870589 | 96.1207 | 100.0000 | 0.0000 | 0.0000 | 0.0000 | 111 | 0.0000 | 0.8236 | 0.0388 | 1.1455 |
+| RS-WeightedTrim | norm-matched | attacker:dosAttack:2334700212 | 100.0000 | 100.0000 | 0.0000 | 0.0000 | 0.0000 | 41 | 0.0000 | 0.8357 | 0.0362 | 0.9638 |
+| RS-WeightedTrim | boosted | attacker:dosAttack:2334700212 | 100.0000 | 100.0000 | 0.0000 | 0.0000 | 0.0000 | 41 | 0.0000 | 0.8321 | 0.0370 | 1.1203 |
+| RS-WeightedTrim | norm-matched | attacker:dataReplay:4623714049 | 79.4872 | 95.6989 | 0.0000 | 0.0000 | 0.0000 | 59 | 0.0000 | 0.8385 | 0.0334 | 0.9145 |
+| RS-WeightedTrim | boosted | attacker:dataReplay:4623714049 | 79.4872 | 95.6989 | 0.0000 | 0.0000 | 0.0000 | 59 | 0.0000 | 0.8335 | 0.0356 | 1.0854 |
+| RS-WeightedTrim | norm-matched | honest:zeroSpeedReport:9129455203 | 52.4476 | 14.0000 | 0.0000 | 0.0000 | 0.0000 | 112 | 0.0000 | 0.8352 | 0.0357 | 0.9911 |
+| RS-WeightedTrim | boosted | honest:zeroSpeedReport:9129455203 | 52.4476 | 14.0000 | 0.0000 | 0.0000 | 0.0000 | 112 | 0.0000 | 0.8379 | 0.0343 | 1.1400 |
+| RS-WeightedTrim | norm-matched | honest:feignedBraking:4434209032 | 23.3333 | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 14 | 0.0000 | 0.8484 | 0.0321 | 0.9401 |
+| RS-WeightedTrim | boosted | honest:feignedBraking:4434209032 | 23.3333 | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 14 | 0.0000 | 0.8355 | 0.0351 | 1.1170 |
+| RS-WeightedTrim | norm-matched | honest:trafficCongestionSybil:7802626606 | 77.7778 | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 40 | 0.0000 | 0.8417 | 0.0345 | 0.9727 |
+| RS-WeightedTrim | boosted | honest:trafficCongestionSybil:7802626606 | 77.7778 | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 40 | 0.0000 | 0.8277 | 0.0376 | 1.1461 |
+| RS-WeightedTrim | norm-matched | honest:dataReplay:5628007782 | 23.1250 | 48.6486 | 0.0000 | 0.0000 | 0.0000 | 20 | 0.0000 | 0.8446 | 0.0331 | 0.9355 |
+| RS-WeightedTrim | boosted | honest:dataReplay:5628007782 | 23.1250 | 48.6486 | 0.0000 | 0.0000 | 0.0000 | 20 | 0.0000 | 0.8254 | 0.0381 | 1.1281 |
+| RS-WeightedTrim | norm-matched | honest:randomSpeedOffset:5142823020 | 53.5714 | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 28 | 0.0000 | 0.8335 | 0.0371 | 0.9737 |
+| RS-WeightedTrim | boosted | honest:randomSpeedOffset:5142823020 | 53.5714 | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 28 | 0.0000 | 0.8342 | 0.0360 | 1.1356 |
+
+=== done 16:39 ===

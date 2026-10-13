@@ -1,0 +1,217 @@
+=== federated start 06:29 ===
+Loading cached data cache/data_c3e01574e51e.pkl
+20 RSUs, steps per RSU min/median/max = 90/12488/96437; malicious RSUs: [5, 9, 11, 14]
+
+== FedAvg | poisoning: none ==
+    round  0  val_pr_auc 0.8851  (113s)
+    round  1  val_pr_auc 0.9099  (239s)
+    round  2  val_pr_auc 0.9172  (362s)
+    round  3  val_pr_auc 0.9232  (490s)
+    round  4  val_pr_auc 0.9282  (609s)
+    round  5  val_pr_auc 0.9297  (732s)
+    round  6  val_pr_auc 0.9334  (849s)
+    round  7  val_pr_auc 0.9335  (968s)
+    round  8  val_pr_auc 0.9341  (1082s)
+    round  9  val_pr_auc 0.9344  (1190s)
+   Accuracy 0.9550  F1 0.8735  Recall 0.7867  PR-AUC 0.9151  ECE 0.0308  ASR 0.2133  Comm_MB 113.7726  TrainTime_s 1195.4491
+
+== FedAvg | poisoning: label_flip ==
+    round  0  val_pr_auc 0.8581  (110s)
+    round  1  val_pr_auc 0.8757  (220s)
+    round  2  val_pr_auc 0.8846  (333s)
+    round  3  val_pr_auc 0.8924  (445s)
+    round  4  val_pr_auc 0.8975  (559s)
+    round  5  val_pr_auc 0.9039  (673s)
+    round  6  val_pr_auc 0.9103  (788s)
+    round  7  val_pr_auc 0.9135  (900s)
+    round  8  val_pr_auc 0.9139  (1014s)
+    round  9  val_pr_auc 0.9121  (1127s)
+   Accuracy 0.9423  F1 0.8403  Recall 0.7686  PR-AUC 0.8919  ECE 0.0517  ASR 0.2314  Comm_MB 113.7726  TrainTime_s 1131.9180
+
+== FedAvg | poisoning: sign_flip ==
+    round  0  val_pr_auc 0.1592  (112s)
+    round  1  val_pr_auc 0.1646  (231s)
+    round  2  val_pr_auc 0.1591  (349s)
+    round  3  val_pr_auc 0.1540  (463s)
+    round  4  val_pr_auc 0.1699  (581s)
+    round  5  val_pr_auc 0.1611  (695s)
+    round  6  val_pr_auc 0.1532  (808s)
+    round  7  val_pr_auc 0.1768  (925s)
+    round  8  val_pr_auc 0.1690  (1040s)
+    round  9  val_pr_auc 0.1702  (1153s)
+   Accuracy 0.1976  F1 0.3299  Recall 1.0000  PR-AUC 0.1895  ECE 0.5180  ASR 0.0000  Comm_MB 113.7726  TrainTime_s 1157.5405
+
+== Median | poisoning: none ==
+    round  0  val_pr_auc 0.8181  (107s)
+    round  1  val_pr_auc 0.8741  (217s)
+    round  2  val_pr_auc 0.8908  (337s)
+    round  3  val_pr_auc 0.9006  (455s)
+    round  4  val_pr_auc 0.9069  (572s)
+    round  5  val_pr_auc 0.9099  (690s)
+    round  6  val_pr_auc 0.9132  (805s)
+    round  7  val_pr_auc 0.9148  (923s)
+    round  8  val_pr_auc 0.9169  (1044s)
+    round  9  val_pr_auc 0.9178  (1163s)
+   Accuracy 0.9412  F1 0.8441  Recall 0.8054  PR-AUC 0.9007  ECE 0.0457  ASR 0.1946  Comm_MB 113.7726  TrainTime_s 1167.7679
+
+== Median | poisoning: label_flip ==
+    round  0  val_pr_auc 0.8099  (118s)
+    round  1  val_pr_auc 0.8661  (242s)
+    round  2  val_pr_auc 0.8836  (364s)
+    round  3  val_pr_auc 0.8885  (484s)
+    round  4  val_pr_auc 0.8932  (607s)
+    round  5  val_pr_auc 0.8989  (733s)
+    round  6  val_pr_auc 0.9012  (855s)
+    round  7  val_pr_auc 0.9051  (971s)
+    round  8  val_pr_auc 0.9083  (1082s)
+    round  9  val_pr_auc 0.9076  (1199s)
+   Accuracy 0.9400  F1 0.8383  Recall 0.7868  PR-AUC 0.8931  ECE 0.0186  ASR 0.2132  Comm_MB 113.7726  TrainTime_s 1203.7490
+
+== Median | poisoning: sign_flip ==
+    round  0  val_pr_auc 0.7889  (110s)
+    round  1  val_pr_auc 0.8430  (224s)
+    round  2  val_pr_auc 0.8687  (338s)
+    round  3  val_pr_auc 0.8806  (451s)
+    round  4  val_pr_auc 0.8868  (570s)
+    round  5  val_pr_auc 0.8911  (690s)
+    round  6  val_pr_auc 0.8940  (806s)
+    round  7  val_pr_auc 0.8969  (927s)
+    round  8  val_pr_auc 0.8999  (1045s)
+    round  9  val_pr_auc 0.9011  (1161s)
+   Accuracy 0.9338  F1 0.8213  Recall 0.7709  PR-AUC 0.8827  ECE 0.0663  ASR 0.2291  Comm_MB 113.7726  TrainTime_s 1165.9434
+
+== Krum | poisoning: none ==
+    round  0  val_pr_auc 0.7567  (115s)
+    round  1  val_pr_auc 0.7892  (224s)
+    round  2  val_pr_auc 0.8360  (335s)
+    round  3  val_pr_auc 0.8669  (451s)
+    round  4  val_pr_auc 0.8561  (566s)
+    round  5  val_pr_auc 0.8566  (681s)
+    round  6  val_pr_auc 0.8557  (795s)
+    round  7  val_pr_auc 0.8549  (903s)
+    round  8  val_pr_auc 0.8550  (1013s)
+    round  9  val_pr_auc 0.8630  (1123s)
+   Accuracy 0.9099  F1 0.7602  Recall 0.7231  PR-AUC 0.8279  ECE 0.0450  ASR 0.2769  Comm_MB 113.7726  TrainTime_s 1127.1447
+
+== Krum | poisoning: label_flip ==
+    round  0  val_pr_auc 0.6320  (108s)
+    round  1  val_pr_auc 0.6990  (212s)
+    round  2  val_pr_auc 0.7314  (320s)
+    round  3  val_pr_auc 0.7738  (431s)
+    round  4  val_pr_auc 0.7659  (539s)
+    round  5  val_pr_auc 0.7638  (645s)
+    round  6  val_pr_auc 0.7633  (752s)
+    round  7  val_pr_auc 0.7667  (861s)
+    round  8  val_pr_auc 0.7710  (973s)
+    round  9  val_pr_auc 0.7622  (1091s)
+   Accuracy 0.8724  F1 0.6616  Recall 0.6317  PR-AUC 0.7232  ECE 0.1011  ASR 0.3683  Comm_MB 113.7726  TrainTime_s 1096.0560
+
+== Krum | poisoning: sign_flip ==
+    round  0  val_pr_auc 0.7567  (108s)
+    round  1  val_pr_auc 0.8118  (224s)
+    round  2  val_pr_auc 0.8419  (340s)
+    round  3  val_pr_auc 0.8446  (451s)
+    round  4  val_pr_auc 0.8454  (564s)
+    round  5  val_pr_auc 0.8414  (674s)
+    round  6  val_pr_auc 0.8460  (786s)
+    round  7  val_pr_auc 0.8313  (897s)
+    round  8  val_pr_auc 0.8353  (1008s)
+    round  9  val_pr_auc 0.8309  (1117s)
+   Accuracy 0.9077  F1 0.7285  Recall 0.6269  PR-AUC 0.8093  ECE 0.1149  ASR 0.3731  Comm_MB 113.7726  TrainTime_s 1121.2922
+
+== RS-WeightedTrim | poisoning: none ==
+    round  0  val_pr_auc 0.8457  (111s)
+    round  1  val_pr_auc 0.8906  (220s)
+    round  2  val_pr_auc 0.9050  (334s)
+    round  3  val_pr_auc 0.9109  (448s)
+    round  4  val_pr_auc 0.9148  (563s)
+    round  5  val_pr_auc 0.9171  (677s)
+    round  6  val_pr_auc 0.9205  (786s)
+    round  7  val_pr_auc 0.9219  (898s)
+    round  8  val_pr_auc 0.9249  (1004s)
+    round  9  val_pr_auc 0.9277  (1116s)
+   Accuracy 0.9523  F1 0.8691  Recall 0.8011  PR-AUC 0.9120  ECE 0.0401  ASR 0.1989  Comm_MB 113.7726  TrainTime_s 1120.5619
+
+== RS-WeightedTrim | poisoning: label_flip ==
+    round  0  val_pr_auc 0.8302  (106s)
+    round  1  val_pr_auc 0.8775  (216s)
+    round  2  val_pr_auc 0.8896  (324s)
+    round  3  val_pr_auc 0.8952  (435s)
+    round  4  val_pr_auc 0.8978  (548s)
+    round  5  val_pr_auc 0.9042  (658s)
+    round  6  val_pr_auc 0.9064  (769s)
+    round  7  val_pr_auc 0.9094  (877s)
+    round  8  val_pr_auc 0.9106  (990s)
+    round  9  val_pr_auc 0.9103  (1103s)
+   Accuracy 0.9411  F1 0.8404  Recall 0.7850  PR-AUC 0.8971  ECE 0.0137  ASR 0.2150  Comm_MB 113.7726  TrainTime_s 1107.6438
+
+== RS-WeightedTrim | poisoning: sign_flip ==
+    round  0  val_pr_auc 0.8250  (108s)
+    round  1  val_pr_auc 0.8755  (218s)
+    round  2  val_pr_auc 0.8917  (331s)
+    round  3  val_pr_auc 0.9005  (447s)
+    round  4  val_pr_auc 0.9042  (564s)
+    round  5  val_pr_auc 0.9063  (678s)
+    round  6  val_pr_auc 0.9076  (791s)
+    round  7  val_pr_auc 0.9091  (902s)
+    round  8  val_pr_auc 0.9099  (1017s)
+    round  9  val_pr_auc 0.9097  (1136s)
+   Accuracy 0.9339  F1 0.8253  Recall 0.7906  PR-AUC 0.8902  ECE 0.0594  ASR 0.2094  Comm_MB 113.7726  TrainTime_s 1140.4201
+
+== ReputationDrop | poisoning: none ==
+    round  0  val_pr_auc 0.8507  (109s)
+    round  1  val_pr_auc 0.8903  (222s)
+    round  2  val_pr_auc 0.9038  (334s)
+    round  3  val_pr_auc 0.9118  (445s)
+    round  4  val_pr_auc 0.9172  (555s)
+    round  5  val_pr_auc 0.9208  (662s)
+    round  6  val_pr_auc 0.9244  (768s)
+    round  7  val_pr_auc 0.9268  (875s)
+    round  8  val_pr_auc 0.9293  (982s)
+    round  9  val_pr_auc 0.9303  (1089s)
+   Accuracy 0.9532  F1 0.8718  Recall 0.8054  PR-AUC 0.9133  ECE 0.0330  ASR 0.1946  Comm_MB 113.7726  TrainTime_s 1093.5184
+
+== ReputationDrop | poisoning: label_flip ==
+    round  0  val_pr_auc 0.8443  (105s)
+    round  1  val_pr_auc 0.8799  (214s)
+    round  2  val_pr_auc 0.8964  (325s)
+    round  3  val_pr_auc 0.9046  (436s)
+    round  4  val_pr_auc 0.9113  (549s)
+    round  5  val_pr_auc 0.9152  (663s)
+    round  6  val_pr_auc 0.9187  (775s)
+    round  7  val_pr_auc 0.9192  (881s)
+    round  8  val_pr_auc 0.9249  (988s)
+    round  9  val_pr_auc 0.9263  (1102s)
+   Accuracy 0.9452  F1 0.8537  Recall 0.8095  PR-AUC 0.9079  ECE 0.0150  ASR 0.1905  Comm_MB 113.7726  TrainTime_s 1106.3543
+
+== ReputationDrop | poisoning: sign_flip ==
+    round  0  val_pr_auc 0.8532  (107s)
+    round  1  val_pr_auc 0.8937  (215s)
+    round  2  val_pr_auc 0.9076  (324s)
+    round  3  val_pr_auc 0.9131  (433s)
+    round  4  val_pr_auc 0.9177  (545s)
+    round  5  val_pr_auc 0.9211  (658s)
+    round  6  val_pr_auc 0.9232  (770s)
+    round  7  val_pr_auc 0.9258  (879s)
+    round  8  val_pr_auc 0.9279  (989s)
+    round  9  val_pr_auc 0.9294  (1102s)
+   Accuracy 0.9500  F1 0.8636  Recall 0.8012  PR-AUC 0.9109  ECE 0.0361  ASR 0.1988  Comm_MB 113.7726  TrainTime_s 1106.7440
+
+| Aggregator | Poisoning | Accuracy | F1 | Recall | PR-AUC | ECE | ASR | Comm_MB | TrainTime_s | ΔF1 | ΔASR |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| FedAvg | none | 0.9550 | 0.8735 | 0.7867 | 0.9151 | 0.0308 | 0.2133 | 113.7726 | 1195.4491 | 0.0000 | 0.0000 |
+| FedAvg | label_flip | 0.9423 | 0.8403 | 0.7686 | 0.8919 | 0.0517 | 0.2314 | 113.7726 | 1131.9180 | 0.0332 | 0.0181 |
+| FedAvg | sign_flip | 0.1976 | 0.3299 | 1.0000 | 0.1895 | 0.5180 | 0.0000 | 113.7726 | 1157.5405 | 0.5436 | -0.2132 |
+| Median | none | 0.9412 | 0.8441 | 0.8054 | 0.9007 | 0.0457 | 0.1946 | 113.7726 | 1167.7679 | 0.0000 | 0.0000 |
+| Median | label_flip | 0.9400 | 0.8383 | 0.7868 | 0.8931 | 0.0186 | 0.2132 | 113.7726 | 1203.7490 | 0.0058 | 0.0185 |
+| Median | sign_flip | 0.9338 | 0.8213 | 0.7709 | 0.8827 | 0.0663 | 0.2291 | 113.7726 | 1165.9434 | 0.0228 | 0.0345 |
+| Krum | none | 0.9099 | 0.7602 | 0.7231 | 0.8279 | 0.0450 | 0.2769 | 113.7726 | 1127.1447 | 0.0000 | 0.0000 |
+| Krum | label_flip | 0.8724 | 0.6616 | 0.6317 | 0.7232 | 0.1011 | 0.3683 | 113.7726 | 1096.0560 | 0.0986 | 0.0913 |
+| Krum | sign_flip | 0.9077 | 0.7285 | 0.6269 | 0.8093 | 0.1149 | 0.3731 | 113.7726 | 1121.2922 | 0.0317 | 0.0962 |
+| RS-WeightedTrim | none | 0.9523 | 0.8691 | 0.8011 | 0.9120 | 0.0401 | 0.1989 | 113.7726 | 1120.5619 | 0.0000 | 0.0000 |
+| RS-WeightedTrim | label_flip | 0.9411 | 0.8404 | 0.7850 | 0.8971 | 0.0137 | 0.2150 | 113.7726 | 1107.6438 | 0.0287 | 0.0161 |
+| RS-WeightedTrim | sign_flip | 0.9339 | 0.8253 | 0.7906 | 0.8902 | 0.0594 | 0.2094 | 113.7726 | 1140.4201 | 0.0438 | 0.0105 |
+| ReputationDrop | none | 0.9532 | 0.8718 | 0.8054 | 0.9133 | 0.0330 | 0.1946 | 113.7726 | 1093.5184 | 0.0000 | 0.0000 |
+| ReputationDrop | label_flip | 0.9452 | 0.8537 | 0.8095 | 0.9079 | 0.0150 | 0.1905 | 113.7726 | 1106.3543 | 0.0181 | -0.0041 |
+| ReputationDrop | sign_flip | 0.9500 | 0.8636 | 0.8012 | 0.9109 | 0.0361 | 0.1988 | 113.7726 | 1106.7440 | 0.0082 | 0.0042 |
+=== done 11:17 ===

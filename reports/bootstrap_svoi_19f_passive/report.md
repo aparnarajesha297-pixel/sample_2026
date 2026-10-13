@@ -1,0 +1,27 @@
+# Stream-level bootstrap of the SVoI cost comparison
+
+Beliefs from `results/svoi_hw2_nbr/beliefs.npz`; evidence actions ['a1']; 1000 replicates; 80,105 streams carry the test episodes. 95% percentile intervals; replicates are paired.
+
+## SVoI against baselines
+
+| H | Compared with | SVoI total cost | Baseline total cost | Difference (baseline - SVoI) | Difference 95% CI | Reduction (%) | Reduction 95% CI (%) | F1 difference (SVoI - baseline) | F1 difference 95% CI |
+|---|---|---|---|---|---|---|---|---|---|
+| 1 | Always-query | 2.878 | 3.164 | 0.286 | [+0.274, +0.300] | 9.039 | [8.5, 9.6] | -0.003 | [-0.0029, -0.0021] |
+| 1 | Never-query | 2.878 | 4.390 | 1.511 | [+1.434, +1.598] | 34.428 | [32.9, 36.1] | 0.028 | [+0.0270, +0.0298] |
+| 2 | Always-query | 2.898 | 3.692 | 0.794 | [+0.773, +0.818] | 21.513 | [20.6, 22.4] | -0.001 | [-0.0015, -0.0005] |
+| 2 | Never-query | 2.898 | 4.390 | 1.492 | [+1.416, +1.574] | 33.989 | [32.4, 35.6] | 0.029 | [+0.0274, +0.0302] |
+| 3 | Always-query | 2.894 | 4.169 | 1.275 | [+1.245, +1.304] | 30.573 | [29.5, 31.7] | -0.001 | [-0.0019, -0.0008] |
+| 3 | Never-query | 2.894 | 4.390 | 1.495 | [+1.416, +1.579] | 34.063 | [32.4, 35.8] | 0.031 | [+0.0299, +0.0326] |
+| 5 | Always-query | 2.925 | 5.117 | 2.192 | [+2.155, +2.229] | 42.835 | [41.7, 44.0] | -0.002 | [-0.0027, -0.0014] |
+| 5 | Never-query | 2.925 | 4.390 | 1.465 | [+1.387, +1.543] | 33.366 | [31.8, 34.9] | 0.033 | [+0.0319, +0.0346] |
+
+## SVoI across horizons
+
+| SVoI at | versus | cost (H=a) | cost (H=b) | difference (b - a) | 95% CI | excludes 0 |
+|---|---|---|---|---|---|---|
+| H = 1 | H = 2 | 2.878 | 2.898 | 0.019 | [-0.007, +0.046] | False |
+| H = 1 | H = 3 | 2.878 | 2.894 | 0.016 | [-0.012, +0.043] | False |
+| H = 1 | H = 5 | 2.878 | 2.925 | 0.047 | [+0.015, +0.077] | True |
+| H = 2 | H = 3 | 2.898 | 2.894 | -0.003 | [-0.022, +0.019] | False |
+| H = 2 | H = 5 | 2.898 | 2.925 | 0.027 | [+0.004, +0.050] | True |
+| H = 3 | H = 5 | 2.894 | 2.925 | 0.031 | [+0.012, +0.050] | True |

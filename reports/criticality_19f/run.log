@@ -1,0 +1,87 @@
+=== criticality start 06:28 ===
+Loading cached data cache/data_c3e01574e51e.pkl
+     Split  Critical steps (%)  Attack rate, critical  Attack rate, other
+validation            7.555241               0.150714            0.206918
+      test           10.613771               0.151547            0.202956
+  a1-a4   H=3 W=2 without multiplier           critical: F1 0.9098 queries 0.17 weighted total 4.678
+  a1-a4   H=3 W=2 with multiplier (Cm = 2)     critical: F1 0.9122 queries 0.75 weighted total 5.029
+  a1-a4   H=3 W=5 without multiplier           critical: F1 0.9098 queries 0.17 weighted total 11.076
+  a1-a4   H=3 W=5 with multiplier (Cm = 5)     critical: F1 0.9263 queries 1.04 weighted total 8.268
+  a1-a4   H=5 W=2 without multiplier           critical: F1 0.9064 queries 0.19 weighted total 4.767
+  a1-a4   H=5 W=2 with multiplier (Cm = 2)     critical: F1 0.9149 queries 0.82 weighted total 5.159
+  a1-a4   H=5 W=5 without multiplier           critical: F1 0.9064 queries 0.19 weighted total 11.247
+  a1-a4   H=5 W=5 with multiplier (Cm = 5)     critical: F1 0.9391 queries 1.09 weighted total 7.772
+  a1 only H=3 W=2 without multiplier           critical: F1 0.8799 queries 0.12 weighted total 4.883
+  a1 only H=3 W=2 with multiplier (Cm = 2)     critical: F1 0.8799 queries 0.13 weighted total 4.893
+  a1 only H=3 W=5 without multiplier           critical: F1 0.8799 queries 0.12 weighted total 11.608
+  a1 only H=3 W=5 with multiplier (Cm = 5)     critical: F1 0.8821 queries 0.29 weighted total 10.910
+  a1 only H=5 W=2 without multiplier           critical: F1 0.8733 queries 0.17 weighted total 4.944
+  a1 only H=5 W=2 with multiplier (Cm = 2)     critical: F1 0.8694 queries 0.25 weighted total 4.948
+  a1 only H=5 W=5 without multiplier           critical: F1 0.8733 queries 0.17 weighted total 11.566
+  a1 only H=5 W=5 with multiplier (Cm = 5)     critical: F1 0.8718 queries 0.46 weighted total 10.678
+
+# Criticality multiplier (row 16)
+
+Beliefs: `results/svoi_hw2_nbr/beliefs.npz`. Critical step: sender within 100 m and time to collision below 10 s (closing speed from consecutive steps). 4.7% of the 123,620 test episodes start on a critical step. SVoI tables fitted on validation, one per Cm level. For each weight W, the controller without the multiplier (Cm = 1 everywhere) and with it (Cm = W on critical steps) are scored on the same objective: an error made on a critical step costs W times more (weighted error cost). Lower weighted total cost is better.
+
+## Critical-step flag
+
+| Split | Critical steps (%) | Attack rate, critical | Attack rate, other |
+|---|---|---|---|
+| validation | 7.5552 | 0.1507 | 0.2069 |
+| test | 10.6138 | 0.1515 | 0.2030 |
+
+## Results (test)
+
+| Evidence | H | W | Controller | Episodes | F1 | Precision | Recall | PR-AUC | Queries | Evidence cost | Error cost | Weighted error cost | Weighted total cost | Decided at once (%) | n |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| a1-a4 | 3 | 2.0000 | without multiplier | all | 0.9766 | 0.9817 | 0.9715 | 0.9916 | 0.4946 | 1.2872 | 1.3548 | 1.4755 | 2.7627 | 63.2543 | 123620 |
+| a1-a4 | 3 | 2.0000 | without multiplier | critical at start | 0.9098 | 0.9719 | 0.8551 | 0.9064 | 0.1662 | 0.3790 | 2.1666 | 4.2991 | 4.6781 | 87.3616 | 5871 |
+| a1-a4 | 3 | 2.0000 | without multiplier | not critical at start | 0.9776 | 0.9818 | 0.9734 | 0.9925 | 0.5110 | 1.3325 | 1.3143 | 1.3347 | 2.6672 | 62.0523 | 117749 |
+| a1-a4 | 3 | 2.0000 | with multiplier (Cm = 2) | all | 0.9765 | 0.9811 | 0.9719 | 0.9913 | 0.5228 | 1.3430 | 1.3433 | 1.4392 | 2.7823 | 61.1018 | 123620 |
+| a1-a4 | 3 | 2.0000 | with multiplier (Cm = 2) | critical at start | 0.9122 | 0.9433 | 0.8831 | 0.9376 | 0.7520 | 1.5442 | 1.8396 | 3.4849 | 5.0291 | 42.0371 | 5871 |
+| a1-a4 | 3 | 2.0000 | with multiplier (Cm = 2) | not critical at start | 0.9775 | 0.9816 | 0.9734 | 0.9920 | 0.5114 | 1.3330 | 1.3186 | 1.3373 | 2.6703 | 62.0523 | 117749 |
+| a1-a4 | 3 | 5.0000 | without multiplier | all | 0.9766 | 0.9817 | 0.9715 | 0.9916 | 0.4946 | 1.2872 | 1.3548 | 1.8376 | 3.1248 | 63.2543 | 123620 |
+| a1-a4 | 3 | 5.0000 | without multiplier | critical at start | 0.9098 | 0.9719 | 0.8551 | 0.9064 | 0.1662 | 0.3790 | 2.1666 | 10.6966 | 11.0756 | 87.3616 | 5871 |
+| a1-a4 | 3 | 5.0000 | without multiplier | not critical at start | 0.9776 | 0.9818 | 0.9734 | 0.9925 | 0.5110 | 1.3325 | 1.3143 | 1.3959 | 2.7283 | 62.0523 | 117749 |
+| a1-a4 | 3 | 5.0000 | with multiplier (Cm = 5) | all | 0.9764 | 0.9803 | 0.9725 | 0.9921 | 0.5371 | 1.3795 | 1.3228 | 1.5829 | 2.9625 | 60.1561 | 123620 |
+| a1-a4 | 3 | 5.0000 | with multiplier (Cm = 5) | critical at start | 0.9263 | 0.9313 | 0.9215 | 0.9690 | 1.0373 | 2.2555 | 1.3388 | 6.0126 | 8.2681 | 22.1257 | 5871 |
+| a1-a4 | 3 | 5.0000 | with multiplier (Cm = 5) | not critical at start | 0.9772 | 0.9811 | 0.9734 | 0.9924 | 0.5122 | 1.3359 | 1.3220 | 1.3620 | 2.6979 | 62.0523 | 117749 |
+| a1-a4 | 5 | 2.0000 | without multiplier | all | 0.9687 | 0.9790 | 0.9586 | 0.9898 | 0.5287 | 1.2769 | 1.9104 | 2.0772 | 3.3540 | 63.1095 | 123620 |
+| a1-a4 | 5 | 2.0000 | without multiplier | critical at start | 0.9064 | 0.9654 | 0.8541 | 0.9064 | 0.1879 | 0.4069 | 2.2006 | 4.3604 | 4.7673 | 87.3446 | 5871 |
+| a1-a4 | 5 | 2.0000 | without multiplier | not critical at start | 0.9697 | 0.9792 | 0.9604 | 0.9908 | 0.5457 | 1.3202 | 1.8959 | 1.9633 | 3.2836 | 61.9012 | 117749 |
+| a1-a4 | 5 | 2.0000 | with multiplier (Cm = 2) | all | 0.9686 | 0.9783 | 0.9591 | 0.9900 | 0.5579 | 1.3332 | 1.8976 | 2.0354 | 3.3686 | 60.9578 | 123620 |
+| a1-a4 | 5 | 2.0000 | with multiplier (Cm = 2) | critical at start | 0.9149 | 0.9611 | 0.8729 | 0.9349 | 0.8167 | 1.5721 | 1.9417 | 3.5871 | 5.1593 | 42.0371 | 5871 |
+| a1-a4 | 5 | 2.0000 | with multiplier (Cm = 2) | not critical at start | 0.9694 | 0.9786 | 0.9605 | 0.9907 | 0.5450 | 1.3213 | 1.8954 | 1.9581 | 3.2793 | 61.9012 | 117749 |
+| a1-a4 | 5 | 5.0000 | without multiplier | all | 0.9687 | 0.9790 | 0.9586 | 0.9898 | 0.5287 | 1.2769 | 1.9104 | 2.5776 | 3.8544 | 63.1095 | 123620 |
+| a1-a4 | 5 | 5.0000 | without multiplier | critical at start | 0.9064 | 0.9654 | 0.8541 | 0.9064 | 0.1879 | 0.4069 | 2.2006 | 10.8397 | 11.2466 | 87.3446 | 5871 |
+| a1-a4 | 5 | 5.0000 | without multiplier | not critical at start | 0.9697 | 0.9792 | 0.9604 | 0.9908 | 0.5457 | 1.3202 | 1.8959 | 2.1656 | 3.4859 | 61.9012 | 117749 |
+| a1-a4 | 5 | 5.0000 | with multiplier (Cm = 5) | all | 0.9700 | 0.9798 | 0.9604 | 0.9904 | 0.5725 | 1.3795 | 1.8304 | 2.1210 | 3.5005 | 60.0121 | 123620 |
+| a1-a4 | 5 | 5.0000 | with multiplier (Cm = 5) | critical at start | 0.9391 | 0.9585 | 0.9204 | 0.9593 | 1.0937 | 2.2873 | 1.2741 | 5.4846 | 7.7719 | 22.1257 | 5871 |
+| a1-a4 | 5 | 5.0000 | with multiplier (Cm = 5) | not critical at start | 0.9705 | 0.9801 | 0.9610 | 0.9908 | 0.5465 | 1.3343 | 1.8582 | 1.9533 | 3.2876 | 61.9012 | 117749 |
+| a1 only | 3 | 2.0000 | without multiplier | all | 0.9546 | 0.9575 | 0.9517 | 0.9837 | 0.4991 | 0.4991 | 2.3952 | 2.6449 | 3.1440 | 67.0749 | 123620 |
+| a1 only | 3 | 2.0000 | without multiplier | critical at start | 0.8799 | 0.9193 | 0.8438 | 0.8970 | 0.1243 | 0.1243 | 2.5175 | 4.7590 | 4.8833 | 94.5665 | 5871 |
+| a1 only | 3 | 2.0000 | without multiplier | not critical at start | 0.9558 | 0.9581 | 0.9535 | 0.9847 | 0.5178 | 0.5178 | 2.3891 | 2.5395 | 3.0572 | 65.7042 | 117749 |
+| a1 only | 3 | 2.0000 | with multiplier (Cm = 2) | all | 0.9546 | 0.9575 | 0.9517 | 0.9837 | 0.5013 | 0.5013 | 2.3952 | 2.6416 | 3.1429 | 67.0539 | 123620 |
+| a1 only | 3 | 2.0000 | with multiplier (Cm = 2) | critical at start | 0.8799 | 0.9193 | 0.8438 | 0.8970 | 0.1342 | 0.1342 | 2.5175 | 4.7590 | 4.8932 | 94.1237 | 5871 |
+| a1 only | 3 | 2.0000 | with multiplier (Cm = 2) | not critical at start | 0.9558 | 0.9581 | 0.9535 | 0.9847 | 0.5196 | 0.5196 | 2.3891 | 2.5361 | 3.0556 | 65.7042 | 117749 |
+| a1 only | 3 | 5.0000 | without multiplier | all | 0.9546 | 0.9575 | 0.9517 | 0.9837 | 0.4991 | 0.4991 | 2.3952 | 3.3938 | 3.8929 | 67.0749 | 123620 |
+| a1 only | 3 | 5.0000 | without multiplier | critical at start | 0.8799 | 0.9193 | 0.8438 | 0.8970 | 0.1243 | 0.1243 | 2.5175 | 11.4836 | 11.6079 | 94.5665 | 5871 |
+| a1 only | 3 | 5.0000 | without multiplier | not critical at start | 0.9558 | 0.9581 | 0.9535 | 0.9847 | 0.5178 | 0.5178 | 2.3891 | 2.9904 | 3.5082 | 65.7042 | 117749 |
+| a1 only | 3 | 5.0000 | with multiplier (Cm = 5) | all | 0.9542 | 0.9565 | 0.9519 | 0.9837 | 0.5247 | 0.5247 | 2.3980 | 3.2529 | 3.7776 | 66.6979 | 123620 |
+| a1 only | 3 | 5.0000 | with multiplier (Cm = 5) | critical at start | 0.8821 | 0.9182 | 0.8488 | 0.8995 | 0.2879 | 0.2879 | 2.4732 | 10.6217 | 10.9096 | 86.6292 | 5871 |
+| a1 only | 3 | 5.0000 | with multiplier (Cm = 5) | not critical at start | 0.9554 | 0.9571 | 0.9536 | 0.9847 | 0.5365 | 0.5365 | 2.3942 | 2.8855 | 3.4219 | 65.7042 | 117749 |
+| a1 only | 5 | 2.0000 | without multiplier | all | 0.9566 | 0.9608 | 0.9524 | 0.9838 | 0.5844 | 0.5844 | 2.3406 | 2.5719 | 3.1563 | 67.0749 | 123620 |
+| a1 only | 5 | 2.0000 | without multiplier | critical at start | 0.8733 | 0.9039 | 0.8446 | 0.8981 | 0.1710 | 0.1710 | 2.5652 | 4.7726 | 4.9436 | 94.5665 | 5871 |
+| a1 only | 5 | 2.0000 | without multiplier | not critical at start | 0.9580 | 0.9618 | 0.9542 | 0.9848 | 0.6050 | 0.6050 | 2.3294 | 2.4622 | 3.0672 | 65.7042 | 117749 |
+| a1 only | 5 | 2.0000 | with multiplier (Cm = 2) | all | 0.9562 | 0.9600 | 0.9525 | 0.9838 | 0.6014 | 0.6014 | 2.3428 | 2.5533 | 3.1547 | 66.9034 | 123620 |
+| a1 only | 5 | 2.0000 | with multiplier (Cm = 2) | critical at start | 0.8694 | 0.8925 | 0.8475 | 0.8990 | 0.2534 | 0.2534 | 2.5686 | 4.6943 | 4.9477 | 90.9555 | 5871 |
+| a1 only | 5 | 2.0000 | with multiplier (Cm = 2) | not critical at start | 0.9577 | 0.9611 | 0.9543 | 0.9848 | 0.6188 | 0.6188 | 2.3316 | 2.4466 | 3.0654 | 65.7042 | 117749 |
+| a1 only | 5 | 5.0000 | without multiplier | all | 0.9566 | 0.9608 | 0.9524 | 0.9838 | 0.5844 | 0.5844 | 2.3406 | 3.2660 | 3.8504 | 67.0749 | 123620 |
+| a1 only | 5 | 5.0000 | without multiplier | critical at start | 0.8733 | 0.9039 | 0.8446 | 0.8981 | 0.1710 | 0.1710 | 2.5652 | 11.3950 | 11.5660 | 94.5665 | 5871 |
+| a1 only | 5 | 5.0000 | without multiplier | not critical at start | 0.9580 | 0.9618 | 0.9542 | 0.9848 | 0.6050 | 0.6050 | 2.3294 | 2.8607 | 3.4657 | 65.7042 | 117749 |
+| a1 only | 5 | 5.0000 | with multiplier (Cm = 5) | all | 0.9563 | 0.9600 | 0.9527 | 0.9839 | 0.6329 | 0.6329 | 2.3354 | 3.0123 | 3.6452 | 66.5378 | 123620 |
+| a1 only | 5 | 5.0000 | with multiplier (Cm = 5) | critical at start | 0.8718 | 0.8937 | 0.8510 | 0.9007 | 0.4582 | 0.4582 | 2.5345 | 10.2197 | 10.6779 | 83.2567 | 5871 |
+| a1 only | 5 | 5.0000 | with multiplier (Cm = 5) | not critical at start | 0.9577 | 0.9611 | 0.9544 | 0.9849 | 0.6416 | 0.6416 | 2.3255 | 2.6529 | 3.2945 | 65.7042 | 117749 |
+
+=== done 06:29 ===

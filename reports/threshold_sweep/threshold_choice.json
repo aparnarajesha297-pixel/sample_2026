@@ -1,0 +1,7 @@
+{
+  "selected_threshold": 0.8,
+  "temperature": 0.778255662997284,
+  "grid choice (max validation F1)": 0.8,
+  "continuous max-validation-F1 threshold": 0.7945737706520182,
+  "cost-based SVoI boundary C_FR/(C_FA+C_FR)": 0.16666666666666666
+}

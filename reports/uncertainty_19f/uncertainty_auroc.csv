@@ -1,0 +1,2 @@
+k,AUROC uncertainty → error,AUROC margin → error,AUROC u among honest,AUROC u among attacks,error rate
+all,0.7476 ± 0.0092,0.7163 ± 0.0228,0.7986 ± 0.0632,0.9437 ± 0.0127,0.0449 ± 0.0032

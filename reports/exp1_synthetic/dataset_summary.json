@@ -1,0 +1,124 @@
+{
+  "messages": 457894,
+  "unique_vehicles(sender_id per run)": 7745,
+  "unique_pseudonyms(alias per run)": 8160,
+  "attacker_vehicles": 1456,
+  "attack_messages": 114187,
+  "normal_messages": 343707,
+  "attack_percentage": 24.937430933796907,
+  "missing_values": {},
+  "steps": 415969,
+  "per_split": {
+    "train": {
+      "steps": 171584,
+      "attack_steps": 29743
+    },
+    "val": {
+      "steps": 32460,
+      "attack_steps": 6453
+    },
+    "test": {
+      "steps": 211925,
+      "attack_steps": 36066
+    }
+  },
+  "graph": {
+    "snapshots": 56528,
+    "mean_vehicles_per_snapshot": 7.358636427964902,
+    "mean_edges_per_snapshot": 9.403056892159638,
+    "mean_avg_neighbors": 1.8408289035230303,
+    "max_neighbors": 20
+  },
+  "per_attack": [
+    {
+      "attack_type": "accelerationMultiplication",
+      "messages": 26377,
+      "attack_messages": 1529,
+      "attack_rate": 0.0579671683663798
+    },
+    {
+      "attack_type": "constantPositionOffset",
+      "messages": 27877,
+      "attack_messages": 4301,
+      "attack_rate": 0.15428489435735554
+    },
+    {
+      "attack_type": "constantSpeedOffset",
+      "messages": 26981,
+      "attack_messages": 5693,
+      "attack_rate": 0.2110003335680664
+    },
+    {
+      "attack_type": "dataReplay",
+      "messages": 27537,
+      "attack_messages": 5129,
+      "attack_rate": 0.1862584885790028
+    },
+    {
+      "attack_type": "dosAttack",
+      "messages": 69277,
+      "attack_messages": 47017,
+      "attack_rate": 0.6786812361967175
+    },
+    {
+      "attack_type": "feignedBraking",
+      "messages": 26058,
+      "attack_messages": 1788,
+      "attack_rate": 0.06861616394197559
+    },
+    {
+      "attack_type": "positionMirroring",
+      "messages": 27272,
+      "attack_messages": 4563,
+      "attack_rate": 0.16731446171897918
+    },
+    {
+      "attack_type": "randomPositionOffset",
+      "messages": 26073,
+      "attack_messages": 5569,
+      "attack_rate": 0.21359260537721014
+    },
+    {
+      "attack_type": "randomSpeedOffset",
+      "messages": 26689,
+      "attack_messages": 4572,
+      "attack_rate": 0.17130653078047137
+    },
+    {
+      "attack_type": "reversedHeading",
+      "messages": 28143,
+      "attack_messages": 5758,
+      "attack_rate": 0.20459794620331875
+    },
+    {
+      "attack_type": "suddenConstantSpeed",
+      "messages": 26376,
+      "attack_messages": 840,
+      "attack_rate": 0.03184713375796178
+    },
+    {
+      "attack_type": "suddenStop",
+      "messages": 26499,
+      "attack_messages": 3424,
+      "attack_rate": 0.12921242311030606
+    },
+    {
+      "attack_type": "timeDelayAttack",
+      "messages": 26619,
+      "attack_messages": 5494,
+      "attack_rate": 0.20639392914835267
+    },
+    {
+      "attack_type": "trafficCongestionSybil",
+      "messages": 39494,
+      "attack_messages": 13223,
+      "attack_rate": 0.3348103509393832
+    },
+    {
+      "attack_type": "zeroSpeedReport",
+      "messages": 26622,
+      "attack_messages": 5287,
+      "attack_rate": 0.19859514687100893
+    }
+  ]
+}
